@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Overflow/Underflow</title>
+</head>
+<body>
+    <h1>Simulação de Overflow e Underflow</h1>
+    <script>
+        // Função simulada para adição sem checagem de segurança
+        function unsafeAdd(lsb, width, datasize) {
+            let resultSize = lsb + width;
+            return resultSize <= datasize;
+        }
+
+        // Função simulada usando safeAdd
+        function safeAdd(lsb, width, datasize) {
+            let resultSize = 0;
+            // Simulando a lógica do safeAdd com uma checagem simples
+            try {
+                resultSize = lsb + width;
+                if (resultSize > datasize) throw new Error("Overflow detected");
+            } catch (e) {
+                console.log(e.message);
+                return false;
+            }
+            return true;
+        }
+
+        // Teste de limites com dados
+        const datasize = 64;
+        const testCases = [
+            { lsb: 30, width: 35 },
+            { lsb: 60, width: 10 },
+            { lsb: 64, width: 1 },
+            { lsb: 63, width: 2 }
+        ];
+
+        console.log("Teste com unsafeAdd:");
+        testCases.forEach(test => {
+            console.log(`lsb: ${test.lsb}, width: ${test.width}, resultado: ${unsafeAdd(test.lsb, test.width, datasize)}`);
+        });
+
+        console.log("\nTeste com safeAdd:");
+        testCases.forEach(test => {
+            console.log(`lsb: ${test.lsb}, width: ${test.width}, resultado: ${safeAdd(test.lsb, test.width, datasize)}`);
+        });
+    </script>
+</body>
+</html>
