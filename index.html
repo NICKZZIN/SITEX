@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Overflow/Underflow</title>
+    <title>Simulação de Overflow e Underflow</title>
 </head>
 <body>
     <h1>Simulação de Overflow e Underflow</h1>
+    <div id="results"></div>
+
     <script>
         // Função simulada para adição sem checagem de segurança
         function unsafeAdd(lsb, width, datasize) {
@@ -17,15 +19,13 @@
         // Função simulada usando safeAdd
         function safeAdd(lsb, width, datasize) {
             let resultSize = 0;
-            // Simulando a lógica do safeAdd com uma checagem simples
             try {
                 resultSize = lsb + width;
-                if (resultSize > datasize) throw new Error("Overflow detected");
+                if (resultSize > datasize) throw new Error("Overflow detectado");
             } catch (e) {
-                console.log(e.message);
-                return false;
+                return "Falha: " + e.message;
             }
-            return true;
+            return "Sucesso";
         }
 
         // Teste de limites com dados
@@ -37,14 +37,18 @@
             { lsb: 63, width: 2 }
         ];
 
-        console.log("Teste com unsafeAdd:");
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML += "<h2>Teste com unsafeAdd:</h2>";
+
         testCases.forEach(test => {
-            console.log(`lsb: ${test.lsb}, width: ${test.width}, resultado: ${unsafeAdd(test.lsb, test.width, datasize)}`);
+            const result = unsafeAdd(test.lsb, test.width, datasize);
+            resultsDiv.innerHTML += `<p>lsb: ${test.lsb}, width: ${test.width}, resultado: ${result ? "Sucesso" : "Falha (Overflow)"}</p>`;
         });
 
-        console.log("\nTeste com safeAdd:");
+        resultsDiv.innerHTML += "<h2>Teste com safeAdd:</h2>";
         testCases.forEach(test => {
-            console.log(`lsb: ${test.lsb}, width: ${test.width}, resultado: ${safeAdd(test.lsb, test.width, datasize)}`);
+            const result = safeAdd(test.lsb, test.width, datasize);
+            resultsDiv.innerHTML += `<p>lsb: ${test.lsb}, width: ${test.width}, resultado: ${result}</p>`;
         });
     </script>
 </body>
