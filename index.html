@@ -9,7 +9,19 @@
 
 <h1>Simulação de Overflow e Underflow</h1>
 
-<button onclick="runTests()">Executar Testes</button>
+<label for="lsb">Isb:</label>
+<input type="number" id="lsb" value="30">
+
+<label for="width">Width:</label>
+<input type="number" id="width" value="35">
+
+<label for="method">Método:</label>
+<select id="method">
+    <option value="unsafe">unsafeAdd</option>
+    <option value="safe">safeAdd</option>
+</select>
+
+<button onclick="runTest()">Executar Teste</button>
 
 <pre id="output"></pre>
 
@@ -23,34 +35,26 @@
             if (lsb + width > datasize) {
                 throw new Error("Overflow detectado");
             }
-            return true;
+            return "Sucesso";
         } catch (error) {
             return error.message;
         }
     }
 
-    function runTests() {
+    function runTest() {
         const datasize = 64;
-        const testCases = [
-            { lsb: 30, width: 35 },
-            { lsb: 60, width: 10 },
-            { lsb: 64, width: 1 },
-            { lsb: 63, width: 2 }
-        ];
+        const lsb = parseInt(document.getElementById("lsb").value);
+        const width = parseInt(document.getElementById("width").value);
+        const method = document.getElementById("method").value;
 
-        let output = "Teste com unsafeAdd:\n";
-        testCases.forEach(test => {
-            const result = unsafeAdd(test.lsb, test.width, datasize) ? "Sucesso" : "Falha (Overflow)";
-            output += `Isb: ${test.lsb}, width: ${test.width}, resultado: ${result}\n`;
-        });
+        let result;
+        if (method === "unsafe") {
+            result = unsafeAdd(lsb, width, datasize) ? "Sucesso" : "Falha (Overflow)";
+        } else {
+            result = safeAdd(lsb, width, datasize);
+        }
 
-        output += "\nTeste com safeAdd:\n";
-        testCases.forEach(test => {
-            const result = safeAdd(test.lsb, test.width, datasize);
-            output += `Isb: ${test.lsb}, width: ${test.width}, resultado: ${result}\n`;
-        });
-
-        document.getElementById("output").textContent = output;
+        document.getElementById("output").textContent = `Isb: ${lsb}, Width: ${width}, Resultado: ${result}`;
     }
 </script>
 
