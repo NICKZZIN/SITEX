@@ -3,53 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulação de Overflow e Underflow</title>
+    <title>Teste de Overflow e Underflow</title>
 </head>
 <body>
     <h1>Simulação de Overflow e Underflow</h1>
+    <p id="loading">Clique no botão abaixo para rodar o teste:</p>
+    <button onclick="runTest()">Executar Teste</button>
     <div id="results"></div>
 
     <script>
-        // Função simulada para adição sem checagem de segurança
-        function unsafeAdd(lsb, width, datasize) {
-            let resultSize = lsb + width;
-            return resultSize <= datasize;
-        }
+        function runTest() {
+            console.log("Script iniciado.");  // Verifique se essa mensagem aparece no console
 
-        // Função simulada usando safeAdd
-        function safeAdd(lsb, width, datasize) {
-            let resultSize = 0;
-            try {
-                resultSize = lsb + width;
-                if (resultSize > datasize) throw new Error("Overflow detectado");
-            } catch (e) {
-                return "Falha: " + e.message;
+            // Função simulada para adição sem checagem de segurança
+            function unsafeAdd(lsb, width, datasize) {
+                let resultSize = lsb + width;
+                return resultSize <= datasize;
             }
-            return "Sucesso";
+
+            // Função simulada usando safeAdd
+            function safeAdd(lsb, width, datasize) {
+                let resultSize = 0;
+                try {
+                    resultSize = lsb + width;
+                    if (resultSize > datasize) throw new Error("Overflow detectado");
+                } catch (e) {
+                    return "Falha: " + e.message;
+                }
+                return "Sucesso";
+            }
+
+            // Teste de limites com dados
+            const datasize = 64;
+            const testCases = [
+                { lsb: 30, width: 35 },
+                { lsb: 60, width: 10 },
+                { lsb: 64, width: 1 },
+                { lsb: 63, width: 2 }
+            ];
+
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "<h2>Teste com unsafeAdd:</h2>";
+
+            testCases.forEach(test => {
+                const result = unsafeAdd(test.lsb, test.width, datasize);
+                resultsDiv.innerHTML += `<p>lsb: ${test.lsb}, width: ${test.width}, resultado: ${result ? "Sucesso" : "Falha (Overflow)"}</p>`;
+            });
+
+            resultsDiv.innerHTML += "<h2>Teste com safeAdd:</h2>";
+            testCases.forEach(test => {
+                const result = safeAdd(test.lsb, test.width, datasize);
+                resultsDiv.innerHTML += `<p>lsb: ${test.lsb}, width: ${test.width}, resultado: ${result}</p>`;
+            });
+
+            // Confirma que o script foi carregado completamente
+            document.getElementById("loading").innerText = "Resultados carregados.";
+            console.log("Resultados exibidos.");
         }
-
-        // Teste de limites com dados
-        const datasize = 64;
-        const testCases = [
-            { lsb: 30, width: 35 },
-            { lsb: 60, width: 10 },
-            { lsb: 64, width: 1 },
-            { lsb: 63, width: 2 }
-        ];
-
-        const resultsDiv = document.getElementById("results");
-        resultsDiv.innerHTML += "<h2>Teste com unsafeAdd:</h2>";
-
-        testCases.forEach(test => {
-            const result = unsafeAdd(test.lsb, test.width, datasize);
-            resultsDiv.innerHTML += `<p>lsb: ${test.lsb}, width: ${test.width}, resultado: ${result ? "Sucesso" : "Falha (Overflow)"}</p>`;
-        });
-
-        resultsDiv.innerHTML += "<h2>Teste com safeAdd:</h2>";
-        testCases.forEach(test => {
-            const result = safeAdd(test.lsb, test.width, datasize);
-            resultsDiv.innerHTML += `<p>lsb: ${test.lsb}, width: ${test.width}, resultado: ${result}</p>`;
-        });
     </script>
 </body>
 </html>
