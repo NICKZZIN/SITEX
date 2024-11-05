@@ -9,20 +9,6 @@
 
 <h1>Simulação de Overflow e Underflow</h1>
 
-<label for="lsb">Isb:</label>
-<input type="number" id="lsb" value="30">
-
-<label for="width">Width:</label>
-<input type="number" id="width" value="35">
-
-<label for="method">Método:</label>
-<select id="method">
-    <option value="unsafe">unsafeAdd</option>
-    <option value="safe">safeAdd</option>
-</select>
-
-<button onclick="runTest()">Executar Teste</button>
-
 <pre id="output"></pre>
 
 <script>
@@ -42,20 +28,28 @@
     }
 
     function runTest() {
-        const datasize = 64;
-        const lsb = parseInt(document.getElementById("lsb").value);
-        const width = parseInt(document.getElementById("width").value);
-        const method = document.getElementById("method").value;
+        const outputElement = document.getElementById("output");
+        outputElement.textContent = "Simulando...\n\n";
 
-        let result;
-        if (method === "unsafe") {
-            result = unsafeAdd(lsb, width, datasize) ? "Sucesso" : "Falha (Overflow)";
-        } else {
-            result = safeAdd(lsb, width, datasize);
-        }
+        // Configurações de teste com datasize menor
+        const datasizes = [32, 16, 8];
+        const lsbValues = [5, 10, 15, 20];  // Valores menores de lsb
+        const widthValues = [3, 5, 7, 10];  // Valores menores de width
 
-        document.getElementById("output").textContent = `Isb: ${lsb}, Width: ${width}, Resultado: ${result}`;
+        datasizes.forEach(datasize => {
+            outputElement.textContent += `\nTestes com datasize = ${datasize}:\n`;
+            lsbValues.forEach(lsb => {
+                widthValues.forEach(width => {
+                    const unsafeResult = unsafeAdd(lsb, width, datasize) ? "Sucesso" : "Falha (Overflow)";
+                    const safeResult = safeAdd(lsb, width, datasize);
+
+                    outputElement.textContent += `Isb: ${lsb}, Width: ${width}, Unsafe: ${unsafeResult}, Safe: ${safeResult}\n`;
+                });
+            });
+        });
     }
+
+    runTest();
 </script>
 
 </body>
