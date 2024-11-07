@@ -1,10 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Simulação de Overflow e Underflow</title>
 </head>
+
 <body>
+
     <h1>Simulação de Overflow e Underflow com Valores Mais Sensíveis</h1>
     <pre id="output"></pre>
     <button onclick="executarTestes()">Executar Testes</button>
@@ -25,6 +28,7 @@
         function verificarRegistro(lsb, width, datasize) {
             const registros = [];
             let resultado;
+            
             if (safeAdd(lsb, width, datasize) === "Overflow detectado") {
                 registros.push(`Overflow detectado com safeAdd. LSB: ${lsb}, Width: ${width}, Datasize: ${datasize}`);
                 resultado = "Falha: Overflow detectado";
@@ -35,9 +39,11 @@
             if (unsafeAdd(lsb, width, datasize) >= datasize) {
                 registros.push(`Overflow detectado com unsafeAdd. LSB: ${lsb}, Width: ${width}, Datasize: ${datasize}`);
                 resultado = "Falha (Overflow)";
-            } else {
-                resultado = "Sucesso";
+            } else if (resultado === "Sucesso") {
+                // Loga uma mensagem de sucesso no console ao detectar que a missão foi bem-sucedida
+                console.log("Missão bem-sucedida! Nenhum overflow detectado.");
             }
+
             return { resultado, registros };
         }
 
@@ -66,5 +72,6 @@
             output.textContent = resultados;
         }
     </script>
+
 </body>
 </html>
