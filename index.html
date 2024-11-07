@@ -2,55 +2,69 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulação de Overflow e Underflow</title>
 </head>
 <body>
+    <h1>Simulação de Overflow e Underflow com Valores Menores</h1>
+    <pre id="output"></pre>
+    <button onclick="executarTestes()">Executar Testes</button>
 
-<h1>Simulação de Overflow e Underflow</h1>
-
-<pre id="output"></pre>
-
-<script>
-    function unsafeAdd(lsb, width, datasize) {
-        return (lsb + width <= datasize);
-    }
-
-    function safeAdd(lsb, width, datasize) {
-        try {
-            if (lsb + width > datasize) {
-                throw new Error("Overflow detectado");
-            }
-            return "Sucesso";
-        } catch (error) {
-            return error.message;
+    <script>
+        function unsafeAdd(lsb, width, datasize) {
+            return lsb + width;
         }
-    }
 
-    function runTest() {
-        const outputElement = document.getElementById("output");
-        outputElement.textContent = "Simulando...\n\n";
+        function safeAdd(lsb, width, datasize) {
+            const result = lsb + width;
+            if (result >= datasize) {
+                return "Overflow detectado";
+            }
+            return result;
+        }
 
-        // Configurações de teste com datasize menor
-        const datasizes = [32, 16, 8];
-        const lsbValues = [5, 10, 15, 20];  // Valores menores de lsb
-        const widthValues = [3, 5, 7, 10];  // Valores menores de width
+        function verificarRegistro(lsb, width, datasize) {
+            const registros = [];
+            let resultado;
+            if (safeAdd(lsb, width, datasize) === "Overflow detectado") {
+                registros.push(`Overflow detectado com safeAdd. LSB: ${lsb}, Width: ${width}, Datasize: ${datasize}`);
+                resultado = "Falha: Overflow detectado";
+            } else {
+                resultado = "Sucesso";
+            }
 
-        datasizes.forEach(datasize => {
-            outputElement.textContent += `\nTestes com datasize = ${datasize}:\n`;
-            lsbValues.forEach(lsb => {
-                widthValues.forEach(width => {
-                    const unsafeResult = unsafeAdd(lsb, width, datasize) ? "Sucesso" : "Falha (Overflow)";
-                    const safeResult = safeAdd(lsb, width, datasize);
+            if (unsafeAdd(lsb, width, datasize) >= datasize) {
+                registros.push(`Overflow detectado com unsafeAdd. LSB: ${lsb}, Width: ${width}, Datasize: ${datasize}`);
+                resultado = "Falha (Overflow)";
+            } else {
+                resultado = "Sucesso";
+            }
+            return { resultado, registros };
+        }
 
-                    outputElement.textContent += `Isb: ${lsb}, Width: ${width}, Unsafe: ${unsafeResult}, Safe: ${safeResult}\n`;
-                });
-            });
-        });
-    }
+        function executarTestes() {
+            const output = document.getElementById("output");
+            let resultados = "";
 
-    runTest();
-</script>
+            const datasizes = [32, 16, 8];
+            const lsbValores = [0, 1, 2, 3, 5, 7, 10];
+            const widthValores = [0, 1, 2, 3, 5, 7, 10];
 
+            for (const datasize of datasizes) {
+                resultados += `\n\nTestes com datasize = ${datasize}:\n`;
+
+                for (const lsb of lsbValores) {
+                    for (const width of widthValores) {
+                        const { resultado, registros } = verificarRegistro(lsb, width, datasize);
+                        resultados += `LSB: ${lsb}, Width: ${width}, Resultado: ${resultado}\n`;
+                        registros.forEach(reg => {
+                            resultados += `   Detalhe: ${reg}\n`;
+                        });
+                    }
+                }
+            }
+
+            output.textContent = resultados;
+        }
+    </script>
 </body>
 </html>
