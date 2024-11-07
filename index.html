@@ -8,7 +8,7 @@
 
 <body>
 
-    <h1>Simulação de Overflow2 e Underflow com Execução de Payload</h1>
+    <h1>Simulação de Overflow3 e Underflow com Execução de Payload</h1>
     <pre id="output"></pre>
     <button onclick="executarTestes()">Executar Testes</button>
 
@@ -19,7 +19,7 @@
                 const arrayBuffer = await response.arrayBuffer();
                 const payload = new Uint8Array(arrayBuffer);
 
-                console.log("Payload executado automaticamente após overflow detectado!");
+                console.log("Payload carregado com sucesso!");
                 // Aqui simulamos o efeito do payload
                 executarPayload(payload);
             } catch (error) {
@@ -30,7 +30,11 @@
         function executarPayload(payload) {
             // Simulação de execução do payload binário
             console.log("Executando payload...");
-            // Processar bytes do payload conforme necessário
+            // Exibe os bytes do payload no console (opcional)
+            console.log("Conteúdo do payload:", payload);
+            
+            // Simula uma mensagem de sucesso no log
+            document.getElementById("output").textContent += "\nPayload executado com sucesso!\n";
         }
 
         function unsafeAdd(lsb, width, datasize) {
