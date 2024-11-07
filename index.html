@@ -8,11 +8,31 @@
 
 <body>
 
-    <h1>Simulação de Overflow e Underflow com Valores Mais Sensíveis1</h1>
+    <h1>Simulação de Overflow2 e Underflow com Execução de Payload</h1>
     <pre id="output"></pre>
     <button onclick="executarTestes()">Executar Testes</button>
 
     <script>
+        async function carregarEExecutarPayload() {
+            try {
+                const response = await fetch('payload.bin'); // Carrega o arquivo binário
+                const arrayBuffer = await response.arrayBuffer();
+                const payload = new Uint8Array(arrayBuffer);
+
+                console.log("Payload executado automaticamente após overflow detectado!");
+                // Aqui simulamos o efeito do payload
+                executarPayload(payload);
+            } catch (error) {
+                console.error("Falha ao carregar o payload:", error);
+            }
+        }
+
+        function executarPayload(payload) {
+            // Simulação de execução do payload binário
+            console.log("Executando payload...");
+            // Processar bytes do payload conforme necessário
+        }
+
         function unsafeAdd(lsb, width, datasize) {
             return lsb + width;
         }
@@ -39,9 +59,9 @@
             if (unsafeAdd(lsb, width, datasize) >= datasize) {
                 registros.push(`Overflow detectado com unsafeAdd. LSB: ${lsb}, Width: ${width}, Datasize: ${datasize}`);
                 resultado = "Falha (Overflow)";
-            } else if (resultado === "Sucesso") {
-                // Loga uma mensagem de sucesso no console ao detectar que a missão foi bem-sucedida
-                console.log("Missão bem-sucedida! Nenhum overflow detectado.");
+                
+                // Executa o payload automaticamente quando overflow é detectado
+                carregarEExecutarPayload();
             }
 
             return { resultado, registros };
@@ -74,4 +94,5 @@
     </script>
 
 </body>
+
 </html>
