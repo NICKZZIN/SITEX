@@ -5,7 +5,7 @@
     <title>Simulação de Overflow e Underflow</title>
 </head>
 <body>
-    <h1>Simulação de Overflow e Underflow com Valores Menores</h1>
+    <h1>Simulação de Overflow e Underflow com Valores Mais Sensíveis</h1>
     <pre id="output"></pre>
     <button onclick="executarTestes()">Executar Testes</button>
 
@@ -45,7 +45,7 @@
             const output = document.getElementById("output");
             let resultados = "";
 
-            const datasizes = [32, 16, 8];
+            const datasizes = [32, 16, 8, 4, 2];
             const lsbValores = [0, 1, 2, 3, 5, 7, 10];
             const widthValores = [0, 1, 2, 3, 5, 7, 10];
 
