@@ -129,6 +129,27 @@ public class Menu {
         getContext = context;
         Preferences.context = context;
         rootFrame = new FrameLayout(context); // Global markup
+	    // Inicializa o WindowManager
+mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+// Verifica se a permissão de sobreposição foi concedida
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context)) {
+    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+            Uri.parse("package:" + context.getPackageName()));
+    context.startActivity(intent);  // Solicita a permissão
+} else {
+    // Adiciona o rootFrame ao WindowManager com os parâmetros necessários
+    vmParams = new WindowManager.LayoutParams(
+        WindowManager.LayoutParams.MATCH_PARENT,
+        WindowManager.LayoutParams.MATCH_PARENT,
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ?
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_PHONE,
+        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+        PixelFormat.TRANSLUCENT
+    );
+    mWindowManager.addView(rootFrame, vmParams);  // Adiciona o menu flutuante
+}
+	    
         rootFrame.setOnTouchListener(onTouchListener());
         mRootContainer = new RelativeLayout(context); // Markup on which two markups of the icon and the menu itself will be placed
         mCollapsed = new RelativeLayout(context); // Markup of the icon (when the menu is minimized)
