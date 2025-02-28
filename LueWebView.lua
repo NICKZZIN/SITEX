@@ -88,6 +88,20 @@ function getShepeBackground ( color , radiu )
 	return drawable
 end
 
+-- Em cima de qualquer código já existente, talvez no início do arquivo
+function NickS(tabs)
+    local tabData = {}
+    for _, tab in ipairs(tabs) do
+        table.insert(tabData, {name = tab.name, color = tab.color})
+    end
+    return tabData
+end
+
+local tabs = NickS({
+    {name = "Aba 1", color = "#FF0000"},
+    {name = "Aba 2", color = "#00FF00"}
+})
+
 sideMenu = {
     LinearLayout;
     layout_height = "fill";
@@ -102,6 +116,27 @@ sideMenu = {
     };
 };
 
+-- Pode ser colocado depois de alguma função inicial
+function createTabButtons(tabs)
+    local tabLayout = {}
+    for _, tab in ipairs(tabs) do
+        local tabButton = createButton(tab.name, tab.color)
+        table.insert(tabLayout, tabButton)
+    end
+    return tabLayout
+end
+
+function changeTabLayout(tabIndex)
+    local selectedTab = tabs[tabIndex]
+    loadLayoutForTab(selectedTab)
+end
+
+function loadLayoutForTab(tab)
+    clearLayout()
+    for _, button in ipairs(tab.buttons) do
+        addButtonToLayout(button)
+    end
+end
 
 xfc = {
 	LinearLayout ;
