@@ -88,7 +88,7 @@ function getShepeBackground ( color , radiu )
 	return drawable
 end
 
--- Em cima de qualquer código já existente, talvez no início do arquivo
+*-- Em cima de qualquer código já existente, talvez no início do arquivo
 function NickS(tabs)
     local tabData = {}
     for _, tab in ipairs(tabs) do
@@ -116,27 +116,6 @@ sideMenu = {
     };
 };
 
--- Pode ser colocado depois de alguma função inicial
-function createTabButtons(tabs)
-    local tabLayout = {}
-    for _, tab in ipairs(tabs) do
-        local tabButton = createButton(tab.name, tab.color)
-        table.insert(tabLayout, tabButton)
-    end
-    return tabLayout
-end
-
-function changeTabLayout(tabIndex)
-    local selectedTab = tabs[tabIndex]
-    loadLayoutForTab(selectedTab)
-end
-
-function loadLayoutForTab(tab)
-    clearLayout()
-    for _, button in ipairs(tab.buttons) do
-        addButtonToLayout(button)
-    end
-end
 
 xfc = {
 	LinearLayout ;
@@ -265,6 +244,27 @@ xfc = loadlayout ( xfc )
 sideMenuView = loadlayout(sideMenu)
 sideMenuParams = getSideMenuParams()
 
+-- Pode ser colocado depois de alguma função inicial
+function createTabButtons(tabs)
+    local tabLayout = {}
+    for _, tab in ipairs(tabs) do
+        local tabButton = createButton(tab.name, tab.color)
+        table.insert(tabLayout, tabButton)
+    end
+    return tabLayout
+end
+
+function changeTabLayout(tabIndex)
+    local selectedTab = tabs[tabIndex]
+    loadLayoutForTab(selectedTab)
+end
+
+function loadLayoutForTab(tab)
+    clearLayout()
+    for _, button in ipairs(tab.buttons) do
+        addButtonToLayout(button)
+    end
+end
 
 function sideMenuIcon.onTouch(v, event)
     local Action = event.getAction()
