@@ -1,0 +1,4416 @@
+debug.getinfo(3)
+debug.getinfo(1)
+debug.getinfo(1)
+debug.getinfo(1)
+debug.getinfo(1)
+debug.getinfo(1)
+debug.getinfo(1)
+debug.sethook(function: /storage/emulated/0/Download/.teste/[𝖎𝕾𝖊𝖗𝖎𝖄𝕿]_5.4✨.lua:107-111, "crl")
+debug.getinfo(1)
+debug.getinfo(1)
+debug.getinfo(1)
+debug.getinfo(1)
+string.dump(function: /storage/emulated/0/Download/.teste/[𝖎𝕾𝖊𝖗𝖎𝖄𝕿]_5.4✨.lua:127-271)
+debug.sethook()
+string.dump(function: /storage/emulated/0/Download/.teste/[𝖎𝕾𝖊𝖗𝖎𝖄𝕿]_5.4✨.lua:0-0)
+string.dump(function: /storage/emulated/0/Download/.teste/[𝖎𝕾𝖊𝖗𝖎𝖄𝕿]_5.4✨.lua:3-4469)
+debug.getmetatable("max")
+gg.getFile()
+gg.makeRequest("https://drive.google.com/u/0/uc?id=1DEwQD8QavGIMj3bHF6H70W6w6drpLGrv&export=download")
+gg.getFile()
+gg.getRanges()
+gg.setVisible(true)
+gg.setVisible(false)
+gg.makeRequest("https://httpbin.org/headers")
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7B%E3%80%8ECombat%20%2F%20Fight%E3%80%8F%E2%9A%94%EF%B8%8F%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7B%E3%80%8EOneHit%20%2F%20Damage%E3%80%8F%F0%9F%92%A5%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7B%E3%80%8EWorld%20%2F%20Others%E3%80%8F%F0%9F%8C%A0%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7B%E3%80%9AReset%20All%20%28%26T%29%E3%80%9B%F0%9F%94%83%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7B%E3%80%98FPS%20Unlock%20%28120Hz%29%E3%80%99%F0%9F%94%A5%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7B%E3%80%98Blessing%20Buff%20%28New%29%E3%80%99%E2%8F%B3%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7B%E3%80%98iSeriYT%20Shader%20Pack%E3%80%99%E2%9A%99%EF%B8%8F%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7B%E3%80%98Game%20Calculations%E3%80%99%F0%9F%93%8F%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7B%E3%80%8E%E2%80%A2%E2%80%A2End%E2%80%A2%E2%80%A2%E3%80%8F%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BLanguage%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7B%E2%95%94%E2%95%90%E2%95%90%20%E2%89%AA%20%C2%B0iSeriYT%20Script%20Genshin%20Impact%C2%B0%20%E2%89%AB%20%E2%95%90%E2%95%90%E2%95%97%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.choice({ -- table(efbd18e)
+	[1] = '『Combat / Fight』⚔️',
+	[2] = '『OneHit / Damage』💥',
+	[3] = '『World / Others』🌠',
+	[4] = '〚Reset All (&T)〛🔃',
+	[5] = '〘FPS Unlock (120Hz)〙🔥',
+	[6] = '〘Blessing Buff (New)〙⏳',
+	[7] = '〘iSeriYT Shader Pack〙⚙️',
+	[8] = '〘Game Calculations〙📏',
+	[9] = '『••End••』',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: 1 ]]
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BNA%20Speed%20%F0%9F%97%A1%EF%B8%8F%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BUltimate%20Skill%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BMulti%20Damage%20%E2%9A%94%EF%B8%8F%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BNTU%20%28Normal%20To%20Ult%29%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BSNTU%20%28Sprint%20NTU%29%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BGod%20Mode%20%F0%9F%9B%A1%EF%B8%8F%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BCA%20Stamina%20Hack%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BArataki%20Itto%20Stack%20Hack%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BBow%20Charged%20%F0%9F%8F%B9%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BDuration%20Hack%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BFreeze%20Enemy%E3%80%98OFF%E3%80%99%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.makeRequest("https://translate.googleapis.com/translate_a/single?client=at&sl=auto&tl=en_US&dt=t&q=%7BEnd%7D", { -- table(fb63cdf)
+	['User-Agent'] = 'GoogleTranslate/6.3.0.RC06.277163268 Linux; U; Android 14; 22111317G Build/UKQ1.230917.001',
+})
+gg.choice({ -- table(7ba445f)
+	[ 1] = 'That speed 🗡️',
+	[ 2] = 'Ultimate Skill',
+	[ 3] = 'Multi Damage ⚔️',
+	[ 4] = 'NTU (Normal To Ult)',
+	[ 5] = 'SNTU (Sprint NTU)',
+	[ 6] = 'God Mode 🛡️',
+	[ 7] = 'CA Stamina Hack',
+	[ 8] = 'Arataki Itto Stack Hack',
+	[ 9] = 'Bow Charged 🏹',
+	[10] = 'Duration Hack',
+	[11] = 'Freeze Enemy〘OFF〙',
+	[12] = 'End',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: 3 ]]
+gg.clearResults()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("; 㾀 㾀挢ɂ", gg.TYPE_WORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+--[[ found: 48 ]]
+gg.processResume()
+gg.refineNumber("578", gg.TYPE_WORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+--[[ found: 8 ]]
+gg.getResultsCount()
+gg.getResults(100000, nil, nil, nil, nil, nil, nil, nil, nil)
+--[[ count: 8 ]]
+gg.addListItems({ -- table(f0dfe22)
+	[1] = { -- table(cafc0b3)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(fdc670)
+		['address'] = 0x7fbf26c1ce,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[3] = { -- table(923cde9)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[4] = { -- table(831da6e)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(cdbb50f)
+		['address'] = 0x7fcc47ebb6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(350d99c)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(6625fa5)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(fa52f7a)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(f0dfe22)
+	[1] = { -- table(cafc0b3)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(fdc670)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(923cde9)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[4] = { -- table(831da6e)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(cdbb50f)
+		['address'] = 0x7fcc47ebb6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(350d99c)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(6625fa5)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(fa52f7a)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(f0dfe22)
+	[1] = { -- table(cafc0b3)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(fdc670)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(923cde9)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(831da6e)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(cdbb50f)
+		['address'] = 0x7fcc47ebb6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(350d99c)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(6625fa5)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(fa52f7a)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(f0dfe22)
+	[1] = { -- table(cafc0b3)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(fdc670)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(923cde9)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(831da6e)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(cdbb50f)
+		['address'] = 0x7fcc47ebb6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(350d99c)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(6625fa5)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(fa52f7a)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(f0dfe22)
+	[1] = { -- table(cafc0b3)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(fdc670)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(923cde9)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(831da6e)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(cdbb50f)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(350d99c)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(6625fa5)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(fa52f7a)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(f0dfe22)
+	[1] = { -- table(cafc0b3)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(fdc670)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(923cde9)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(831da6e)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(cdbb50f)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(350d99c)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(6625fa5)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(fa52f7a)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(f0dfe22)
+	[1] = { -- table(cafc0b3)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(fdc670)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(923cde9)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(831da6e)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(cdbb50f)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(350d99c)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(6625fa5)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[8] = { -- table(fa52f7a)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(f0dfe22)
+	[1] = { -- table(cafc0b3)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(fdc670)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(923cde9)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(831da6e)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(cdbb50f)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(350d99c)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(6625fa5)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[8] = { -- table(fa52f7a)
+		['address'] = 0x7fcedbfdf0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+})
+gg.clearResults()
+gg.getListItems()
+gg.loadResults({ -- table(a4f0359)
+	[ 1] = { -- table(67fbb1e)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 2] = { -- table(699ffff)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 3] = { -- table(9cbe1cc)
+		['address'] = 0x7fbf26c1ce,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 4] = { -- table(a637c15)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 5] = { -- table(9686b2a)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 6] = { -- table(e989d1b)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 7] = { -- table(4bb4eb8)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 8] = { -- table(cc491)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 9] = { -- table(27a0ff6)
+		['address'] = 0x7fcc47ebb6,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[10] = { -- table(d19eff7)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[11] = { -- table(b329e64)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[12] = { -- table(62818cd)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[13] = { -- table(22f3582)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[14] = { -- table(4f39493)
+		['address'] = 0x7fcedbfdf0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[15] = { -- table(fad3cd0)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+})
+gg.searchFuzzy("0", gg.SIGN_FUZZY_NOT_EQUAL, gg.TYPE_FLOAT, 0, -1, 0)
+--[[ found: 0 ]]
+gg.getResults(100)
+--[[ count: 0 ]]
+gg.getResults(100)
+--[[ count: 0 ]]
+gg.clearResults()
+gg.setVisible(false)
+gg.choice({ -- table(f051ec4)
+	[1] = '『Combat / Fight』⚔️',
+	[2] = '『OneHit / Damage』💥',
+	[3] = '『World / Others』🌠',
+	[4] = '〚Reset All (&T)〛🔃',
+	[5] = '〘FPS Unlock (120Hz)〙🔥',
+	[6] = '〘Blessing Buff (New)〙⏳',
+	[7] = '〘iSeriYT Shader Pack〙⚙️',
+	[8] = '〘Game Calculations〙📏',
+	[9] = '『••End••』',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: nil ]]
+gg.setVisible(false)
+gg.choice({ -- table(2c0c26b)
+	[1] = '『Combat / Fight』⚔️',
+	[2] = '『OneHit / Damage』💥',
+	[3] = '『World / Others』🌠',
+	[4] = '〚Reset All (&T)〛🔃',
+	[5] = '〘FPS Unlock (120Hz)〙🔥',
+	[6] = '〘Blessing Buff (New)〙⏳',
+	[7] = '〘iSeriYT Shader Pack〙⚙️',
+	[8] = '〘Game Calculations〙📏',
+	[9] = '『••End••』',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: 1 ]]
+gg.choice({ -- table(231a065)
+	[ 1] = 'That speed 🗡️',
+	[ 2] = 'Ultimate Skill',
+	[ 3] = 'Multi Damage ⚔️',
+	[ 4] = 'NTU (Normal To Ult)',
+	[ 5] = 'SNTU (Sprint NTU)',
+	[ 6] = 'God Mode 🛡️',
+	[ 7] = 'CA Stamina Hack',
+	[ 8] = 'Arataki Itto Stack Hack',
+	[ 9] = 'Bow Charged 🏹',
+	[10] = 'Duration Hack',
+	[11] = 'Freeze Enemy〘OFF〙',
+	[12] = 'End',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: 3 ]]
+gg.clearResults()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("; 㾀 㾀挢ɂ", gg.TYPE_WORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+--[[ found: 60 ]]
+gg.processResume()
+gg.refineNumber("578", gg.TYPE_WORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+--[[ found: 8 ]]
+gg.getResultsCount()
+gg.getResults(100000, nil, nil, nil, nil, nil, nil, nil, nil)
+--[[ count: 8 ]]
+gg.addListItems({ -- table(ac0c2d)
+	[1] = { -- table(cc51562)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(83a26f3)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[3] = { -- table(b92cfb0)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[4] = { -- table(aea3e29)
+		['address'] = 0x7fcc47eb8a,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(16325ae)
+		['address'] = 0x7fcc47ebda,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(f463f4f)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(e4d36dc)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(7bf93e5)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(ac0c2d)
+	[1] = { -- table(cc51562)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(83a26f3)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(b92cfb0)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[4] = { -- table(aea3e29)
+		['address'] = 0x7fcc47eb8a,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(16325ae)
+		['address'] = 0x7fcc47ebda,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(f463f4f)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(e4d36dc)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(7bf93e5)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(ac0c2d)
+	[1] = { -- table(cc51562)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(83a26f3)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(b92cfb0)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(aea3e29)
+		['address'] = 0x7fcc47eb8a,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(16325ae)
+		['address'] = 0x7fcc47ebda,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(f463f4f)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(e4d36dc)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(7bf93e5)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(ac0c2d)
+	[1] = { -- table(cc51562)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(83a26f3)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(b92cfb0)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(aea3e29)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(16325ae)
+		['address'] = 0x7fcc47ebda,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(f463f4f)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(e4d36dc)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(7bf93e5)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(ac0c2d)
+	[1] = { -- table(cc51562)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(83a26f3)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(b92cfb0)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(aea3e29)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(16325ae)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(f463f4f)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(e4d36dc)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(7bf93e5)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(ac0c2d)
+	[1] = { -- table(cc51562)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(83a26f3)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(b92cfb0)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(aea3e29)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(16325ae)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(f463f4f)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(e4d36dc)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(7bf93e5)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(ac0c2d)
+	[1] = { -- table(cc51562)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(83a26f3)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(b92cfb0)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(aea3e29)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(16325ae)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(f463f4f)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(e4d36dc)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[8] = { -- table(7bf93e5)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(ac0c2d)
+	[1] = { -- table(cc51562)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(83a26f3)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(b92cfb0)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(aea3e29)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(16325ae)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(f463f4f)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(e4d36dc)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[8] = { -- table(7bf93e5)
+		['address'] = 0x7fcedbfdf0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+})
+gg.clearResults()
+gg.getListItems()
+gg.loadResults({ -- table(6bab2e3)
+	[ 1] = { -- table(e9184e0)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 2] = { -- table(fb20399)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 3] = { -- table(d3a565e)
+		['address'] = 0x7fbf26c1ce,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 4] = { -- table(2db9a3f)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 5] = { -- table(c3a0f0c)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 6] = { -- table(4964055)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 7] = { -- table(2517a6a)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 8] = { -- table(7f99b5b)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 9] = { -- table(5ff0ff8)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[10] = { -- table(6478cd1)
+		['address'] = 0x7fcc47eb8a,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[11] = { -- table(404d336)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[12] = { -- table(2c9237)
+		['address'] = 0x7fcc47ebb6,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[13] = { -- table(ae7250d)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[14] = { -- table(6c2ecc2)
+		['address'] = 0x7fcc47ebda,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[15] = { -- table(52e1ad3)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[16] = { -- table(2ffe610)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[17] = { -- table(f6e0509)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[18] = { -- table(557130e)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[19] = { -- table(8b5912f)
+		['address'] = 0x7fcedbfdf0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[20] = { -- table(e5533c)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+})
+gg.searchFuzzy("0", gg.SIGN_FUZZY_NOT_EQUAL, gg.TYPE_FLOAT, 0, -1, 0)
+--[[ found: 6 ]]
+gg.getResults(100)
+--[[ count: 6 ]]
+gg.addListItems({ -- table(744c41)
+	[1] = { -- table(c0675e6)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(c907727)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.24273955821990967,
+	},
+	[3] = { -- table(cfacdd4)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.03183417767286301,
+	},
+	[4] = { -- table(7786b7d)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.03183417767286301,
+	},
+	[5] = { -- table(eb40a72)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.26687026023864746,
+	},
+	[6] = { -- table(4035ec3)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.03183417767286301,
+	},
+})
+gg.addListItems({ -- table(744c41)
+	[1] = { -- table(c0675e6)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(c907727)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(cfacdd4)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.03183417767286301,
+	},
+	[4] = { -- table(7786b7d)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.03183417767286301,
+	},
+	[5] = { -- table(eb40a72)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.26687026023864746,
+	},
+	[6] = { -- table(4035ec3)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.03183417767286301,
+	},
+})
+gg.addListItems({ -- table(744c41)
+	[1] = { -- table(c0675e6)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(c907727)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(cfacdd4)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(7786b7d)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.03183417767286301,
+	},
+	[5] = { -- table(eb40a72)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.26687026023864746,
+	},
+	[6] = { -- table(4035ec3)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.03183417767286301,
+	},
+})
+gg.addListItems({ -- table(744c41)
+	[1] = { -- table(c0675e6)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(c907727)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(cfacdd4)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(7786b7d)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(eb40a72)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.26687026023864746,
+	},
+	[6] = { -- table(4035ec3)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.03183417767286301,
+	},
+})
+gg.addListItems({ -- table(744c41)
+	[1] = { -- table(c0675e6)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(c907727)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(cfacdd4)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(7786b7d)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(eb40a72)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(4035ec3)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.03183417767286301,
+	},
+})
+gg.addListItems({ -- table(744c41)
+	[1] = { -- table(c0675e6)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(c907727)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(cfacdd4)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(7786b7d)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(eb40a72)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(4035ec3)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+})
+gg.getResults(100)
+--[[ count: 6 ]]
+gg.addListItems({ -- table(d81ea58)
+	[1] = { -- table(dc7c7b1)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(ce2496)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[3] = { -- table(8ef7817)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[4] = { -- table(d575404)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[5] = { -- table(8e02ded)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(7bff422)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d81ea58)
+	[1] = { -- table(dc7c7b1)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(ce2496)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(8ef7817)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[4] = { -- table(d575404)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[5] = { -- table(8e02ded)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(7bff422)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d81ea58)
+	[1] = { -- table(dc7c7b1)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(ce2496)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(8ef7817)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(d575404)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[5] = { -- table(8e02ded)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(7bff422)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d81ea58)
+	[1] = { -- table(dc7c7b1)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(ce2496)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(8ef7817)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(d575404)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(8e02ded)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(7bff422)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d81ea58)
+	[1] = { -- table(dc7c7b1)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(ce2496)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(8ef7817)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(d575404)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(8e02ded)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(7bff422)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d81ea58)
+	[1] = { -- table(dc7c7b1)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(ce2496)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(8ef7817)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(d575404)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(8e02ded)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(7bff422)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+})
+gg.clearResults()
+gg.setVisible(false)
+gg.choice({ -- table(30af67e)
+	[1] = '『Combat / Fight』⚔️',
+	[2] = '『OneHit / Damage』💥',
+	[3] = '『World / Others』🌠',
+	[4] = '〚Reset All (&T)〛🔃',
+	[5] = '〘FPS Unlock (120Hz)〙🔥',
+	[6] = '〘Blessing Buff (New)〙⏳',
+	[7] = '〘iSeriYT Shader Pack〙⚙️',
+	[8] = '〘Game Calculations〙📏',
+	[9] = '『••End••』',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: 1 ]]
+gg.choice({ -- table(bf54a0a)
+	[ 1] = 'That speed 🗡️',
+	[ 2] = 'Ultimate Skill',
+	[ 3] = 'Multi Damage ⚔️',
+	[ 4] = 'NTU (Normal To Ult)',
+	[ 5] = 'SNTU (Sprint NTU)',
+	[ 6] = 'God Mode 🛡️',
+	[ 7] = 'CA Stamina Hack',
+	[ 8] = 'Arataki Itto Stack Hack',
+	[ 9] = 'Bow Charged 🏹',
+	[10] = 'Duration Hack',
+	[11] = 'Freeze Enemy〘OFF〙',
+	[12] = 'End',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: 3 ]]
+gg.clearResults()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("; 㾀 㾀挢ɂ", gg.TYPE_WORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+--[[ found: 42 ]]
+gg.processResume()
+gg.refineNumber("578", gg.TYPE_WORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+--[[ found: 7 ]]
+gg.getResultsCount()
+gg.getResults(100000, nil, nil, nil, nil, nil, nil, nil, nil)
+--[[ count: 7 ]]
+gg.addListItems({ -- table(af86764)
+	[1] = { -- table(69cadcd)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(738a682)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[3] = { -- table(66b193)
+		['address'] = 0x7fcc47eeaa,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[4] = { -- table(8695d0)
+		['address'] = 0x7fcc47eefa,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(9d359c9)
+		['address'] = 0x7fcc4a5902,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(ecea8ce)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(2c0d3ef)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(af86764)
+	[1] = { -- table(69cadcd)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(738a682)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(66b193)
+		['address'] = 0x7fcc47eeaa,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[4] = { -- table(8695d0)
+		['address'] = 0x7fcc47eefa,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(9d359c9)
+		['address'] = 0x7fcc4a5902,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(ecea8ce)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(2c0d3ef)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(af86764)
+	[1] = { -- table(69cadcd)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(738a682)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(66b193)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(8695d0)
+		['address'] = 0x7fcc47eefa,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(9d359c9)
+		['address'] = 0x7fcc4a5902,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(ecea8ce)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(2c0d3ef)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(af86764)
+	[1] = { -- table(69cadcd)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(738a682)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(66b193)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(8695d0)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(9d359c9)
+		['address'] = 0x7fcc4a5902,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(ecea8ce)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(2c0d3ef)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(af86764)
+	[1] = { -- table(69cadcd)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(738a682)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(66b193)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(8695d0)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(9d359c9)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(ecea8ce)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(2c0d3ef)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(af86764)
+	[1] = { -- table(69cadcd)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(738a682)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(66b193)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(8695d0)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(9d359c9)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(ecea8ce)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(2c0d3ef)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(af86764)
+	[1] = { -- table(69cadcd)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(738a682)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(66b193)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(8695d0)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(9d359c9)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(ecea8ce)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(2c0d3ef)
+		['address'] = 0x7fcedbfdf0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+})
+gg.clearResults()
+gg.getListItems()
+gg.loadResults({ -- table(701a43d)
+	[ 1] = { -- table(febb432)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 2] = { -- table(8ef2583)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 3] = { -- table(1931300)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 4] = { -- table(d694739)
+		['address'] = 0x7fbf26c1ce,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 5] = { -- table(89ce17e)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 6] = { -- table(cf496df)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 7] = { -- table(9965f2c)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 8] = { -- table(e0e1df5)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 9] = { -- table(9a1978a)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[10] = { -- table(4b5c1fb)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[11] = { -- table(5a04218)
+		['address'] = 0x7fcc47eb8a,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[12] = { -- table(fefa471)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[13] = { -- table(d89a256)
+		['address'] = 0x7fcc47ebb6,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[14] = { -- table(79482d7)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[15] = { -- table(36367c4)
+		['address'] = 0x7fcc47ebda,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[16] = { -- table(8916ad)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[17] = { -- table(6158de2)
+		['address'] = 0x7fcc47eeaa,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[18] = { -- table(7347573)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[19] = { -- table(7113c30)
+		['address'] = 0x7fcc47eefa,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[20] = { -- table(fcd70a9)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[21] = { -- table(e82a62e)
+		['address'] = 0x7fcc4a5902,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[22] = { -- table(1d6f5cf)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[23] = { -- table(485eb5c)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[24] = { -- table(fe36e65)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[25] = { -- table(696f73a)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[26] = { -- table(e771feb)
+		['address'] = 0x7fcedbfdf0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[27] = { -- table(f346148)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+})
+gg.searchFuzzy("0", gg.SIGN_FUZZY_NOT_EQUAL, gg.TYPE_FLOAT, 0, -1, 0)
+--[[ found: 8 ]]
+gg.getResults(100)
+--[[ count: 8 ]]
+gg.addListItems({ -- table(eca051d)
+	[1] = { -- table(b013392)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(225a163)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[3] = { -- table(6c41160)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[4] = { -- table(f06d619)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.012415623292326927,
+	},
+	[5] = { -- table(b7af6de)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.23775026202201843,
+	},
+	[6] = { -- table(846f0bf)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.23775026202201843,
+	},
+	[7] = { -- table(648e38c)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.0,
+	},
+	[8] = { -- table(ca5bad5)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.9793575406074524,
+	},
+})
+gg.addListItems({ -- table(eca051d)
+	[1] = { -- table(b013392)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(225a163)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(6c41160)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[4] = { -- table(f06d619)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.012415623292326927,
+	},
+	[5] = { -- table(b7af6de)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.23775026202201843,
+	},
+	[6] = { -- table(846f0bf)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.23775026202201843,
+	},
+	[7] = { -- table(648e38c)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.0,
+	},
+	[8] = { -- table(ca5bad5)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.9793575406074524,
+	},
+})
+gg.addListItems({ -- table(eca051d)
+	[1] = { -- table(b013392)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(225a163)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(6c41160)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(f06d619)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.012415623292326927,
+	},
+	[5] = { -- table(b7af6de)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.23775026202201843,
+	},
+	[6] = { -- table(846f0bf)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.23775026202201843,
+	},
+	[7] = { -- table(648e38c)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.0,
+	},
+	[8] = { -- table(ca5bad5)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.9793575406074524,
+	},
+})
+gg.addListItems({ -- table(eca051d)
+	[1] = { -- table(b013392)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(225a163)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(6c41160)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(f06d619)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(b7af6de)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.23775026202201843,
+	},
+	[6] = { -- table(846f0bf)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.23775026202201843,
+	},
+	[7] = { -- table(648e38c)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.0,
+	},
+	[8] = { -- table(ca5bad5)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.9793575406074524,
+	},
+})
+gg.addListItems({ -- table(eca051d)
+	[1] = { -- table(b013392)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(225a163)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(6c41160)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(f06d619)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(b7af6de)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(846f0bf)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.23775026202201843,
+	},
+	[7] = { -- table(648e38c)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.0,
+	},
+	[8] = { -- table(ca5bad5)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.9793575406074524,
+	},
+})
+gg.addListItems({ -- table(eca051d)
+	[1] = { -- table(b013392)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(225a163)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(6c41160)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(f06d619)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(b7af6de)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(846f0bf)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[7] = { -- table(648e38c)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.0,
+	},
+	[8] = { -- table(ca5bad5)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.9793575406074524,
+	},
+})
+gg.addListItems({ -- table(eca051d)
+	[1] = { -- table(b013392)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(225a163)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(6c41160)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(f06d619)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(b7af6de)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(846f0bf)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[7] = { -- table(648e38c)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[8] = { -- table(ca5bad5)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.9793575406074524,
+	},
+})
+gg.addListItems({ -- table(eca051d)
+	[1] = { -- table(b013392)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(225a163)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(6c41160)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(f06d619)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(b7af6de)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(846f0bf)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[7] = { -- table(648e38c)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[8] = { -- table(ca5bad5)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+})
+gg.getResults(100)
+--[[ count: 8 ]]
+gg.addListItems({ -- table(d2e9290)
+	[1] = { -- table(8dc7789)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(f40d38e)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[3] = { -- table(ce387af)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[4] = { -- table(9247bc)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[5] = { -- table(78c0345)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(bfa9a9a)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[7] = { -- table(1eaefcb)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[8] = { -- table(81a23a8)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d2e9290)
+	[1] = { -- table(8dc7789)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(f40d38e)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(ce387af)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[4] = { -- table(9247bc)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[5] = { -- table(78c0345)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(bfa9a9a)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[7] = { -- table(1eaefcb)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[8] = { -- table(81a23a8)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d2e9290)
+	[1] = { -- table(8dc7789)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(f40d38e)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(ce387af)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(9247bc)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[5] = { -- table(78c0345)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(bfa9a9a)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[7] = { -- table(1eaefcb)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[8] = { -- table(81a23a8)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d2e9290)
+	[1] = { -- table(8dc7789)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(f40d38e)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(ce387af)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(9247bc)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(78c0345)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(bfa9a9a)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[7] = { -- table(1eaefcb)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[8] = { -- table(81a23a8)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d2e9290)
+	[1] = { -- table(8dc7789)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(f40d38e)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(ce387af)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(9247bc)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(78c0345)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(bfa9a9a)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[7] = { -- table(1eaefcb)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[8] = { -- table(81a23a8)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d2e9290)
+	[1] = { -- table(8dc7789)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(f40d38e)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(ce387af)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(9247bc)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(78c0345)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(bfa9a9a)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[7] = { -- table(1eaefcb)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[8] = { -- table(81a23a8)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d2e9290)
+	[1] = { -- table(8dc7789)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(f40d38e)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(ce387af)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(9247bc)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(78c0345)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(bfa9a9a)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[7] = { -- table(1eaefcb)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[8] = { -- table(81a23a8)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(d2e9290)
+	[1] = { -- table(8dc7789)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(f40d38e)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(ce387af)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(9247bc)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(78c0345)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(bfa9a9a)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[7] = { -- table(1eaefcb)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[8] = { -- table(81a23a8)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+})
+gg.clearResults()
+gg.setVisible(false)
+gg.choice({ -- table(90ec7bd)
+	[1] = '『Combat / Fight』⚔️',
+	[2] = '『OneHit / Damage』💥',
+	[3] = '『World / Others』🌠',
+	[4] = '〚Reset All (&T)〛🔃',
+	[5] = '〘FPS Unlock (120Hz)〙🔥',
+	[6] = '〘Blessing Buff (New)〙⏳',
+	[7] = '〘iSeriYT Shader Pack〙⚙️',
+	[8] = '〘Game Calculations〙📏',
+	[9] = '『••End••』',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: 1 ]]
+gg.choice({ -- table(16d3bf6)
+	[ 1] = 'That speed 🗡️',
+	[ 2] = 'Ultimate Skill',
+	[ 3] = 'Multi Damage ⚔️',
+	[ 4] = 'NTU (Normal To Ult)',
+	[ 5] = 'SNTU (Sprint NTU)',
+	[ 6] = 'God Mode 🛡️',
+	[ 7] = 'CA Stamina Hack',
+	[ 8] = 'Arataki Itto Stack Hack',
+	[ 9] = 'Bow Charged 🏹',
+	[10] = 'Duration Hack',
+	[11] = 'Freeze Enemy〘OFF〙',
+	[12] = 'End',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: 3 ]]
+gg.clearResults()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("; 㾀 㾀挢ɂ", gg.TYPE_WORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+--[[ found: 42 ]]
+gg.processResume()
+gg.refineNumber("578", gg.TYPE_WORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+--[[ found: 7 ]]
+gg.getResultsCount()
+gg.getResults(100000, nil, nil, nil, nil, nil, nil, nil, nil)
+--[[ count: 7 ]]
+gg.addListItems({ -- table(3778bf0)
+	[1] = { -- table(229e569)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(7f2dbee)
+		['address'] = 0x7fc2bc0b32,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[3] = { -- table(97e588f)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[4] = { -- table(761771c)
+		['address'] = 0x7fcc47e18a,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(2726f25)
+		['address'] = 0x7fcc47e1da,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(434c8fa)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(b11eeab)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(3778bf0)
+	[1] = { -- table(229e569)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(7f2dbee)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(97e588f)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[4] = { -- table(761771c)
+		['address'] = 0x7fcc47e18a,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(2726f25)
+		['address'] = 0x7fcc47e1da,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(434c8fa)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(b11eeab)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(3778bf0)
+	[1] = { -- table(229e569)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(7f2dbee)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(97e588f)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(761771c)
+		['address'] = 0x7fcc47e18a,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(2726f25)
+		['address'] = 0x7fcc47e1da,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(434c8fa)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(b11eeab)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(3778bf0)
+	[1] = { -- table(229e569)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(7f2dbee)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(97e588f)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(761771c)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(2726f25)
+		['address'] = 0x7fcc47e1da,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(434c8fa)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(b11eeab)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(3778bf0)
+	[1] = { -- table(229e569)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(7f2dbee)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(97e588f)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(761771c)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(2726f25)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(434c8fa)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(b11eeab)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(3778bf0)
+	[1] = { -- table(229e569)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(7f2dbee)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(97e588f)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(761771c)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(2726f25)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(434c8fa)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(b11eeab)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(3778bf0)
+	[1] = { -- table(229e569)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(7f2dbee)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(97e588f)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(761771c)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(2726f25)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(434c8fa)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(b11eeab)
+		['address'] = 0x7fcedbfdf0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+})
+gg.clearResults()
+gg.getListItems()
+gg.loadResults({ -- table(43dd120)
+	[ 1] = { -- table(2c9fad9)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 2] = { -- table(7441c9e)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 3] = { -- table(8ec837f)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 4] = { -- table(ffedf4c)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 5] = { -- table(8566b95)
+		['address'] = 0x7fbf26c1ce,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 6] = { -- table(bd164aa)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 7] = { -- table(a4fd89b)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 8] = { -- table(ae0a438)
+		['address'] = 0x7fc2bc0b32,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 9] = { -- table(eff2c11)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[10] = { -- table(8392176)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[11] = { -- table(fc96377)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[12] = { -- table(a17cbe4)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[13] = { -- table(299784d)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[14] = { -- table(1e6c013)
+		['address'] = 0x7fcc47e18a,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[15] = { -- table(f77c250)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[16] = { -- table(d124c49)
+		['address'] = 0x7fcc47e1da,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[17] = { -- table(d7ee94e)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[18] = { -- table(a734a6f)
+		['address'] = 0x7fcc47eb8a,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[19] = { -- table(49eb37c)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[20] = { -- table(2a6405)
+		['address'] = 0x7fcc47ebb6,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[21] = { -- table(d644c5a)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[22] = { -- table(a941e8b)
+		['address'] = 0x7fcc47ebda,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[23] = { -- table(ce18b68)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[24] = { -- table(ef23b81)
+		['address'] = 0x7fcc47eeaa,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[25] = { -- table(20ad426)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[26] = { -- table(6a41867)
+		['address'] = 0x7fcc47eefa,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[27] = { -- table(9f7f614)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[28] = { -- table(3060ebd)
+		['address'] = 0x7fcc4a5902,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[29] = { -- table(5400cb2)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[30] = { -- table(3cfd403)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[31] = { -- table(f685f80)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[32] = { -- table(989d9b9)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[33] = { -- table(e1e41fe)
+		['address'] = 0x7fcedbfdf0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[34] = { -- table(371ad5f)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+})
+gg.searchFuzzy("0", gg.SIGN_FUZZY_NOT_EQUAL, gg.TYPE_FLOAT, 0, -1, 0)
+--[[ found: 6 ]]
+gg.getResults(100)
+--[[ count: 6 ]]
+gg.addListItems({ -- table(4c692d6)
+	[1] = { -- table(cde957)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(50f0c44)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[3] = { -- table(dbd212d)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[4] = { -- table(f710662)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.0015470365760847926,
+	},
+	[5] = { -- table(4ddc3f3)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4216350317001343,
+	},
+	[6] = { -- table(512a8b0)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4216350317001343,
+	},
+})
+gg.addListItems({ -- table(4c692d6)
+	[1] = { -- table(cde957)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(50f0c44)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(dbd212d)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[4] = { -- table(f710662)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.0015470365760847926,
+	},
+	[5] = { -- table(4ddc3f3)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4216350317001343,
+	},
+	[6] = { -- table(512a8b0)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4216350317001343,
+	},
+})
+gg.addListItems({ -- table(4c692d6)
+	[1] = { -- table(cde957)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(50f0c44)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(dbd212d)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(f710662)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.0015470365760847926,
+	},
+	[5] = { -- table(4ddc3f3)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4216350317001343,
+	},
+	[6] = { -- table(512a8b0)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4216350317001343,
+	},
+})
+gg.addListItems({ -- table(4c692d6)
+	[1] = { -- table(cde957)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(50f0c44)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(dbd212d)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(f710662)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(4ddc3f3)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4216350317001343,
+	},
+	[6] = { -- table(512a8b0)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4216350317001343,
+	},
+})
+gg.addListItems({ -- table(4c692d6)
+	[1] = { -- table(cde957)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(50f0c44)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(dbd212d)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(f710662)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(4ddc3f3)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(512a8b0)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4216350317001343,
+	},
+})
+gg.addListItems({ -- table(4c692d6)
+	[1] = { -- table(cde957)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(50f0c44)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(dbd212d)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(f710662)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(4ddc3f3)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(512a8b0)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+})
+gg.getResults(100)
+--[[ count: 6 ]]
+gg.addListItems({ -- table(50f8e61)
+	[1] = { -- table(5075d86)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(e45d647)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[3] = { -- table(cf00e74)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[4] = { -- table(855af9d)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[5] = { -- table(86bcc12)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(5ff8fe3)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(50f8e61)
+	[1] = { -- table(5075d86)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(e45d647)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(cf00e74)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[4] = { -- table(855af9d)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[5] = { -- table(86bcc12)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(5ff8fe3)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(50f8e61)
+	[1] = { -- table(5075d86)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(e45d647)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(cf00e74)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(855af9d)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[5] = { -- table(86bcc12)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(5ff8fe3)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(50f8e61)
+	[1] = { -- table(5075d86)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(e45d647)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(cf00e74)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(855af9d)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(86bcc12)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+	[6] = { -- table(5ff8fe3)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(50f8e61)
+	[1] = { -- table(5075d86)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(e45d647)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(cf00e74)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(855af9d)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(86bcc12)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(5ff8fe3)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 5.0,
+	},
+})
+gg.addListItems({ -- table(50f8e61)
+	[1] = { -- table(5075d86)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(e45d647)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(cf00e74)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(855af9d)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[5] = { -- table(86bcc12)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[6] = { -- table(5ff8fe3)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+})
+gg.clearResults()
+gg.setVisible(false)
+gg.choice({ -- table(581d21e)
+	[1] = '『Combat / Fight』⚔️',
+	[2] = '『OneHit / Damage』💥',
+	[3] = '『World / Others』🌠',
+	[4] = '〚Reset All (&T)〛🔃',
+	[5] = '〘FPS Unlock (120Hz)〙🔥',
+	[6] = '〘Blessing Buff (New)〙⏳',
+	[7] = '〘iSeriYT Shader Pack〙⚙️',
+	[8] = '〘Game Calculations〙📏',
+	[9] = '『••End••』',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: 1 ]]
+gg.choice({ -- table(fa424dd)
+	[ 1] = 'That speed 🗡️',
+	[ 2] = 'Ultimate Skill',
+	[ 3] = 'Multi Damage ⚔️',
+	[ 4] = 'NTU (Normal To Ult)',
+	[ 5] = 'SNTU (Sprint NTU)',
+	[ 6] = 'God Mode 🛡️',
+	[ 7] = 'CA Stamina Hack',
+	[ 8] = 'Arataki Itto Stack Hack',
+	[ 9] = 'Bow Charged 🏹',
+	[10] = 'Duration Hack',
+	[11] = 'Freeze Enemy〘OFF〙',
+	[12] = 'End',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
+--[[ return: 3 ]]
+gg.clearResults()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("; 㾀 㾀挢ɂ", gg.TYPE_WORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+--[[ found: 48 ]]
+gg.processResume()
+gg.refineNumber("578", gg.TYPE_WORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+--[[ found: 8 ]]
+gg.getResultsCount()
+gg.getResults(100000, nil, nil, nil, nil, nil, nil, nil, nil)
+--[[ count: 8 ]]
+gg.addListItems({ -- table(b2b601f)
+	[1] = { -- table(fbb8f6c)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(2172935)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[3] = { -- table(668e1ca)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[4] = { -- table(bafdf3b)
+		['address'] = 0x7fcc47e86a,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(2883658)
+		['address'] = 0x7fcc47e8ba,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(49e23b1)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(21b5096)
+		['address'] = 0x7fce8ccd62,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(2333417)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(b2b601f)
+	[1] = { -- table(fbb8f6c)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(2172935)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(668e1ca)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[4] = { -- table(bafdf3b)
+		['address'] = 0x7fcc47e86a,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(2883658)
+		['address'] = 0x7fcc47e8ba,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(49e23b1)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(21b5096)
+		['address'] = 0x7fce8ccd62,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(2333417)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(b2b601f)
+	[1] = { -- table(fbb8f6c)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(2172935)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(668e1ca)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(bafdf3b)
+		['address'] = 0x7fcc47e86a,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[5] = { -- table(2883658)
+		['address'] = 0x7fcc47e8ba,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(49e23b1)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(21b5096)
+		['address'] = 0x7fce8ccd62,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(2333417)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(b2b601f)
+	[1] = { -- table(fbb8f6c)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(2172935)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(668e1ca)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(bafdf3b)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(2883658)
+		['address'] = 0x7fcc47e8ba,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[6] = { -- table(49e23b1)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(21b5096)
+		['address'] = 0x7fce8ccd62,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(2333417)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(b2b601f)
+	[1] = { -- table(fbb8f6c)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(2172935)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(668e1ca)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(bafdf3b)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(2883658)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(49e23b1)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[7] = { -- table(21b5096)
+		['address'] = 0x7fce8ccd62,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(2333417)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(b2b601f)
+	[1] = { -- table(fbb8f6c)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(2172935)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(668e1ca)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(bafdf3b)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(2883658)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(49e23b1)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(21b5096)
+		['address'] = 0x7fce8ccd62,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+	[8] = { -- table(2333417)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(b2b601f)
+	[1] = { -- table(fbb8f6c)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(2172935)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(668e1ca)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(bafdf3b)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(2883658)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(49e23b1)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(21b5096)
+		['address'] = 0x7fce8ccd50,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[8] = { -- table(2333417)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+		['value'] = 578,
+	},
+})
+gg.addListItems({ -- table(b2b601f)
+	[1] = { -- table(fbb8f6c)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[2] = { -- table(2172935)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[3] = { -- table(668e1ca)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[4] = { -- table(bafdf3b)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[5] = { -- table(2883658)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[6] = { -- table(49e23b1)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[7] = { -- table(21b5096)
+		['address'] = 0x7fce8ccd50,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+	[8] = { -- table(2333417)
+		['address'] = 0x7fcedbfdf0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 578,
+	},
+})
+gg.clearResults()
+gg.getListItems()
+gg.loadResults({ -- table(6e5c9a5)
+	[ 1] = { -- table(de5517a)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 2] = { -- table(7d30d2b)
+		['address'] = 0x78050d77d0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 3] = { -- table(d21e588)
+		['address'] = 0x7805649d10,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 4] = { -- table(a8e5b21)
+		['address'] = 0x7fbf26c140,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 5] = { -- table(7f35107)
+		['address'] = 0x7fbf26c1bc,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 6] = { -- table(7b3d234)
+		['address'] = 0x7fbf26c1ce,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[ 7] = { -- table(9d4885d)
+		['address'] = 0x7fc256e290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 8] = { -- table(5f895d2)
+		['address'] = 0x7fc2bc0b20,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[ 9] = { -- table(ae9f6a3)
+		['address'] = 0x7fc2bc0b32,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[10] = { -- table(3d5dda0)
+		['address'] = 0x7fc3a96620,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[11] = { -- table(5564d59)
+		['address'] = 0x7fc3a96632,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[12] = { -- table(d263d1e)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[13] = { -- table(31b59ff)
+		['address'] = 0x7fc8e152a2,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[14] = { -- table(24b33cc)
+		['address'] = 0x7fcc47e178,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[15] = { -- table(f956615)
+		['address'] = 0x7fcc47e18a,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[16] = { -- table(f50d2a)
+		['address'] = 0x7fcc47e1c8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[17] = { -- table(ad5971b)
+		['address'] = 0x7fcc47e1da,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[18] = { -- table(addc0b8)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[19] = { -- table(7734e91)
+		['address'] = 0x7fcc47e86a,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[20] = { -- table(32ed1f6)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[21] = { -- table(92c89f7)
+		['address'] = 0x7fcc47e8ba,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[22] = { -- table(60a3064)
+		['address'] = 0x7fcc47eb78,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[23] = { -- table(e6d42cd)
+		['address'] = 0x7fcc47eb8a,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[24] = { -- table(66e1782)
+		['address'] = 0x7fcc47eba4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[25] = { -- table(895ce93)
+		['address'] = 0x7fcc47ebb6,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[26] = { -- table(56beed0)
+		['address'] = 0x7fcc47ebc8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[27] = { -- table(6983ec9)
+		['address'] = 0x7fcc47ebda,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[28] = { -- table(a6a29ce)
+		['address'] = 0x7fcc47ee98,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[29] = { -- table(b44c0ef)
+		['address'] = 0x7fcc47eeaa,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[30] = { -- table(6e927fc)
+		['address'] = 0x7fcc47eee8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[31] = { -- table(45cfe85)
+		['address'] = 0x7fcc47eefa,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[32] = { -- table(10314da)
+		['address'] = 0x7fcc4a58f0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[33] = { -- table(9467d0b)
+		['address'] = 0x7fcc4a5902,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[34] = { -- table(e9ec7e8)
+		['address'] = 0x7fcd562b70,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[35] = { -- table(ff3fe01)
+		['address'] = 0x7fcd562b82,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[36] = { -- table(80da4a6)
+		['address'] = 0x7fce4ca1a4,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[37] = { -- table(45ddee7)
+		['address'] = 0x7fce4ca1b6,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[38] = { -- table(38c7a94)
+		['address'] = 0x7fce8ccd50,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[39] = { -- table(2a1793d)
+		['address'] = 0x7fce8ccd62,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+	[40] = { -- table(3df6532)
+		['address'] = 0x7fcedbfdf0,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+	},
+	[41] = { -- table(d9f8283)
+		['address'] = 0x7fcedbfe02,
+		['flags'] = 2, -- gg.TYPE_WORD
+	},
+})
+gg.searchFuzzy("0", gg.SIGN_FUZZY_NOT_EQUAL, gg.TYPE_FLOAT, 0, -1, 0)
+--[[ found: 4 ]]
+gg.getResults(100)
+--[[ count: 4 ]]
+gg.addListItems({ -- table(ec4882c)
+	[1] = { -- table(93392f5)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(3a688a)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.40265578031539917,
+	},
+	[3] = { -- table(974befb)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.40265578031539917,
+	},
+	[4] = { -- table(a07fb18)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.40265578031539917,
+	},
+})
+gg.addListItems({ -- table(ec4882c)
+	[1] = { -- table(93392f5)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(3a688a)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(974befb)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.40265578031539917,
+	},
+	[4] = { -- table(a07fb18)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.40265578031539917,
+	},
+})
+gg.addListItems({ -- table(ec4882c)
+	[1] = { -- table(93392f5)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(3a688a)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(974befb)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(a07fb18)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.40265578031539917,
+	},
+})
+gg.addListItems({ -- table(ec4882c)
+	[1] = { -- table(93392f5)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(3a688a)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(974befb)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(a07fb18)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+})
+gg.getResults(100)
+--[[ count: 4 ]]
+gg.addListItems({ -- table(b361273)
+	[1] = { -- table(7971530)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(6e8d5a9)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4606093168258667,
+	},
+	[3] = { -- table(bf2a72e)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4606093168258667,
+	},
+	[4] = { -- table(d562cf)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4606093168258667,
+	},
+})
+gg.addListItems({ -- table(b361273)
+	[1] = { -- table(7971530)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(6e8d5a9)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(bf2a72e)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4606093168258667,
+	},
+	[4] = { -- table(d562cf)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4606093168258667,
+	},
+})
+gg.addListItems({ -- table(b361273)
+	[1] = { -- table(7971530)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(6e8d5a9)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(bf2a72e)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(d562cf)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['value'] = 0.4606093168258667,
+	},
+})
+gg.addListItems({ -- table(b361273)
+	[1] = { -- table(7971530)
+		['address'] = 0x78016d5f54,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[2] = { -- table(6e8d5a9)
+		['address'] = 0x7fc8e15290,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[3] = { -- table(bf2a72e)
+		['address'] = 0x7fcc47e858,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+	[4] = { -- table(d562cf)
+		['address'] = 0x7fcc47e8a8,
+		['flags'] = 16, -- gg.TYPE_FLOAT
+		['freeze'] = true,
+		['freezeType'] = 0, -- gg.FREEZE_NORMAL
+		['value'] = 5,
+	},
+})
+gg.clearResults()
+gg.setVisible(false)
+gg.choice({ -- table(991f68f)
+	[1] = '『Combat / Fight』⚔️',
+	[2] = '『OneHit / Damage』💥',
+	[3] = '『World / Others』🌠',
+	[4] = '〚Reset All (&T)〛🔃',
+	[5] = '〘FPS Unlock (120Hz)〙🔥',
+	[6] = '〘Blessing Buff (New)〙⏳',
+	[7] = '〘iSeriYT Shader Pack〙⚙️',
+	[8] = '〘Game Calculations〙📏',
+	[9] = '『••End••』',
+	['KHRFLT'] = 'Language | Language',
+}, nil, "╔══ ≪ °iSeriYT Script Genshin Impact° ≫ ══╗")
