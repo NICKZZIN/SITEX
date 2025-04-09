@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Detector de Versão</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #111;
+      color: #0f0;
+    }
+    .info {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Verificador de Navegador PS4</h1>
+  <p class="info" id="output">Analisando...</p>
+
+  <script>
+    const output = document.getElementById('output');
+    const ua = navigator.userAgent;
+
+    let message = `User Agent detectado:<br><code>${ua}</code><br><br>`;
+
+    if (ua.includes("PlayStation 4")) {
+      const match = ua.match(/PlayStation 4\/([\d.]+)/);
+      const version = match ? match[1] : "Desconhecida";
+      message += `Dispositivo: PS4<br>Versão do Navegador/Firmware: <strong>${version}</strong>`;
+    } else {
+      message += "Este não é um navegador do PS4.";
+    }
+
+    output.innerHTML = message;
+  </script>
+</body>
+</html>
