@@ -1,25 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PoC CVE-2023-38600</title>
+  <meta charset="utf-8">
+  <title>Combined PoC</title>
 </head>
 <body>
-    <h1>copyWithin PoC - CVE-2023-38600</h1>
-    <button onclick="runExploit()">Executar Exploit</button>
-    <p id="output"></p>
-
-    <script>
-        function runExploit() {
-            const script = document.createElement('script');
-            script.src = 'exploit.js';
-            script.onload = () => {
-                document.getElementById("output").innerText = "Exploit carregado.";
-            };
-            script.onerror = () => {
-                document.getElementById("output").innerText = "Erro ao carregar exploit.js";
-            };
-            document.body.appendChild(script);
-        }
-    </script>
+  <h1>PoC combinado: leak + underflow</h1>
+  <button id="run">Executar leak + exploit</button>
+  <pre id="log" style="white-space: pre-wrap;"></pre>
+  <script src="exploit.js"></script>
 </body>
 </html>
