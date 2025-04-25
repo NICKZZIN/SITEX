@@ -4,7 +4,22 @@
     <title>PoC CVE-2023-38600</title>
 </head>
 <body>
-    <h1>Testing copyWithin Vulnerability</h1>
-    <script src="exploit.js"></script>
+    <h1>copyWithin PoC - CVE-2023-38600</h1>
+    <button onclick="runExploit()">Executar Exploit</button>
+    <p id="output"></p>
+
+    <script>
+        function runExploit() {
+            const script = document.createElement('script');
+            script.src = 'exploit.js';
+            script.onload = () => {
+                document.getElementById("output").innerText = "Exploit carregado.";
+            };
+            script.onerror = () => {
+                document.getElementById("output").innerText = "Erro ao carregar exploit.js";
+            };
+            document.body.appendChild(script);
+        }
+    </script>
 </body>
 </html>
