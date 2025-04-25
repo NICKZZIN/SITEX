@@ -1,25 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>PoC WebKit JSScope Leak</title>
+    <title>PoC CVE-2023-38600</title>
 </head>
 <body>
-  <h1>Teste de poc JSScope via ProxyObject</h1>
-  <button id="run-poc">Executar POC</button>
-  <pre id="output"></pre>
-
-  <script src="testpc.js"></script>
-  <script>
-    document.getElementById('run-poc').addEventListener('click', () => {
-      try {
-        // Chama a função regress120777816() para executar o PoC
-        p120777816();  
-        document.getElementById('output').textContent = 'PoC executado sem vazamentos detectados (undefined).';
-      } catch (e) {
-        document.getElementById('output').textContent = 'Falha: ' + e;
-      }
-    });
-  </script>
+    <h1>Testing copyWithin Vulnerability</h1>
+    <script src="exploit.js"></script>
 </body>
 </html>
