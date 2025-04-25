@@ -1,13 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Combined PoC</title>
+    <meta charset="utf-8">
+    <title>Detector de Ambiente PS4</title>
 </head>
 <body>
-  <h1>PoC combinado: leak + underflow</h1>
-  <button id="run">Executar leak + exploit</button>
-  <pre id="log" style="white-space: pre-wrap;"></pre>
-  <script src="exploit.js"></script>
+    <h1>Coletando informações do WebKit / PS4</h1>
+    <pre id="info" style="white-space: pre-wrap;"></pre>
+
+    <script>
+        function log(msg) {
+            document.getElementById("info").textContent += msg + "\n";
+        }
+
+        log("=== Informações do Navegador ===");
+        log("User-Agent: " + navigator.userAgent);
+        log("Plataforma: " + navigator.platform);
+        log("Linguagem: " + navigator.language);
+
+        log("\n=== Versão do WebKit ===");
+        try {
+            log("WebKit Build: " + navigator.userAgent.match(/AppleWebKit\/([\d.]+)/)[1]);
+        } catch {
+            log("WebKit Build: não identificado.");
+        }
+
+        log("\n=== Detecção de recursos ===");
+        log("Resizable ArrayBuffer: " + (!!ArrayBuffer.prototype.resize));
+        log("SharedArrayBuffer: " + (typeof SharedArrayBuffer !== "undefined"));
+        log("Intl API: " + (typeof Intl !== "undefined"));
+        log("WebAssembly: " + (typeof WebAssembly !== "undefined"));
+
+        log("\n=== Testando implementação de JIT ===");
+        function isJITEnabled() {
+            let start = performance.now();
+            for (let i = 0; i < 1e6; i++) {} // forçar loop otimizado
+            let end = performance.now();
+            return end - start < 50; // tempo pequeno sugere JIT
+        }
+
+        log("JIT provável: " + isJITEnabled());
+    </script>
 </body>
 </html>
