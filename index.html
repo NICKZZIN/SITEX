@@ -1,47 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Teste CVE-2025-24201</title>
-  <style>
-    body {
-      background: black;
-      color: lime;
-      font-family: monospace;
-      text-align: center;
-      padding: 2rem;
-    }
-    button {
-      background: lime;
-      color: black;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <title>PoC WebKit JSScope Leak</title>
 </head>
 <body>
-  <h1>Teste CVE-2025-24201</h1>
-  <p id="status">Clique abaixo para iniciar o teste de overflow.</p>
-  <button onclick="trigger()">Rodar Teste</button>
+  <h1>Teste de poc JSScope via ProxyObject</h1>
+  <button id="run-poc">Executar POC</button>
+  <pre id="output"></pre>
 
+  <script src="testpc.js"></script>
   <script>
-    function trigger() {
-      document.getElementById("status").innerText = "Executando tentativa de gravação fora dos limites...";
+    document.getElementById('run-poc').addEventListener('click', () => {
       try {
-        let ab = new ArrayBuffer(8);
-        let view = new BigUint64Array(ab);
-        // Acesso normal
-        view[0] = 123n;
-        // Acesso fora dos limites
-        view[1000000] = 0x41414141n;
-        document.getElementById("status").innerText = "Teste executado. Se não travou, o WebKit pode estar protegido.";
+        // Chama a função regress120777816() para executar o PoC
+        p120777816();  
+        document.getElementById('output').textContent = 'PoC executado sem vazamentos detectados (undefined).';
       } catch (e) {
-        document.getElementById("status").innerText = "Erro capturado: " + e.message;
+        document.getElementById('output').textContent = 'Falha: ' + e;
       }
-    }
+    });
   </script>
 </body>
 </html>
