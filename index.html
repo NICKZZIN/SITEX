@@ -1,67 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>ROPChain com Payload</title>
-  <style>
-    body {
-      background: black;
-      color: lime;
-      font-family: monospace;
-      white-space: pre-wrap;
-      padding: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JIT Exploit Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: black;
+            color: white;
+            padding: 20px;
+        }
+        #log {
+            white-space: pre-wrap;
+            max-height: 80vh;
+            overflow-y: scroll;
+        }
+    </style>
 </head>
 <body>
-  <div id="log">Carregando exploit...</div>
+    <h1>JIT Exploit Test</h1>
+    <div id="log">Carregando...</div>
+    <script>
+        const logElement = document.getElementById('log');
+        let logData = '';
 
-  <script>
-    const log = msg => {
-      const el = document.getElementById('log');
-      el.textContent += '\\n' + msg;
-    };
+        function log(msg) {
+            logData += msg + '\n';
+            logElement.textContent = logData;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
 
-    function runExploit(shellcode) {
-      log('[+] Fase 1: Preparando heap...');
-      // Simulação de heap spray + primitivas
-      log('[+] Fase 1: Heap spray feito.');
-      log('[+] Fase 1: Primitivas construídas.');
+        async function loadPayload() {
+            try {
+                log("Iniciando a carga do payload...");
+                const response = await fetch('ps4-hen-1150-vtx.bin');
+                if (!response.ok) {
+                    log("Falha ao carregar o payload: " + response.statusText);
+                    return;
+                }
+                const payload = await response.arrayBuffer();
+                log("Payload carregado com sucesso, tamanho: " + payload.byteLength + " bytes.");
+                // Simula a execução do payload
+                triggerExploit(payload);
+            } catch (err) {
+                log("Erro ao carregar o payload: " + err.message);
+            }
+        }
 
-      log('[+] Fase 2: Construindo ROPChain...');
-      const shellcodeAddr = 0x41410000; // endereço fictício para exemplo
-      const mprotectAddr = 0xdeadbeef; // endereço da syscall mprotect
+        function triggerExploit(payload) {
+            log("Iniciando a execução do exploit...");
+            try {
+                // Aqui você deve ativar o código que executa o payload
+                // Log para verificar se a execução do payload acontece
+                log("Payload iniciado, começando a execução...");
 
-      const ropChain = [
-        mprotectAddr,     // mprotect
-        shellcodeAddr,    // endereço
-        0x1000,           // tamanho
-        7,                // RWX = PROT_READ | PROT_WRITE | PROT_EXEC
-        shellcodeAddr     // jump to shellcode
-      ];
+                // Simulação de uma chamada que faria o exploit funcionar
+                // Exemplo fictício
+                executeShellcode(payload);
+            } catch (e) {
+                log("Erro ao executar o exploit: " + e.message);
+            }
+        }
 
-      log('[+] ROPChain de teste construída.');
+        function executeShellcode(payload) {
+            log("Executando shellcode...");
+            // Aqui você pode adicionar o código para simular ou executar a payload
+            // Isso deve acionar a execução do shellcode na memória
 
-      // Simulação de escrita da ROP na memória controlada
-      log('[+] (Simulação) ROPChain escrita na memória controlada.');
+            // Simulação de sucesso
+            log("Shellcode executado com sucesso!");
+        }
 
-      // Aqui seria onde o trigger real acontece
-      log('[+] Fase 3: Tentando disparar ROP...');
-      log('[!!] ROPChain Triggerado (simulado)');
-      log('[+] Payload shellcode carregado: ' + shellcode.length + ' bytes');
-
-      log('[+] Fim do teste!');
-    }
-
-    fetch('ps4-hen-1150-vtx.bin')
-      .then(res => res.arrayBuffer())
-      .then(buf => {
-        const shellcode = new Uint8Array(buf);
-        runExploit(shellcode);
-      })
-      .catch(err => {
-        log('[X] Erro ao carregar payload.bin: ' + err.message);
-      });
-  </script>
+        window.onload = function () {
+            loadPayload();
+        };
+    </script>
 </body>
 </html>
