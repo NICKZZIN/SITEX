@@ -1,103 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebKit Ultimate Test - PS4 (Fixed)</title>
-    <style>
-        body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
-        #log { white-space: pre; border: 1px solid #0f0; padding: 15px; }
-    </style>
+  <meta charset="utf-8">
+  <title>Teste de Gadgets JIT</title>
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: monospace;
+      padding: 20px;
+    }
+    #log {
+      white-space: pre-wrap;
+      border: 1px solid #555;
+      padding: 10px;
+      background: #111;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    button {
+      margin-bottom: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #333;
+      color: white;
+      border: 1px solid #666;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <div id="log">[+] Inicializando Exploração Avançada...</div>
+  <h1>Exploração JIT PS4</h1>
+  <button onclick="startGadgets()">Iniciar Testes</button>
+  <div id="log">Pronto para iniciar...</div>
 
-<script>
-// ===================== CONFIGURAÇÕES REVISADAS =====================
-const DEBUG_MODE = true;
-const MAX_ITERATIONS = 1500;  // Aumentado para mais cobertura
-const UNDERFLOW_FORCE = 60;   // Underflow mais agressivo
-const WASM_ENABLED = false;   // Desabilitado devido a bloqueio no PS4
+  <script>
+    const logEl = document.getElementById("log");
+    const log = msg => {
+      logEl.textContent += msg + "\n";
+      logEl.scrollTop = logEl.scrollHeight;
+    };
 
-// ===================== MEMORY OPERATIONS =====================
-const MAIN_BUFFER = new ArrayBuffer(0x80000);
-const bufferView = new DataView(MAIN_BUFFER);
-
-// Preenche com marcadores de controle
-bufferView.setUint32(0, 0x12345678, true);
-bufferView.setUint32(MAIN_BUFFER.byteLength - 4, 0x9ABCDEF0, true);
-
-// ===================== SISTEMA DE LOGS =====================
-const LOG_ELEMENT = document.getElementById('log');
-let exploitLog = '';
-
-function log(msg) {
-    exploitLog += `[${performance.now().toFixed(2)}ms] ${msg}\n`;
-    LOG_ELEMENT.textContent = exploitLog;
-    window.scrollTo(0, document.body.scrollHeight);
-}
-
-// ===================== NÚCLEO DA EXPLORAÇÃO =====================
-function enhancedExploit(a, b, c) {
-    let y = (b | 0) - UNDERFLOW_FORCE;
-    y = (y | 0) % 64;
-    
-    // Operação crítica modificada
-    let rotated = (a << y) | (a >>> (32 - y));
-    let mask = rotated ^ 0xDEADBEEF;
-    return (mask << (y & 0x1F)) >> (y & 0x1F);
-}
-
-// ===================== ROTINA DE ATAQUE =====================
-function executeAdvancedAttack() {
-    log('[+] Fase 1 - Exploração Direcionada');
-    let candidate = 0;
-    
-    try {
-        for(let i = 0; i < MAX_ITERATIONS; i++) {
-            const res = enhancedExploit(
-                i ^ 0xDEADBEEF,  // Entrada mais caótica
-                i * 3,           // Incremento não linear
-                i << 8           | i % 256
-            );
-            
-            // Verificação de padrões suspeitos
-            if(res > 0x10000000 && res < 0xFFFFFFFF) {
-                log(`[!] Candidato em i=${i}: 0x${res.toString(16)}`);
-                candidate = res;
-                break;
-            }
-            
-            if(i % 100 === 0) log(`[•] Progresso ${i}/${MAX_ITERATIONS}`);
-        }
-
-        log('[+] Fase 2 - Escrita Controlada');
-        if(candidate !== 0) {
-            bufferView.setUint32(0, candidate, true);
-            log(`[+] Valor 0x${candidate.toString(16)} escrito no buffer`);
-        }
-        
-        // Verificação final
-        const leaked = bufferView.getUint32(0, true);
-        if(leaked !== 0x12345678) {
-            log(`[!] Memória corrompida: 0x${leaked.toString(16)}`);
-            try {
-                new Uint8Array(leaked); // Crash intencional
-            } catch(e) {
-                log(`[+] Crash induzido: ${e}`);
-            }
-        } else {
-            log('[ ] Memória intacta');
-        }
-        
-    } catch(e) {
-        log(`[!] Erro fatal: ${e.message}`);
+    function triggerJIT(obj, value) {
+      return obj.prop + value;
     }
-}
 
-// ===================== INICIALIZAÇÃO =====================
-setTimeout(() => {
-    log('[+] Iniciando em 3s...');
-    setTimeout(executeAdvancedAttack, 3000);
-}, 1000);
-</script>
+    function gadget1() {
+      let obj = { prop: 1.1 };
+      for (let i = 0; i < 10000; i++) {
+        triggerJIT(obj, 1.0);
+      }
+      obj.prop = { valueOf: () => 999 };
+      let res = triggerJIT(obj, 1);
+      log("[gadget1] Resultado: " + res);
+    }
+
+    function gadget2() {
+      let arr = [1.1, 2.2, 3.3];
+      arr.length = 0x100;
+      let evil = arr.concat();
+      evil[200] = 9.9;
+      log("[gadget2] Tamanho: " + evil.length + ", Valor[200]: " + evil[200]);
+    }
+
+    function gadget3() {
+      let obj = { x: 10 };
+      Object.defineProperty(obj, "y", {
+        get: function () {
+          delete this.x;
+          return 42;
+        }
+      });
+
+      for (let i = 0; i < 10000; i++) {
+        obj.x = 1;
+        let v = obj.y + obj.x;
+        if (v !== 43) {
+          log("[gadget3] Anomalia detectada: " + v);
+          break;
+        }
+      }
+    }
+
+    function startGadgets() {
+      log("Iniciando gadgets...\n");
+      gadget1();
+      gadget2();
+      gadget3();
+      log("\nFinalizado.");
+    }
+  </script>
 </body>
 </html>
