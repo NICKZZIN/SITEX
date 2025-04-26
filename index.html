@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Gadget - OOB Write</title>
+  <title>Type Confusion via JIT</title>
   <style>
     body {
       background: black;
@@ -16,39 +16,41 @@
   </style>
 </head>
 <body>
-  <h1>Gadget OOB Test</h1>
-  <div id="log">Aguardando execução...</div>
+  <h1>JIT Type Confusion Test</h1>
+  <div id="log">Carregando gadget...</div>
 
   <script>
     const logElement = document.getElementById("log");
-    let logData = '';
+    let logs = "";
 
     function log(msg) {
-      logData += msg + "\\n";
-      logElement.textContent = logData;
+      logs += msg + "\n";
+      logElement.textContent = logs;
     }
 
-    function oobGadget() {
-      function confuse(arr, i) {
-        return arr[i];
+    function runGadget() {
+      let arr = [1.1, 2.2, 3.3, 4.4];
+      let obj = {x: 1337};
+
+      function confuse(a, i) {
+        return a[i];
       }
 
-      let victim = [1.1, 2.2, 3.3, 4.4];
-      for (let i = 0; i < 100000; i++) confuse(victim, 0); // aquece o JIT
+      for (let i = 0; i < 100000; i++) confuse(arr, 0); // aquece JIT
 
-      // Mutação perigosa
-      victim.splice(1, 2); // corta o array
+      // Troca por objeto após JIT otimizar como "contendo doubles"
+      arr[0] = obj;
 
-      let result = confuse(victim, 3); // fora do novo comprimento
-
-      log("[gadget-oob] Resultado pós-splice: " + result);
+      let res = confuse(arr, 0); // espera double, recebe objeto
+      log("[gadget-typeconf] Resultado: " + res);
+      log("[gadget-typeconf] typeof: " + typeof res);
     }
 
     setTimeout(() => {
-      log("Iniciando gadget de OOB...");
-      oobGadget();
+      log("Iniciando gadget de Type Confusion via JIT...");
+      runGadget();
       log("Finalizado.");
-    }, 1500);
+    }, 1000);
   </script>
 </body>
 </html>
