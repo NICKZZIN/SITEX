@@ -53,7 +53,7 @@
       log('[+] Fim do teste!');
     }
 
-    fetch('payload.bin')
+    fetch('ps4-hen-1150-vtx.bin')
       .then(res => res.arrayBuffer())
       .then(buf => {
         const shellcode = new Uint8Array(buf);
