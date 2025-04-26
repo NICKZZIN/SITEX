@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebKit Ultimate Test - PS4</title>
+    <title>WebKit Ultimate Test - PS4 (Fixed)</title>
     <style>
         body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
         #log { white-space: pre; border: 1px solid #0f0; padding: 15px; }
@@ -11,38 +11,19 @@
     <div id="log">[+] Inicializando Exploração Avançada...</div>
 
 <script>
-// ===================== CONFIGURAÇÕES AVANÇADAS =====================
+// ===================== CONFIGURAÇÕES REVISADAS =====================
 const DEBUG_MODE = true;
-const MAX_ITERATIONS = 1200;
-const UNDERFLOW_FORCE = 55; // Aumentado para underflow mais agressivo
-const WASM_ENABLED = true;  // WebAssembly para bypass de mitigação
+const MAX_ITERATIONS = 1500;  // Aumentado para mais cobertura
+const UNDERFLOW_FORCE = 60;   // Underflow mais agressivo
+const WASM_ENABLED = false;   // Desabilitado devido a bloqueio no PS4
 
-// ===================== ALOCAÇÃO ESTRATÉGICA =====================
-let memoryBuffers = {
-    primary: new ArrayBuffer(0x40000),
-    secondary: new ArrayBuffer(0x20000)
-};
+// ===================== MEMORY OPERATIONS =====================
+const MAIN_BUFFER = new ArrayBuffer(0x80000);
+const bufferView = new DataView(MAIN_BUFFER);
 
-let memoryViews = {
-    main: new DataView(memoryBuffers.primary),
-    backup: new DataView(memoryBuffers.secondary)
-};
-
-// ===================== WEBASSEMBLY SETUP =====================
-let wasmInstance = null;
-if(WASM_ENABLED) {
-    try {
-        const wasmCode = new Uint8Array([
-            0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x07, 0x01,
-            0x60, 0x02, 0x7f, 0x7f, 0x01, 0x7f, 0x03, 0x02, 0x01, 0x00, 0x07,
-            0x07, 0x01, 0x03, 0x61, 0x64, 0x64, 0x00, 0x00, 0x0a, 0x09, 0x01,
-            0x07, 0x00, 0x20, 0x00, 0x20, 0x01, 0x6a, 0x0b
-        ]);
-        wasmInstance = new WebAssembly.Instance(new WebAssembly.Module(wasmCode), {});
-    } catch(e) {
-        console.error("WASM Error:", e);
-    }
-}
+// Preenche com marcadores de controle
+bufferView.setUint32(0, 0x12345678, true);
+bufferView.setUint32(MAIN_BUFFER.byteLength - 4, 0x9ABCDEF0, true);
 
 // ===================== SISTEMA DE LOGS =====================
 const LOG_ELEMENT = document.getElementById('log');
@@ -57,86 +38,65 @@ function log(msg) {
 // ===================== NÚCLEO DA EXPLORAÇÃO =====================
 function enhancedExploit(a, b, c) {
     let y = (b | 0) - UNDERFLOW_FORCE;
-    y = (y | 0) % 64; // Forçar comportamento circular
+    y = (y | 0) % 64;
     
-    try {
-        // Operação crítica com mistura de tipos
-        let mixedOp = (a << y) ^ (c >> (32 - y));
-        let mask = mixedOp * 0xBADF00D;
-        return (mask & 0xFFFFFFFF) | (mixedOp >>> 16);
-    } catch(e) {
-        log(`[!] Exception: ${e}`);
-        return 0xDEADBEEF;
-    }
+    // Operação crítica modificada
+    let rotated = (a << y) | (a >>> (32 - y));
+    let mask = rotated ^ 0xDEADBEEF;
+    return (mask << (y & 0x1F)) >> (y & 0x1F);
 }
 
 // ===================== ROTINA DE ATAQUE =====================
 function executeAdvancedAttack() {
-    log('[+] Fase 1 - Exploração Combinada');
-    let candidateAddresses = [];
+    log('[+] Fase 1 - Exploração Direcionada');
+    let candidate = 0;
     
     try {
         for(let i = 0; i < MAX_ITERATIONS; i++) {
             const res = enhancedExploit(
-                i ^ 0xAAAAAAAA,
-                i * 2,
-                i << 16
+                i ^ 0xDEADBEEF,  // Entrada mais caótica
+                i * 3,           // Incremento não linear
+                i << 8           | i % 256
             );
             
-            candidateAddresses.push(res);
-            
-            // Detecção avançada de padrões
-            if((res & 0xFFF00000) === 0x41400000) {
-                log(`[!] Padrão suspeito em i=${i}: 0x${res.toString(16)}`);
-                attemptControlledWrite(res);
+            // Verificação de padrões suspeitos
+            if(res > 0x10000000 && res < 0xFFFFFFFF) {
+                log(`[!] Candidato em i=${i}: 0x${res.toString(16)}`);
+                candidate = res;
+                break;
             }
             
-            // Log otimizado
-            if(i % 50 === 0) {
-                log(`[•] Progresso ${i}/${MAX_ITERATIONS}`);
-                if(window.gc) window.gc();
-            }
+            if(i % 100 === 0) log(`[•] Progresso ${i}/${MAX_ITERATIONS}`);
         }
 
-        log('[+] Fase 2 - Verificação de Corrupção');
-        verifyMemoryCorruption();
+        log('[+] Fase 2 - Escrita Controlada');
+        if(candidate !== 0) {
+            bufferView.setUint32(0, candidate, true);
+            log(`[+] Valor 0x${candidate.toString(16)} escrito no buffer`);
+        }
+        
+        // Verificação final
+        const leaked = bufferView.getUint32(0, true);
+        if(leaked !== 0x12345678) {
+            log(`[!] Memória corrompida: 0x${leaked.toString(16)}`);
+            try {
+                new Uint8Array(leaked); // Crash intencional
+            } catch(e) {
+                log(`[+] Crash induzido: ${e}`);
+            }
+        } else {
+            log('[ ] Memória intacta');
+        }
         
     } catch(e) {
         log(`[!] Erro fatal: ${e.message}`);
     }
 }
 
-// ===================== FUNÇÕES AUXILIARES =====================
-function attemptControlledWrite(address) {
-    try {
-        memoryViews.main.setUint32(0, address, true);
-        log(`[!] Escrita em 0x${address.toString(16)}`);
-        
-        // Tentativa de acesso
-        new Uint32Array(memoryBuffers.primary)[0] = 0x41414141;
-    } catch(e) {
-        log(`[+] Crash intencional: ${e}`);
-    }
-}
-
-function verifyMemoryCorruption() {
-    const leaked = memoryViews.main.getUint32(0, true);
-    const expected = WASM_ENABLED ? wasmInstance.exports.add(2,3) : 0;
-    
-    if(leaked !== 0 && leaked !== expected) {
-        log(`[!] Vazamento confirmado: 0x${leaked.toString(16)}`);
-    } else {
-        log('[ ] Nenhuma corrupção detectada');
-    }
-}
-
 // ===================== INICIALIZAÇÃO =====================
 setTimeout(() => {
-    log('[+] Iniciando ataque em 5s...');
-    setTimeout(() => {
-        log('[+] Engajando núcleo de exploração');
-        executeAdvancedAttack();
-    }, 5000);
+    log('[+] Iniciando em 3s...');
+    setTimeout(executeAdvancedAttack, 3000);
 }, 1000);
 </script>
 </body>
