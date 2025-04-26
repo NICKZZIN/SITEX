@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Teste de Gadgets JIT</title>
+  <title>Gadget Test - Type Confusion</title>
   <style>
     body {
       background: black;
@@ -12,83 +12,51 @@
     }
     #log {
       white-space: pre-wrap;
-      border: 1px solid #555;
-      padding: 10px;
-      background: #111;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-    button {
-      margin-bottom: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #333;
-      color: white;
-      border: 1px solid #666;
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h1>Exploração JIT PS4</h1>
-  <button onclick="startGadgets()">Iniciar Testes</button>
-  <div id="log">Pronto para iniciar...</div>
+  <h1>Iniciando gadgets...</h1>
+  <div id="log">Pronto...</div>
 
   <script>
-    const logEl = document.getElementById("log");
-    const log = msg => {
-      logEl.textContent += msg + "\n";
-      logEl.scrollTop = logEl.scrollHeight;
-    };
+    const logElement = document.getElementById("log");
+    let logData = '';
 
-    function triggerJIT(obj, value) {
-      return obj.prop + value;
+    function log(msg) {
+      logData += msg + "\\n";
+      logElement.textContent = logData;
     }
 
-    function gadget1() {
-      let obj = { prop: 1.1 };
-      for (let i = 0; i < 10000; i++) {
-        triggerJIT(obj, 1.0);
-      }
-      obj.prop = { valueOf: () => 999 };
-      let res = triggerJIT(obj, 1);
-      log("[gadget1] Resultado: " + res);
-    }
-
-    function gadget2() {
-      let arr = [1.1, 2.2, 3.3];
-      arr.length = 0x100;
-      let evil = arr.concat();
-      evil[200] = 9.9;
-      log("[gadget2] Tamanho: " + evil.length + ", Valor[200]: " + evil[200]);
-    }
-
-    function gadget3() {
-      let obj = { x: 10 };
-      Object.defineProperty(obj, "y", {
-        get: function () {
-          delete this.x;
-          return 42;
+    function aggressiveGadget3() {
+      let arr = [1.1, 2.2, 3.3, 4.4];
+      let evil = {
+        get: function(target, prop, receiver) {
+          if (prop === "length") {
+            arr.length = 1;
+          }
+          return Reflect.get(target, prop, receiver);
         }
-      });
+      };
 
-      for (let i = 0; i < 10000; i++) {
-        obj.x = 1;
-        let v = obj.y + obj.x;
-        if (v !== 43) {
-          log("[gadget3] Anomalia detectada: " + v);
-          break;
-        }
+      let proxy = new Proxy(arr, evil);
+
+      function confuse(o) {
+        return o[2]; // espera double, pode causar type confusion
       }
+
+      for (let i = 0; i < 100000; i++) confuse(arr); // força JIT
+
+      let res = confuse(proxy);
+      log("[gadget3] Anomalia detectada: " + res);
     }
 
-    function startGadgets() {
-      log("Iniciando gadgets...\n");
-      gadget1();
-      gadget2();
-      gadget3();
-      log("\nFinalizado.");
-    }
+    setTimeout(() => {
+      log("Pronto para iniciar...");
+      log("Iniciando gadgets...\\n");
+      aggressiveGadget3();
+      log("\\nFinalizado.");
+    }, 1500);
   </script>
 </body>
 </html>
