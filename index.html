@@ -1,109 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>ROPChain Test - PS4 WebKit Exploit</title>
+  <meta charset="UTF-8">
+  <title>ROPChain com mprotect - PS4 Test</title>
+  <style>
+    body {
+      background: black;
+      color: lime;
+      font-family: monospace;
+      padding: 20px;
+      white-space: pre;
+    }
+  </style>
 </head>
-<body style="background: black; color: white; font-family: monospace;">
-  <h1>ROPChain Test</h1>
-  <pre id="log">Carregando exploit...</pre>
-
-<script>
-// Logger
-const logElement = document.getElementById('log');
-function log(msg) {
-  logElement.textContent += "\n" + msg;
-  logElement.scrollTop = logElement.scrollHeight;
-}
-
-// Variáveis globais
-let corruptedArray = null;
-let backingPtr = null;
-let addrof = null;
-let fakeobj = null;
-let arb_read = null;
-let arb_write = null;
-
-// === Fase 1: Heap Spray + Corrupção ===
-function setupExploit() {
-  log("[+] Fase 1: Preparando heap...");
-
-  // Simples heap spray
-  let sprays = [];
-  for (let i = 0; i < 10000; i++) {
-    sprays.push([1.1, 2.2, 3.3]);
-  }
-
-  log("[+] Fase 1: Heap spray feito.");
-
-  // Agora forçamos um type confusion (já conseguimos antes)
-  corruptedArray = [1.1, 2.2, 3.3];
-  backingPtr = 0x3ff199999999999a; // Supondo leak conhecido
-
-  // Definindo primitivas baseadas no spray
-  addrof = function(obj) {
-    corruptedArray[0] = obj;
-    return backingPtr;
-  };
-
-  fakeobj = function(addr) {
-    return [addr];
-  };
-
-  arb_read = function(addr) {
-    return addr;
-  };
-
-  arb_write = function(addr, val) {
-    // Lembre-se: em exploit real, usaríamos DataView no backing buffer aqui
-    return;
-  };
-
-  log("[+] Fase 1: Primitivas construídas.");
-}
-
-// === Fase 2: Preparar ROP Chain ===
-function buildROPChain() {
-  log("\n[+] Fase 2: Construindo ROPChain...");
-
-  // Aqui normalmente usaríamos arb_write pra preparar o fake stack
-  let rop_chain = [
-    0x41414141, // Gadget fictício: pop rdi ; ret
-    0x0,        // Argumento 0
-    0x42424242, // Gadget fictício: syscall ; ret
-  ];
-
-  log("[+] ROPChain de teste construída.");
-
-  // Simular gravação da ROP chain (não real ainda)
-  log("[+] (Simulação) ROPChain escrita na memória controlada.");
-}
-
-// === Fase 3: Trigger ===
-function triggerROP() {
-  log("\n[+] Fase 3: Tentando disparar ROP...");
-
-  try {
-    // Tentamos forçar um salto para a ROPChain (simulado)
-    let fakeFunction = () => { 
-      log("[!!] ROPChain Triggerado (simulado)!");
+<body>
+  <div id="log">Carregando exploit...</div>
+  
+  <script>
+    const log = (msg) => {
+      const el = document.getElementById('log');
+      el.textContent += "\\n" + msg;
     };
-    fakeFunction();
-  } catch (e) {
-    log("[X] Falha ao executar ROPChain: " + e.message);
-  }
-}
 
-function run() {
-  setupExploit();
-  buildROPChain();
-  triggerROP();
-  log("\n[+] Fim do teste!");
-}
+    function executeROPChain() {
+      log("[+] Fase 1: Preparando heap...");
+      
+      // Simulando heap spray e primitivas
+      log("[+] Fase 1: Heap spray feito.");
+      log("[+] Fase 1: Primitivas construídas.");
 
-// Pequeno delay pra página carregar
-setTimeout(run, 1500);
-</script>
+      // ROPChain com mprotect
+      log("[+] Fase 2: Construindo ROPChain...");
+      let ropChain = [];
 
+      // Gadgets fictícios (substituir com reais se necessário)
+      let mprotect_gadget = 0x12345678;  // Endereço do gadget mprotect
+      let ret_gadget = 0xdeadbeef;       // Gadget de retorno após mprotect
+
+      // Parâmetros do mprotect
+      let addr = 0x41410000; // Endereço onde injetar código
+      let size = 0x1000;     // Tamanho da área
+      let perms = 0x7;       // RWX
+
+      ropChain.push(mprotect_gadget); // chamada mprotect
+      ropChain.push(addr);
+      ropChain.push(size);
+      ropChain.push(perms);
+      ropChain.push(ret_gadget); // retorno
+
+      log("[+] ROPChain de teste construída.");
+
+      // Payload (fictício)
+      let payload = [ 0xfeedface, 0xabad1dea ];
+
+      // Simula escrita da ROP + Payload
+      let finalMemory = ropChain.concat(payload);
+      log("[+] (Simulação) ROPChain escrita na memória controlada.");
+
+      // Disparo da execução
+      log("[+] Fase 3: Tentando disparar ROP...");
+      log("[!!] ROPChain Triggerado (simulado)!");
+      log("[+] Fim do teste!");
+    }
+
+    // Executa após pequeno delay
+    setTimeout(executeROPChain, 1000);
+  </script>
 </body>
 </html>
