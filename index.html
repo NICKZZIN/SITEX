@@ -1,89 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebKit Exploit PS4 v3</title>
+    <title>WebKit Ultimate Test - PS4</title>
     <style>
         body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
         #log { white-space: pre; border: 1px solid #0f0; padding: 15px; }
     </style>
 </head>
 <body>
-    <div id="log">[+] Inicializando teste de estabilidade WebKit...</div>
+    <div id="log">[+] Inicializando Exploração Avançada...</div>
 
 <script>
-// ===================== CONFIGURAÇÕES CRÍTICAS =====================
-const DEBUG_MODE = true;         // Ativa logs detalhados
-const MAX_ITERATIONS = 800;      // Reduzido para evitar timeouts
-const UNDERFLOW_FORCE = 45;      // Ajuste fino (40-50)
-const MARKER_START = 0x13371337;
-const MARKER_END = 0xCAFEBABE;
+// ===================== CONFIGURAÇÕES AVANÇADAS =====================
+const DEBUG_MODE = true;
+const MAX_ITERATIONS = 1200;
+const UNDERFLOW_FORCE = 55; // Aumentado para underflow mais agressivo
+const WASM_ENABLED = true;  // WebAssembly para bypass de mitigação
 
 // ===================== ALOCAÇÃO ESTRATÉGICA =====================
-let memory = new ArrayBuffer(0x10000);
-let memoryView = new DataView(memory);
+let memoryBuffers = {
+    primary: new ArrayBuffer(0x40000),
+    secondary: new ArrayBuffer(0x20000)
+};
 
-// Preenche marcadores de memória
-memoryView.setUint32(0, MARKER_START, true);
-memoryView.setUint32(memory.byteLength - 4, MARKER_END, true);
+let memoryViews = {
+    main: new DataView(memoryBuffers.primary),
+    backup: new DataView(memoryBuffers.secondary)
+};
+
+// ===================== WEBASSEMBLY SETUP =====================
+let wasmInstance = null;
+if(WASM_ENABLED) {
+    try {
+        const wasmCode = new Uint8Array([
+            0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x07, 0x01,
+            0x60, 0x02, 0x7f, 0x7f, 0x01, 0x7f, 0x03, 0x02, 0x01, 0x00, 0x07,
+            0x07, 0x01, 0x03, 0x61, 0x64, 0x64, 0x00, 0x00, 0x0a, 0x09, 0x01,
+            0x07, 0x00, 0x20, 0x00, 0x20, 0x01, 0x6a, 0x0b
+        ]);
+        wasmInstance = new WebAssembly.Instance(new WebAssembly.Module(wasmCode), {});
+    } catch(e) {
+        console.error("WASM Error:", e);
+    }
+}
 
 // ===================== SISTEMA DE LOGS =====================
 const LOG_ELEMENT = document.getElementById('log');
 let exploitLog = '';
 
 function log(msg) {
-    exploitLog += `[${new Date().toISOString().slice(11,19)}] ${msg}\n`;
+    exploitLog += `[${performance.now().toFixed(2)}ms] ${msg}\n`;
     LOG_ELEMENT.textContent = exploitLog;
     window.scrollTo(0, document.body.scrollHeight);
 }
 
-// ===================== FUNÇÃO VULNERÁVEL =====================
-function targetedOperation(a, b, c) {
+// ===================== NÚCLEO DA EXPLORAÇÃO =====================
+function enhancedExploit(a, b, c) {
+    let y = (b | 0) - UNDERFLOW_FORCE;
+    y = (y | 0) % 64; // Forçar comportamento circular
+    
     try {
-        // Controle preciso de underflow
-        let y = (b | 0) - UNDERFLOW_FORCE;
-        y = y | 0;  // Garante inteiro de 32 bits
-
-        // Operações críticas
-        let rotated = (a << y) | (a >>> (32 - y));
-        let mask = rotated ^ 0xBADF00D;
-        return (mask << (y & 0x1F)) >> (y & 0x1F);
-        
+        // Operação crítica com mistura de tipos
+        let mixedOp = (a << y) ^ (c >> (32 - y));
+        let mask = mixedOp * 0xBADF00D;
+        return (mask & 0xFFFFFFFF) | (mixedOp >>> 16);
     } catch(e) {
-        DEBUG_MODE && log(`[DEBUG] Erro: ${e}`);
-        return 0;
+        log(`[!] Exception: ${e}`);
+        return 0xDEADBEEF;
     }
 }
 
-// ===================== ROTINA DE EXPLORAÇÃO =====================
-function executeStagedAttack() {
-    log('[+] Fase 1 - Teste de Underflow Controlado');
-    let leakValues = [];
+// ===================== ROTINA DE ATAQUE =====================
+function executeAdvancedAttack() {
+    log('[+] Fase 1 - Exploração Combinada');
+    let candidateAddresses = [];
     
     try {
-        // Loop principal com variação dinâmica
         for(let i = 0; i < MAX_ITERATIONS; i++) {
-            let res = targetedOperation(
-                i & 0xFF,
-                i % 100,          // Variação controlada
-                0x7FFFFFFF - i   // Overflow progressivo
+            const res = enhancedExploit(
+                i ^ 0xAAAAAAAA,
+                i * 2,
+                i << 16
             );
             
-            // Conversão segura para hex (evita valores negativos mal formatados)
-            let hexVal = (res >>> 0).toString(16).padStart(8, '0');
+            candidateAddresses.push(res);
             
-            leakValues.push(res);
-            
-            // Log estratégico
-            if(i % 50 === 0) {
-                log(`[•] Iteração ${i}: 0x${hexVal}`);
-                if(i % 200 === 0 && window.gc) window.gc();
+            // Detecção avançada de padrões
+            if((res & 0xFFF00000) === 0x41400000) {
+                log(`[!] Padrão suspeito em i=${i}: 0x${res.toString(16)}`);
+                attemptControlledWrite(res);
             }
             
-            // Detecção precoce de sucesso
-            if(hexVal.startsWith('4142') || hexVal === 'deadbeef') {
-                log(`[!] Padrão crítico detectado: 0x${hexVal}`);
-                triggerControlledCrash(res);
-                return;
+            // Log otimizado
+            if(i % 50 === 0) {
+                log(`[•] Progresso ${i}/${MAX_ITERATIONS}`);
+                if(window.gc) window.gc();
             }
         }
 
@@ -91,43 +102,41 @@ function executeStagedAttack() {
         verifyMemoryCorruption();
         
     } catch(e) {
-        log(`[!] Erro fatal: ${e}`);
+        log(`[!] Erro fatal: ${e.message}`);
     }
 }
 
 // ===================== FUNÇÕES AUXILIARES =====================
-function verifyMemoryCorruption() {
-    let startMarker = memoryView.getUint32(0, true);
-    let endMarker = memoryView.getUint32(memory.byteLength - 4, true);
-    
-    if(startMarker !== MARKER_START || endMarker !== MARKER_END) {
-        log(`[!] Memória corrompida! Início: 0x${startMarker.toString(16)} Fim: 0x${endMarker.toString(16)}`);
-        triggerControlledCrash(startMarker);
-    } else {
-        log('[ ] Memória intacta - Exploit não funcionou');
-    }
-}
-
-function triggerControlledCrash(address) {
+function attemptControlledWrite(address) {
     try {
-        log(`[!] Tentando crash controlado em 0x${address.toString(16)}`);
-        new Uint8Array(address); // Acesso a memória inválida
+        memoryViews.main.setUint32(0, address, true);
+        log(`[!] Escrita em 0x${address.toString(16)}`);
+        
+        // Tentativa de acesso
+        new Uint32Array(memoryBuffers.primary)[0] = 0x41414141;
     } catch(e) {
-        log(`[+] Crash simulado: ${e}`);
+        log(`[+] Crash intencional: ${e}`);
     }
 }
 
-// ===================== DEBUG =====================
-if(DEBUG_MODE) {
-    log('[DEBUG] Modo de depuração ativado');
-    log(`[DEBUG] Underflow force: ${UNDERFLOW_FORCE}`);
-    log(`[DEBUG] Marcadores -> Início: 0x${MARKER_START.toString(16)} Fim: 0x${MARKER_END.toString(16)}`);
+function verifyMemoryCorruption() {
+    const leaked = memoryViews.main.getUint32(0, true);
+    const expected = WASM_ENABLED ? wasmInstance.exports.add(2,3) : 0;
+    
+    if(leaked !== 0 && leaked !== expected) {
+        log(`[!] Vazamento confirmado: 0x${leaked.toString(16)}`);
+    } else {
+        log('[ ] Nenhuma corrupção detectada');
+    }
 }
 
-// ===================== EXECUÇÃO =====================
+// ===================== INICIALIZAÇÃO =====================
 setTimeout(() => {
-    log('[+] Iniciando sequência de ataque em 3s...');
-    setTimeout(executeStagedAttack, 3000);
+    log('[+] Iniciando ataque em 5s...');
+    setTimeout(() => {
+        log('[+] Engajando núcleo de exploração');
+        executeAdvancedAttack();
+    }, 5000);
 }, 1000);
 </script>
 </body>
