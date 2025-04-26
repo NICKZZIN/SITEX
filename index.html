@@ -10,7 +10,6 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            line-height: 1.6;
         }
         button {
             padding: 10px 15px;
@@ -30,85 +29,36 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             background-color: #f9f9f9;
-            white-space: pre-wrap;
-        }
-        .warning {
-            color: #ff5722;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <h1>Teste WebKit JSC</h1>
-    <p>Este teste verifica um comportamento específico do JavaScriptCore.</p>
+    <p>Clique no botão para executar o teste do <code>exploit.js</code>:</p>
     
     <button id="runTest">Executar Teste</button>
     
-    <div id="output">Clique no botão para executar o teste...</div>
+    <div id="output">Aguardando execução...</div>
+
+    <!-- Carrega o arquivo externo exploit.js -->
+    <script src="exploit.js"></script>
     
-    <p class="warning">Aviso: Este teste pode causar um alto consumo de CPU e potencialmente travar o navegador temporariamente.</p>
-
+    <!-- Configura o botão para chamar a função do exploit.js -->
     <script>
-        function foo(a, b, c) {
-            let x = a | 0;
-            let y = b | 0;
-            let z = c & 15;
-            z = (x << y) ^ (x << (y & 0x10ff));
-            let r = z ^ 0xf01;
-            let s = z ^ 0xf1f;
-            return (((a >>> r) << s) >> s);
-        }
-
-        function runTest() {
+        document.getElementById('runTest').addEventListener('click', function() {
             const output = document.getElementById('output');
-            output.textContent = "Executando teste...";
+            output.textContent = "Executando...";
             
-            try {
-                let LEN = 100000000 - 1;
-                let res = 0;
-                
-                // Pequeno atraso para permitir que a UI atualize
-                setTimeout(() => {
-                    try {
-                        res = foo((LEN & 127), 456, 789);
-                        
-                        if (res != -1) {
-                            output.textContent = `Erro no teste rápido: Resultado = ${res}`;
-                            return;
-                        }
-                        
-                        output.textContent = "Teste rápido passou. Iniciando teste completo... Isso pode levar vários segundos...";
-                        
-                        // Segundo atraso para teste completo
-                        setTimeout(() => {
-                            try {
-                                for (let i = 0; i <= LEN; i++) {
-                                    res = foo((i & 127), 456, 789);
-                                    // Mostrar progresso a cada 1 milhão de iterações
-                                    if (i % 1000000 === 0) {
-                                        output.textContent = `Testando... Progresso: ${Math.round((i / LEN) * 100)}%`;
-                                    }
-                                }
-                                
-                                if (res != -1) {
-                                    output.textContent = `Teste falhou: Resultado = ${res}`;
-                                } else {
-                                    output.textContent = "Teste concluído com sucesso! Nenhuma anomalia detectada.";
-                                }
-                            } catch (e) {
-                                output.textContent = `Erro durante o teste completo: ${e}`;
-                            }
-                        }, 100);
-                    } catch (e) {
-                        output.textContent = `Erro durante o teste rápido: ${e}`;
-                    }
-                }, 100);
-            } catch (e) {
-                output.textContent = `Erro ao iniciar teste: ${e}`;
-            }
-        }
-
-        document.getElementById('runTest').addEventListener('click', runTest);
+            setTimeout(() => {
+                try {
+                    // Chama a função principal do exploit.js
+                    const result = runExploitTest();
+                    output.textContent = result;
+                } catch (e) {
+                    output.textContent = "Erro: " + e.message;
+                }
+            }, 100);
+        });
     </script>
 </body>
 </html>
