@@ -1,45 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <meta charset="utf-8">
-    <title>Detector de Ambiente PS4</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste WebKit JSC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+        }
+        .warning {
+            color: #ff5722;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Coletando informações do WebKit / PS4</h1>
-    <pre id="info" style="white-space: pre-wrap;"></pre>
+    <h1>Teste WebKit JSC</h1>
+    <p>Este teste verifica um comportamento específico do JavaScriptCore.</p>
+    
+    <button id="runTest">Executar Teste</button>
+    
+    <div id="output">Clique no botão para executar o teste...</div>
+    
+    <p class="warning">Aviso: Este teste pode causar um alto consumo de CPU e potencialmente travar o navegador temporariamente.</p>
 
     <script>
-        function log(msg) {
-            document.getElementById("info").textContent += msg + "\n";
+        function foo(a, b, c) {
+            let x = a | 0;
+            let y = b | 0;
+            let z = c & 15;
+            z = (x << y) ^ (x << (y & 0x10ff));
+            let r = z ^ 0xf01;
+            let s = z ^ 0xf1f;
+            return (((a >>> r) << s) >> s);
         }
 
-        log("=== Informações do Navegador ===");
-        log("User-Agent: " + navigator.userAgent);
-        log("Plataforma: " + navigator.platform);
-        log("Linguagem: " + navigator.language);
-
-        log("\n=== Versão do WebKit ===");
-        try {
-            log("WebKit Build: " + navigator.userAgent.match(/AppleWebKit\/([\d.]+)/)[1]);
-        } catch {
-            log("WebKit Build: não identificado.");
+        function runTest() {
+            const output = document.getElementById('output');
+            output.textContent = "Executando teste...";
+            
+            try {
+                let LEN = 100000000 - 1;
+                let res = 0;
+                
+                // Pequeno atraso para permitir que a UI atualize
+                setTimeout(() => {
+                    try {
+                        res = foo((LEN & 127), 456, 789);
+                        
+                        if (res != -1) {
+                            output.textContent = `Erro no teste rápido: Resultado = ${res}`;
+                            return;
+                        }
+                        
+                        output.textContent = "Teste rápido passou. Iniciando teste completo... Isso pode levar vários segundos...";
+                        
+                        // Segundo atraso para teste completo
+                        setTimeout(() => {
+                            try {
+                                for (let i = 0; i <= LEN; i++) {
+                                    res = foo((i & 127), 456, 789);
+                                    // Mostrar progresso a cada 1 milhão de iterações
+                                    if (i % 1000000 === 0) {
+                                        output.textContent = `Testando... Progresso: ${Math.round((i / LEN) * 100)}%`;
+                                    }
+                                }
+                                
+                                if (res != -1) {
+                                    output.textContent = `Teste falhou: Resultado = ${res}`;
+                                } else {
+                                    output.textContent = "Teste concluído com sucesso! Nenhuma anomalia detectada.";
+                                }
+                            } catch (e) {
+                                output.textContent = `Erro durante o teste completo: ${e}`;
+                            }
+                        }, 100);
+                    } catch (e) {
+                        output.textContent = `Erro durante o teste rápido: ${e}`;
+                    }
+                }, 100);
+            } catch (e) {
+                output.textContent = `Erro ao iniciar teste: ${e}`;
+            }
         }
 
-        log("\n=== Detecção de recursos ===");
-        log("Resizable ArrayBuffer: " + (!!ArrayBuffer.prototype.resize));
-        log("SharedArrayBuffer: " + (typeof SharedArrayBuffer !== "undefined"));
-        log("Intl API: " + (typeof Intl !== "undefined"));
-        log("WebAssembly: " + (typeof WebAssembly !== "undefined"));
-
-        log("\n=== Testando implementação de JIT ===");
-        function isJITEnabled() {
-            let start = performance.now();
-            for (let i = 0; i < 1e6; i++) {} // forçar loop otimizado
-            let end = performance.now();
-            return end - start < 50; // tempo pequeno sugere JIT
-        }
-
-        log("JIT provável: " + isJITEnabled());
+        document.getElementById('runTest').addEventListener('click', runTest);
     </script>
 </body>
 </html>
