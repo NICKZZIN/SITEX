@@ -1,70 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>ROPChain com mprotect - PS4 Test</title>
+  <meta charset="utf-8">
+  <title>ROPChain com Payload</title>
   <style>
     body {
       background: black;
       color: lime;
       font-family: monospace;
+      white-space: pre-wrap;
       padding: 20px;
-      white-space: pre;
     }
   </style>
 </head>
 <body>
   <div id="log">Carregando exploit...</div>
-  
+
   <script>
-    const log = (msg) => {
+    const log = msg => {
       const el = document.getElementById('log');
-      el.textContent += "\\n" + msg;
+      el.textContent += '\\n' + msg;
     };
 
-    function executeROPChain() {
-      log("[+] Fase 1: Preparando heap...");
-      
-      // Simulando heap spray e primitivas
-      log("[+] Fase 1: Heap spray feito.");
-      log("[+] Fase 1: Primitivas construídas.");
+    function runExploit(shellcode) {
+      log('[+] Fase 1: Preparando heap...');
+      // Simulação de heap spray + primitivas
+      log('[+] Fase 1: Heap spray feito.');
+      log('[+] Fase 1: Primitivas construídas.');
 
-      // ROPChain com mprotect
-      log("[+] Fase 2: Construindo ROPChain...");
-      let ropChain = [];
+      log('[+] Fase 2: Construindo ROPChain...');
+      const shellcodeAddr = 0x41410000; // endereço fictício para exemplo
+      const mprotectAddr = 0xdeadbeef; // endereço da syscall mprotect
 
-      // Gadgets fictícios (substituir com reais se necessário)
-      let mprotect_gadget = 0x12345678;  // Endereço do gadget mprotect
-      let ret_gadget = 0xdeadbeef;       // Gadget de retorno após mprotect
+      const ropChain = [
+        mprotectAddr,     // mprotect
+        shellcodeAddr,    // endereço
+        0x1000,           // tamanho
+        7,                // RWX = PROT_READ | PROT_WRITE | PROT_EXEC
+        shellcodeAddr     // jump to shellcode
+      ];
 
-      // Parâmetros do mprotect
-      let addr = 0x41410000; // Endereço onde injetar código
-      let size = 0x1000;     // Tamanho da área
-      let perms = 0x7;       // RWX
+      log('[+] ROPChain de teste construída.');
 
-      ropChain.push(mprotect_gadget); // chamada mprotect
-      ropChain.push(addr);
-      ropChain.push(size);
-      ropChain.push(perms);
-      ropChain.push(ret_gadget); // retorno
+      // Simulação de escrita da ROP na memória controlada
+      log('[+] (Simulação) ROPChain escrita na memória controlada.');
 
-      log("[+] ROPChain de teste construída.");
+      // Aqui seria onde o trigger real acontece
+      log('[+] Fase 3: Tentando disparar ROP...');
+      log('[!!] ROPChain Triggerado (simulado)');
+      log('[+] Payload shellcode carregado: ' + shellcode.length + ' bytes');
 
-      // Payload (fictício)
-      let payload = [ 0xfeedface, 0xabad1dea ];
-
-      // Simula escrita da ROP + Payload
-      let finalMemory = ropChain.concat(payload);
-      log("[+] (Simulação) ROPChain escrita na memória controlada.");
-
-      // Disparo da execução
-      log("[+] Fase 3: Tentando disparar ROP...");
-      log("[!!] ROPChain Triggerado (simulado)!");
-      log("[+] Fim do teste!");
+      log('[+] Fim do teste!');
     }
 
-    // Executa após pequeno delay
-    setTimeout(executeROPChain, 1000);
+    fetch('payload.bin')
+      .then(res => res.arrayBuffer())
+      .then(buf => {
+        const shellcode = new Uint8Array(buf);
+        runExploit(shellcode);
+      })
+      .catch(err => {
+        log('[X] Erro ao carregar payload.bin: ' + err.message);
+      });
   </script>
 </body>
 </html>
