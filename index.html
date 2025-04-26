@@ -1,126 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebKit Exploit Test</title>
+    <title>WebKit Exploit PS4 v3</title>
     <style>
         body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
         #log { white-space: pre; border: 1px solid #0f0; padding: 15px; }
     </style>
 </head>
 <body>
-    <div id="log">[+] Inicializando teste de exploração WebKit JSC...</div>
+    <div id="log">[+] Inicializando teste de estabilidade WebKit...</div>
 
 <script>
-// Configurações críticas
-const PAYLOAD_SIZE = 0x40000; // 256KB
-const NOP = 0x90909090; 
-const MARKER_START = 0xBADF00D;
-const MARKER_END = 0xDEADBEEF;
+// ===================== CONFIGURAÇÕES CRÍTICAS =====================
+const DEBUG_MODE = true;         // Ativa logs detalhados
+const MAX_ITERATIONS = 800;      // Reduzido para evitar timeouts
+const UNDERFLOW_FORCE = 45;      // Ajuste fino (40-50)
+const MARKER_START = 0x13371337;
+const MARKER_END = 0xCAFEBABE;
 
-// Alocação estratégica de memória
-let shellcodeBuffer = new ArrayBuffer(PAYLOAD_SIZE);
-let memoryView = new Uint32Array(shellcodeBuffer);
+// ===================== ALOCAÇÃO ESTRATÉGICA =====================
+let memory = new ArrayBuffer(0x10000);
+let memoryView = new DataView(memory);
 
-// Preenche payload com marcadores
-for(let i = 0; i < PAYLOAD_SIZE/4; i++) {
-    memoryView[i] = i === 0 ? MARKER_START : 
-                   i === (PAYLOAD_SIZE/4)-1 ? MARKER_END : 
-                   NOP;
-}
+// Preenche marcadores de memória
+memoryView.setUint32(0, MARKER_START, true);
+memoryView.setUint32(memory.byteLength - 4, MARKER_END, true);
 
-// Sistema de logs
+// ===================== SISTEMA DE LOGS =====================
 const LOG_ELEMENT = document.getElementById('log');
 let exploitLog = '';
 
 function log(msg) {
-    exploitLog += msg + '\n';
+    exploitLog += `[${new Date().toISOString().slice(11,19)}] ${msg}\n`;
     LOG_ELEMENT.textContent = exploitLog;
     window.scrollTo(0, document.body.scrollHeight);
 }
 
-// Função vulnerável modificada
-function triggerVulnerability(a, b, c) {
+// ===================== FUNÇÃO VULNERÁVEL =====================
+function targetedOperation(a, b, c) {
     try {
-        let x = a | 0x80000000;
-        let y = (b | 0) - 75;  // Underflow extremo
-        let z = (c & 0x7F) + 128;
+        // Controle preciso de underflow
+        let y = (b | 0) - UNDERFLOW_FORCE;
+        y = y | 0;  // Garante inteiro de 32 bits
+
+        // Operações críticas
+        let rotated = (a << y) | (a >>> (32 - y));
+        let mask = rotated ^ 0xBADF00D;
+        return (mask << (y & 0x1F)) >> (y & 0x1F);
         
-        // Operação crítica
-        z = (x << y) | (x >>> (32 - y));
-        let r = z ^ 0xCAFEBABE;
-        let s = z ^ 0xDEADC0DE;
-        
-        return ((x >>> r) << s) >> s;
     } catch(e) {
-        log(`[!] Erro na função: ${e}`);
+        DEBUG_MODE && log(`[DEBUG] Erro: ${e}`);
         return 0;
     }
 }
 
-// Rotina de exploração
-function runExploitSequence() {
-    log('[+] Fase 1 - Corrupção de memória');
-    let testArray = [];
+// ===================== ROTINA DE EXPLORAÇÃO =====================
+function executeStagedAttack() {
+    log('[+] Fase 1 - Teste de Underflow Controlado');
+    let leakValues = [];
     
     try {
-        // Loop principal agressivo
-        for(let i = 0; i < 1500; i++) {
-            let res = triggerVulnerability(
+        // Loop principal com variação dinâmica
+        for(let i = 0; i < MAX_ITERATIONS; i++) {
+            let res = targetedOperation(
                 i & 0xFF,
-                -100 + (i % 150), // Variação extrema
-                0x7FFFFFFF - (i % 256)
+                i % 100,          // Variação controlada
+                0x7FFFFFFF - i   // Overflow progressivo
             );
             
-            testArray.push(res);
+            // Conversão segura para hex (evita valores negativos mal formatados)
+            let hexVal = (res >>> 0).toString(16).padStart(8, '0');
+            
+            leakValues.push(res);
             
             // Log estratégico
             if(i % 50 === 0) {
-                log(`[•] Iteração ${i}: 0x${res.toString(16).padStart(8, '0')}`);
-                if(window.gc) window.gc(); // Força coleta de lixo
+                log(`[•] Iteração ${i}: 0x${hexVal}`);
+                if(i % 200 === 0 && window.gc) window.gc();
             }
             
-            // Detecção precoce de anomalia
-            if(res > 0x10000 && res !== NOP) {
-                log(`[!] Valor suspeito em i=${i}: 0x${res.toString(16)}`);
+            // Detecção precoce de sucesso
+            if(hexVal.startsWith('4142') || hexVal === 'deadbeef') {
+                log(`[!] Padrão crítico detectado: 0x${hexVal}`);
+                triggerControlledCrash(res);
+                return;
             }
         }
 
-        log('[+] Fase 2 - Verificação de corrupção');
-        let corrupted = false;
-        
-        // Verifica marcadores de memória
-        if(memoryView[0] !== MARKER_START) {
-            log(`[!] Marcador inicial corrompido: 0x${memoryView[0].toString(16)}`);
-            corrupted = true;
-        }
-        
-        if(memoryView[(PAYLOAD_SIZE/4)-1] !== MARKER_END) {
-            log(`[!] Marcador final corrompido: 0x${memoryView[(PAYLOAD_SIZE/4)-1].toString(16)}`);
-            corrupted = true;
-        }
-        
-        // Tenta disparar payload
-        if(corrupted) {
-            log('[+] Tentando redirecionar execução...');
-            try {
-                new Uint8Array(shellcodeBuffer).fill(0xCC, 0, 3); // int3 breakpoint
-                let func = new Function('return ' + String.fromCharCode(...new Uint8Array(shellcodeBuffer)));
-                func();
-            } catch(e) {
-                log(`[!] Erro na execução: ${e}`);
-            }
-        }
+        log('[+] Fase 2 - Verificação de Corrupção');
+        verifyMemoryCorruption();
         
     } catch(e) {
-        log(`[!] Erro fatal: ${e.stack || e}`);
+        log(`[!] Erro fatal: ${e}`);
     }
 }
 
-// Inicia após 3 segundos
+// ===================== FUNÇÕES AUXILIARES =====================
+function verifyMemoryCorruption() {
+    let startMarker = memoryView.getUint32(0, true);
+    let endMarker = memoryView.getUint32(memory.byteLength - 4, true);
+    
+    if(startMarker !== MARKER_START || endMarker !== MARKER_END) {
+        log(`[!] Memória corrompida! Início: 0x${startMarker.toString(16)} Fim: 0x${endMarker.toString(16)}`);
+        triggerControlledCrash(startMarker);
+    } else {
+        log('[ ] Memória intacta - Exploit não funcionou');
+    }
+}
+
+function triggerControlledCrash(address) {
+    try {
+        log(`[!] Tentando crash controlado em 0x${address.toString(16)}`);
+        new Uint8Array(address); // Acesso a memória inválida
+    } catch(e) {
+        log(`[+] Crash simulado: ${e}`);
+    }
+}
+
+// ===================== DEBUG =====================
+if(DEBUG_MODE) {
+    log('[DEBUG] Modo de depuração ativado');
+    log(`[DEBUG] Underflow force: ${UNDERFLOW_FORCE}`);
+    log(`[DEBUG] Marcadores -> Início: 0x${MARKER_START.toString(16)} Fim: 0x${MARKER_END.toString(16)}`);
+}
+
+// ===================== EXECUÇÃO =====================
 setTimeout(() => {
-    log('[+] Iniciando sequência em 3...2...1');
-    requestAnimationFrame(runExploitSequence);
-}, 3000);
+    log('[+] Iniciando sequência de ataque em 3s...');
+    setTimeout(executeStagedAttack, 3000);
+}, 1000);
 </script>
 </body>
 </html>
