@@ -13,6 +13,7 @@
 
     <script>
         let isExploitSuccessful = false;  // Variável para verificar se o exploit teve sucesso
+        let controlFlag = false;  // Variável crítica (controle de fluxo)
 
         // Função para criar um ArrayBuffer e fazer manipulação de dados
         function manipulateArrayBuffer() {
@@ -65,7 +66,7 @@
             }
         }
 
-        // Função para testar overflow de arrays
+        // Função para testar overflow de arrays e sobrescrever variáveis críticas
         function arrayOverflowTest() {
             console.log("Testando overflow de array...");
             let arr = new Uint8Array(10);
@@ -76,6 +77,14 @@
                 console.log("Valor fora dos limites do array:", arr[20]);  // Acesso fora dos limites
                 isExploitSuccessful = true;  // Definir como bem-sucedido se não gerar erro
                 updateStatus("Overflow de array bem-sucedido.");
+
+                // Sobrescrevendo a variável de controle crítica com o exploit
+                arr[15] = 0x01;  // Alterando a variável crítica (simulando a manipulação de memória)
+                if (arr[15] === 0x01) {
+                    controlFlag = true;  // Alteração de controle de fluxo
+                    console.log("ControlFlag foi alterado com sucesso para:", controlFlag);
+                    updateStatus("Flag de controle alterada com sucesso.");
+                }
             } catch (e) {
                 console.error("Erro ao acessar fora dos limites do array:", e);
                 updateStatus("Falha no overflow de array.");
