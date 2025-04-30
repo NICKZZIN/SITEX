@@ -29,9 +29,12 @@
             document.getElementById("log").innerHTML += msg + "<br>";
         }
 
-        function loadPayload(url) {
-            fetch(url)
-                .then(response => response.arrayBuffer())
+        function loadPayload(path) {
+            fetch(path)
+                .then(response => {
+                    if (!response.ok) throw new Error("Falha no carregamento");
+                    return response.arrayBuffer();
+                })
                 .then(data => {
                     payloadData = data;
                     log("Payload aio.bin carregado com sucesso.");
@@ -69,8 +72,8 @@
             }, 1000);
         }
 
-        const payloadUrl = "https://github.com/NICKZZIN/SITEX/raw/main/aio.bin";
-        loadPayload(payloadUrl);
+        // Aqui, usando caminho relativo porque aio.bin está na mesma pasta
+        loadPayload("aio.bin");
     </script>
 </body>
 </html>
