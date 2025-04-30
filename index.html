@@ -2,40 +2,54 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>RW Arbitrário com UAF</title>
+    <title>Injeção de Payload com UAF</title>
     <style>
         body {
             background-color: black;
             color: limegreen;
             font-family: monospace;
-            font-size: 38px; /* Aumentando o tamanho da fonte */
+            font-size: 18px;
         }
         #log {
             padding: 10px;
-            font-size: 40px; /* Aumentando o tamanho da fonte para o log */
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>RW Arbitrário com UAF</h1>
+    <h1>Injeção de Payload com UAF</h1>
     <div id="log"></div>
 
     <script>
         let controlFlag = false;
         let element;
         let globalVar = { value: "Valor inicial" };
+        let payloadData = null; // Aqui armazenamos o conteúdo do payload
 
+        // Função para mostrar logs na tela
         function log(msg) {
             document.getElementById("log").innerHTML += msg + "<br>";
         }
 
+        // Função para carregar o payload binário
+        function loadPayload(file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                payloadData = event.target.result;
+                log("Payload carregado com sucesso.");
+                triggerUseAfterFree();
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // Função que simula o use-after-free e a injeção de código
         function triggerUseAfterFree() {
             // Criação do div no DOM
             let div = document.createElement("div");
             div.innerText = "Objeto criado";
             div.id = "uaf-example";
             document.body.appendChild(div);
-            
+
             // Manter referência ao objeto
             element = div;
             log("Objeto foi criado e adicionado ao DOM");
@@ -44,37 +58,44 @@
             document.body.removeChild(div);
             log("Objeto removido do DOM");
 
-            // Modificar a variável global, buscando uma escrita direta na memória
+            // Modificar a variável global, escrevendo diretamente na memória
             setTimeout(() => {
                 try {
                     // Substituindo a variável global
                     globalVar.value = "Novo valor na memória!";
                     log("Valor da variável global modificado: " + globalVar.value);
-                    
-                    // Agora tentaremos manipular o "window" diretamente para injetar código
-                    window.alert = function() {
-                        log("Função alert injetada com sucesso após UAF!");
-                    };
-                    alert("Teste de RW com UAF");
+
+                    // Agora tentaremos injetar o payload binário (simulação de código)
+                    if (payloadData) {
+                        // Aqui você poderia executar o conteúdo do seu payload binário,
+                        // por exemplo, interpretando e executando o conteúdo se for JS
+                        log("Injetando e executando o payload binário...");
+                        
+                        // Caso seja JavaScript, por exemplo:
+                        eval(new TextDecoder().decode(payloadData));  // Decodifica e executa como código JS
+                    }
+
                     controlFlag = true;
                 } catch (e) {
-                    log("Erro ao injetar código: " + e.message);
+                    log("Erro ao injetar o payload: " + e.message);
                 }
             }, 1000);
         }
 
-        // Executa a função de use-after-free
-        triggerUseAfterFree();
-
-        // Resultado do teste
-        setTimeout(() => {
-            if (controlFlag) {
-                document.title = "RW Arbitrário com Sucesso!";
-                log("RW Arbitrário com Sucesso! Função modificada com sucesso.");
-            } else {
-                log("Falha: Não foi possível manipular a memória.");
+        // Função para manipular o arquivo carregado (simulação de "upload" de arquivo)
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                log("Carregando o arquivo...");
+                loadPayload(file);
             }
-        }, 2000);
+        }
+
+        // Criando um input para selecionar o arquivo de payload
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.addEventListener('change', handleFileSelect);
+        document.body.appendChild(fileInput);
 
     </script>
 </body>
