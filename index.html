@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>WebKit Stress Test - Increased Chaos and Overload</title>
+  <title>WebKit Stress Test - Max Overload and Instability</title>
   <style>
     svg {
       border: 2px solid lime;
@@ -11,10 +11,10 @@
   </style>
 </head>
 <body>
-  <h1>WebKit Stress Test - Increased Chaos with SVG</h1>
+  <h1>WebKit Stress Test - Max Overload and Instability</h1>
   <p>Se o WebKit corromper a renderização ou travar, isso pode indicar falha de segurança.</p>
 
-  <svg id="svgContainer" width="5000" height="5000">
+  <svg id="svgContainer" width="10000" height="10000" viewBox="-10000 -10000 20000 20000">
     <defs>
       <rect id="template" x="0" y="0" width="50" height="50" fill="red" />
     </defs>
@@ -28,14 +28,12 @@
       // Criar novo <use> com transformações ainda mais desordenadas e aleatórias
       const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
       use.setAttribute("href", "#template");
-      use.setAttribute("x", 10 + (count * 100));
-      use.setAttribute("y", 10 + (count * 100));
 
-      // Gera transformações ainda mais caóticas, misturando rotação, translação e escala extrema
-      const randomX = Math.random() * 5000;
-      const randomY = Math.random() * 5000;
-      const rotate = Math.random() * 720; // Rotação aumentada para mais caos
-      const scale = Math.random() * 50;  // Escala aumentada para aumentar a distorção
+      // Gera transformações extremamente aleatórias para gerar mais caos
+      const randomX = Math.random() * 20000 - 10000; // Movendo mais elementos fora da tela
+      const randomY = Math.random() * 20000 - 10000; // Movendo mais elementos fora da tela
+      const rotate = Math.random() * 1080; // Rotação aumentada ainda mais
+      const scale = Math.random() * 100;  // Escala aumentada ainda mais para distorcer
       const translate = `translate(${randomX}, ${randomY}) rotate(${rotate}deg) scale(${scale})`;
 
       use.setAttribute("transform", translate);
@@ -45,14 +43,10 @@
       // Log para monitoramento
       console.log(`Adicionando #use${count} com transform: ${translate}`);
 
-      // Força renderização e lê as caixas delimitadoras
-      const bbox = use.getBBox();
-      console.log(`Bbox do #use${count}:`, bbox.x, bbox.y);
-
       count++;
 
-      // Continue até 2000 elementos para forçar mais caos
-      if (count < 2000) requestAnimationFrame(stressOverflow);
+      // Continue até 5000 elementos para forçar mais caos
+      if (count < 5000) requestAnimationFrame(stressOverflow);
     }
 
     stressOverflow();
