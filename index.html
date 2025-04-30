@@ -1,59 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PoC CVE-2023-42917 - WebKit Safari</title>
+    <title>Exploit Overflow - Teste com Array Normal</title>
 </head>
 <body>
-    <h1>PoC CVE-2023-42917 - WebKit Safari 17.0</h1>
-    <p>Teste de injeção de código via overflow de array.</p>
-    <div id="status"></div> <!-- Div para exibir status do exploit -->
+    <h1>Teste com Array JS Normal</h1>
+    <p id="resultado">Executando teste...</p>
 
     <script>
-        let isExploitSuccessful = false;
         let controlFlag = false;
+        let victim = { marker: "seguro" };
 
-        // Função para testar overflow de arrays e tentar injeção de código
-        function arrayOverflowAndCodeInjectionTest() {
-            let arr = new Uint8Array(10);  // Criando array de 10 elementos
-            arr[0] = 0x41;  // A
-            arr[1] = 0x42;  // B
-            try {
-                console.log("Valor antes do overflow:", arr[0], arr[1]);
-                
-                // Overflow: acessando um índice fora do limite do array
-                arr[15] = 0x01;  // Modificando índice fora do limite
+        function triggerOverflow() {
+            let arr = [1, 2, 3];
+            arr.length = 1000000;  // Expande o array
+            for (let i = 0; i < 10; i++) arr.push(i);
 
-                // Tentar injetar uma função simples na memória
-                if (arr[15] === 0x01) {
-                    // Injeção de código: redirecionando a execução para uma função que altere o título da página
-                    document.title = "Exploit Sucesso!";
-                    isExploitSuccessful = true;
-                    console.log("Código injetado com sucesso! Novo título: " + document.title);
-                    updateStatus("Código injetado e execução bem-sucedida.");
-                }
-            } catch (e) {
-                console.error("Erro ao acessar fora dos limites do array:", e);
-                updateStatus("Falha no overflow de array.");
+            // Tentativa de sobrescrever objeto vizinho
+            arr[100] = 1234;
+            arr[101] = 5678;
+
+            // Tentar modificar o objeto externo indiretamente (simulação)
+            if (victim.marker !== "seguro") {
+                controlFlag = true;
             }
         }
 
-        // Função para atualizar o status na página
-        function updateStatus(message) {
-            document.getElementById("status").innerHTML = message;
-        }
+        triggerOverflow();
 
-        // Chamar a função de teste
-        arrayOverflowAndCodeInjectionTest();
-
-        // Verificar sucesso após execução
-        if (isExploitSuccessful) {
-            console.log("Exploração bem-sucedida!");
-            document.getElementById("status").innerHTML += "<br/><b>Exploração bem-sucedida!</b><br/>Código arbitrário executado.";
+        if (controlFlag) {
+            document.title = "Exploração bem-sucedida!";
+            document.getElementById("resultado").innerText = "Exploração bem-sucedida! Código executado.";
         } else {
-            console.log("Exploração falhou.");
-            updateStatus("Exploração falhou.");
+            document.getElementById("resultado").innerText = "Exploração falhou.";
         }
     </script>
 </body>
