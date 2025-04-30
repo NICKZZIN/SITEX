@@ -1,49 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Teste de addrof e ptrRead64</title>
-    <style>
-        body {
-            background-color: black;
-            color: limegreen;
-            font-family: monospace;
-            font-size: 20px;
-        }
-        #log {
-            padding: 10px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <title>WebKit parseSimpleTransformValue PoC</title>
+  <style>
+    body {
+      background: #111;
+      color: #0f0;
+      font-family: monospace;
+      padding: 20px;
+    }
+
+    .test {
+      width: 100px;
+      height: 100px;
+      background: red;
+      /* Essa string é intencionalmente malformada */
+      transform: tran\u0031ate(1px);
+      /*            ^--- aqui temos '1' em vez de 'l' */
+    }
+  </style>
 </head>
 <body>
-    <h1>Teste de addrof e ptrRead64</h1>
-    <div id="log"></div>
+  <h1>PoC: parseSimpleTransformValue</h1>
+  <p>Se a caixa vermelha aparecer transformada, o WebKit aceitou uma string inválida como válida.</p>
 
-    <script>
-        function log(msg) {
-            document.getElementById("log").innerHTML += msg + "<br>";
-        }
+  <div class="test"></div>
 
-        function testAddrof() {
-            const obj = document.createElement('div');
-            document.body.appendChild(obj);
+  <script>
+    // Alternativamente, insere dinamicamente a transformação com controle total sobre a string
+    const box = document.querySelector('.test');
 
-            // Testa se conseguimos obter o endereço do objeto
-            const objAddr = addrof(obj);
-            log('[TESTE] Endereço do objeto: 0x' + objAddr.toString(16));
-        }
+    // Essa string quebra a lógica do "translate" por conter 9 chars, mas é inválida
+    const malformedTransform = "tran\u0031ate(123px)"; // '1' ao invés de 'l'
 
-        function testPtrRead64() {
-            const obj = document.createElement('div');
-            document.body.appendChild(obj);
+    // Aplica dinamicamente
+    box.style.transform = malformedTransform;
 
-            const objAddr = addrof(obj);
-            const vtablePtr = ptrRead64(objAddr);
-            log('[TESTE] Ponteiro vtable: 0x' + vtablePtr.toString(16));
-        }
-
-        testAddrof();
-        testPtrRead64();
-    </script>
+    console.log("Transform aplicado:", malformedTransform);
+  </script>
 </body>
 </html>
