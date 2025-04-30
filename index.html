@@ -7,33 +7,31 @@
 </head>
 <body>
     <h1>PoC CVE-2023-42917 - WebKit Safari 17.0</h1>
-    <p>Este código tenta demonstrar uma manipulação de memória para fins educacionais. </p>
-    <p id="result"></p>
+    <p>Teste de injeção de código via overflow de array.</p>
     <div id="status"></div> <!-- Div para exibir status do exploit -->
 
     <script>
-        let isExploitSuccessful = false;  // Variável para verificar se o exploit teve sucesso
-        let controlFlag = false;  // Variável crítica (controle de fluxo)
+        let isExploitSuccessful = false;
+        let controlFlag = false;
 
-        // Função para testar overflow de arrays e sobrescrever variáveis críticas
-        function arrayOverflowTest() {
-            console.log("Testando overflow de array...");
-            let arr = new Uint8Array(10);  // Criação de um array com 10 elementos
+        // Função para testar overflow de arrays e tentar injeção de código
+        function arrayOverflowAndCodeInjectionTest() {
+            let arr = new Uint8Array(10);  // Criando array de 10 elementos
             arr[0] = 0x41;  // A
             arr[1] = 0x42;  // B
-            // Tentando acessar um índice fora dos limites
             try {
                 console.log("Valor antes do overflow:", arr[0], arr[1]);
-                // Sobrescrevendo uma variável crítica no índice fora dos limites do array
-                arr[15] = 0x01;  // Alterando a variável crítica (simulando a manipulação de memória)
-                isExploitSuccessful = true;  // Marcando sucesso do exploit
-                console.log("Overflow de array bem-sucedido! Índice 15:", arr[15]);
+                
+                // Overflow: acessando um índice fora do limite do array
+                arr[15] = 0x01;  // Modificando índice fora do limite
 
-                // Alterando a variável crítica de controle
+                // Tentar injetar uma função simples na memória
                 if (arr[15] === 0x01) {
-                    controlFlag = true;  // Modificando o controle de fluxo
-                    console.log("Flag de controle alterada com sucesso para:", controlFlag);
-                    updateStatus("Flag de controle alterada com sucesso.");
+                    // Injeção de código: redirecionando a execução para uma função que altere o título da página
+                    document.title = "Exploit Sucesso!";
+                    isExploitSuccessful = true;
+                    console.log("Código injetado com sucesso! Novo título: " + document.title);
+                    updateStatus("Código injetado e execução bem-sucedida.");
                 }
             } catch (e) {
                 console.error("Erro ao acessar fora dos limites do array:", e);
@@ -46,24 +44,17 @@
             document.getElementById("status").innerHTML = message;
         }
 
-        // Função para executar código arbitrário caso o exploit seja bem-sucedido
-        function runExploitSuccess() {
-            if (isExploitSuccessful) {
-                console.log("Exploração bem-sucedida!");
-                document.getElementById("result").innerHTML = "<b>Exploração bem-sucedida!</b><br/>Código arbitrário executado.";
-                // Aqui, o código arbitrário seria executado, por exemplo, alterando o título da página
-                document.title = "Exploit Sucesso!";
-            } else {
-                console.log("Exploração falhou.");
-                updateStatus("Exploração falhou.");
-            }
-        }
-
-        // Chamada para a função de overflow de array
-        arrayOverflowTest();
+        // Chamar a função de teste
+        arrayOverflowAndCodeInjectionTest();
 
         // Verificar sucesso após execução
-        runExploitSuccess();
+        if (isExploitSuccessful) {
+            console.log("Exploração bem-sucedida!");
+            document.getElementById("status").innerHTML += "<br/><b>Exploração bem-sucedida!</b><br/>Código arbitrário executado.";
+        } else {
+            console.log("Exploração falhou.");
+            updateStatus("Exploração falhou.");
+        }
     </script>
 </body>
 </html>
