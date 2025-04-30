@@ -14,7 +14,7 @@
   <h1>WebKit Stress Test - Extreme Corruption and Failures</h1>
   <p>Se o WebKit corromper a renderização ou travar, isso pode indicar falha de segurança.</p>
 
-  <svg id="svgContainer" width="10000" height="10000" viewBox="-10000 -10000 20000 20000">
+  <svg id="svgContainer" width="1000" height="1000" viewBox="-40000 -40000 50000 50000">
     <defs>
       <rect id="template" x="0" y="0" width="50" height="50" fill="red" />
     </defs>
@@ -30,10 +30,10 @@
       use.setAttribute("href", "#template");
 
       // Gera transformações extremamente aleatórias para gerar mais caos
-      const randomX = Math.random() * 25087 - 15087; // Movendo mais elementos fora da tela
-      const randomY = Math.random() * 25087 - 15087; // Movendo mais elementos fora da tela
-      const rotate = Math.random() * 1587; // Rotação aumentada ainda mais
-      const scale = Math.random() * 500;  // Escala aumentada ainda mais para distorcer
+      const randomX = Math.random() * 55087 - 45087; // Movendo mais elementos fora da tela
+      const randomY = Math.random() * 55087 - 45087; // Movendo mais elementos fora da tela
+      const rotate = Math.random() * 2587; // Rotação aumentada ainda mais
+      const scale = Math.random() * 1000;  // Escala aumentada ainda mais para distorcer
       const translate = `translate(${randomX}, ${randomY}) rotate(${rotate}deg) scale(${scale})`;
 
       use.setAttribute("transform", translate);
@@ -55,10 +55,10 @@
     function continuousTransform() {
       const uses = svgContainer.querySelectorAll('use');
       uses.forEach(use => {
-        const randomX = Math.random() * 25087 - 15087;
-        const randomY = Math.random() * 25087 - 15087;
-        const rotate = Math.random() * 1587;
-        const scale = Math.random() * 500;
+        const randomX = Math.random() * 55087 - 45087;
+        const randomY = Math.random() * 55087 - 45087;
+        const rotate = Math.random() * 2587;
+        const scale = Math.random() * 1000;
         const transform = `translate(${randomX}, ${randomY}) rotate(${rotate}deg) scale(${scale})`;
 
         use.setAttribute("transform", transform);
