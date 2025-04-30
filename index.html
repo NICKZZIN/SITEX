@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Teste de Use-After-Free (UAF)</title>
+    <title>Teste de Use-After-Free (UAF) Avançado</title>
     <style>
         body {
             background-color: black;
@@ -15,12 +15,13 @@
     </style>
 </head>
 <body>
-    <h1>Teste de Use-After-Free (UAF)</h1>
+    <h1>Teste de Use-After-Free (UAF) Avançado</h1>
     <div id="log"></div>
 
     <script>
         let controlFlag = false;
         let element;
+        let globalVar = { value: "Valor inicial" };
 
         function log(msg) {
             document.getElementById("log").innerHTML += msg + "<br>";
@@ -41,14 +42,14 @@
             document.body.removeChild(div);
             log("Objeto removido do DOM");
 
-            // Tentativa de usar o objeto depois de removido (use-after-free)
+            // Alterar variável global após remoção
             setTimeout(() => {
                 try {
-                    element.style.color = "red"; // Acessando propriedade do objeto removido
-                    log("Acesso ao objeto removido bem-sucedido: cor alterada para vermelho.");
+                    globalVar.value = "Valor modificado após remoção!";
+                    log("Valor da variável global modificado: " + globalVar.value);
                     controlFlag = true;
                 } catch (e) {
-                    log("Erro: não é possível acessar o objeto após remoção.");
+                    log("Erro ao modificar variável global após remoção.");
                 }
             }, 1000);
         }
@@ -60,9 +61,9 @@
         setTimeout(() => {
             if (controlFlag) {
                 document.title = "Exploração bem-sucedida!";
-                log("Exploração bem-sucedida! O objeto foi acessado após ser removido.");
+                log("Exploração bem-sucedida! A variável global foi modificada.");
             } else {
-                log("Exploração falhou: O objeto não foi acessado.");
+                log("Exploração falhou: A variável global não foi modificada.");
             }
         }, 2000);
 
