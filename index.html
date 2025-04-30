@@ -3,30 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PoC CVE-2023-41993</title>
+    <title>PoC CVE-2023-42917 - WebKit Safari</title>
 </head>
 <body>
-    <h1>PoC CVE-2023-41993</h1>
-    <p>Testando a vulnerabilidade CVE-2023-41993.</p>
+    <h1>PoC CVE-2023-42917 - WebKit Safari 17.0</h1>
+    <p>Este código tenta demonstrar uma manipulação de memória para fins educacionais. </p>
 
     <script>
-        // O código fornecido será adicionado aqui sem alterações
+        // Função para criar um ArrayBuffer e fazer manipulação de dados
+        function manipulateArrayBuffer() {
+            console.log("Manipulando ArrayBuffer...");
+            let buffer1 = new ArrayBuffer(8);  // Cria buffer de 8 bytes
+            let view1 = new Uint32Array(buffer1);  // Cria um "view" de 32 bits para o buffer
+            view1[0] = 0x41414141;  // Preenche com um valor (pode ser usado para representar dados de controle)
 
-        let buffer1 = new ArrayBuffer(8);  // Cria buffer de 8 bytes
-        let view1 = new Uint32Array(buffer1);  // Cria um "view" de 32 bits para o buffer
-        view1[0] = 0x41414141;  // Preenche com um valor (pode ser usado para representar dados de controle)
+            let buffer2 = new ArrayBuffer(8);  // Novo buffer para manipulação
+            let view2 = new Uint32Array(buffer2);
+            view2[0] = 0x42424242;
 
-        // Criando outro buffer que será manipulado para corromper o primeiro buffer
-        let buffer2 = new ArrayBuffer(8);
-        let view2 = new Uint32Array(buffer2);
-        view2[0] = 0x42424242;
+            console.log("Buffer1 antes da modificação:", view1[0]);
+            console.log("Buffer2 antes da modificação:", view2[0]);
 
-        console.log("Buffer1 initial value:", view1[0]);
-        console.log("Buffer2 initial value:", view2[0]);
+            // Tentativa de acessar e sobrescrever dados em memória
+            view1[1] = view2[0];  // Manipula para gerar falha de acesso ou confusão de tipos
+            console.log("Buffer1 após a modificação:", view1[0], view1[1]);
 
-        // Tentando sobrescrever dados de memória
-        view1[1] = view2[0];  // Manipula para gerar falha de acesso
-        console.log("Modified Buffer1:", view1[0], view1[1]);
+            // Acessando índice fora dos limites
+            try {
+                console.log("Tentando acessar um índice fora dos limites:", view1[3]);  // Acesso fora dos limites
+            } catch (e) {
+                console.error("Erro ao acessar fora dos limites do ArrayBuffer:", e);
+            }
+        }
+
+        // Função para manipulação do DOM e tentativa de explorações de memória
+        function manipulateDOM() {
+            console.log("Manipulando o DOM...");
+            let div = document.createElement('div');
+            div.innerHTML = "<img src='non_existent_image.jpg' />";
+            document.body.appendChild(div);
+
+            // Modificando o DOM de forma excessiva
+            div.innerHTML = "<div>" + "A".repeat(1000) + "</div>";  // Manipula grandes cadeias de texto
+
+            // Tentativa de forçar um erro de manipulação do DOM
+            let p = document.createElement('p');
+            p.textContent = "Texto manipulando excessivamente o DOM.";
+            document.body.appendChild(p);
+        }
+
+        // Função para testar overflow de arrays
+        function arrayOverflowTest() {
+            console.log("Testando overflow de array...");
+            let arr = new Uint8Array(10);
+            arr[0] = 0x41;  // A
+            arr[1] = 0x42;  // B
+            // Tentando acessar um índice fora dos limites
+            console.log("Valor fora dos limites do array:", arr[20]);  // Acesso fora dos limites
+        }
+
+        // Chamada para funções
+        manipulateArrayBuffer();
+        manipulateDOM();
+        arrayOverflowTest();
     </script>
 </body>
 </html>
