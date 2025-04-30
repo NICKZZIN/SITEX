@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>WebKit CVE-like PoC (SVG Use + Transform)</title>
+  <title>WebKit Stress Test (SVG Use + Transform)</title>
   <style>
     svg {
       border: 2px solid lime;
@@ -11,42 +11,41 @@
   </style>
 </head>
 <body>
-  <h1>SVG Use + Transform Test</h1>
-  <p>Se o WebKit corromper a renderização, travar ou falhar ao clonar elementos, pode indicar falha de segurança.</p>
+  <h1>WebKit Stress Test - SVG Use + Transform</h1>
+  <p>Se o WebKit corromper a renderização ou travar, pode indicar falha de segurança.</p>
 
-  <svg width="500" height="500">
-    <!-- Definimos um símbolo a ser usado -->
+  <svg id="svgContainer" width="1000" height="1000">
     <defs>
       <rect id="template" x="0" y="0" width="50" height="50" fill="red" />
     </defs>
-
-    <!-- Clonagem com transformação malformada -->
-    <use id="u1" href="#template" x="10" y="10" transform="translate(123" />
-    <use id="u2" href="#template" x="70" y="10" transform="tran&#x0001;ate(1)" />
-    <use id="u3" href="#template" x="130" y="10" transform="translate(9999999999999999999999999)" />
-    <use id="u4" href="#template" x="10" y="70" transform="translate(0)" />
   </svg>
 
   <script>
-    // Stress via DOM manipulação
-    const ids = ["u1", "u2", "u3", "u4"];
+    const svgContainer = document.getElementById("svgContainer");
     let count = 0;
 
-    function stressShadowTree() {
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        // Reaplica o transform para forçar rebuild da shadow tree
-        el.setAttribute("transform", el.getAttribute("transform"));
-        // Força render/layout
-        const bbox = el.getBBox();
-        console.log(`${id} bbox:`, bbox.x, bbox.y);
-      }
+    function stressSVG() {
+      // Criar novo <use> com transformação malformada
+      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      use.setAttribute("href", "#template");
+      use.setAttribute("x", 10 + (count * 60));
+      use.setAttribute("y", 10);
+      use.setAttribute("transform", "translate(" + (Math.random() * 1000) + ")");
+      svgContainer.appendChild(use);
+
+      // Log de controle
+      console.log(`Adicionando #use${count} com transform: translate(${Math.random() * 1000})`);
+
+      // Reaplicar forçadamente
+      const bbox = use.getBBox();
+      console.log(`Bbox do #use${count}:`, bbox.x, bbox.y);
 
       count++;
-      if (count < 200) requestAnimationFrame(stressShadowTree);
+
+      if (count < 200) requestAnimationFrame(stressSVG);
     }
 
-    stressShadowTree();
+    stressSVG();
   </script>
 </body>
 </html>
