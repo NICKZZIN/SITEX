@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Injeção de Payload com UAF e Leak</title>
+    <title>Teste de addrof e ptrRead64</title>
     <style>
         body {
             background-color: black;
@@ -16,111 +16,34 @@
     </style>
 </head>
 <body>
-    <h1>Injeção de Payload com UAF e Leak de Memória</h1>
+    <h1>Teste de addrof e ptrRead64</h1>
     <div id="log"></div>
 
     <script>
-        let controlFlag = false;
-        let element;
-        let globalVar = { value: "Valor inicial" };
-        let payloadData = null;
-
         function log(msg) {
             document.getElementById("log").innerHTML += msg + "<br>";
         }
 
-        // === Primitives ===
-        
-        // 1. addrof() - Obtém o endereço de um objeto JS
-        function addrof(obj) {
-            let arr = new ArrayBuffer(8);  // Cria um buffer de 8 bytes
-            let view = new DataView(arr);
-            view.setBigInt64(0, BigInt(obj), true);  // Armazena o endereço como BigInt
-            return view.getBigInt64(0, true);  // Retorna o valor do endereço
-        }
-
-        // 2. ptrRead64() - Lê um valor de 64 bits de um endereço arbitrário
-        function ptrRead64(addr) {
-            let arr = new ArrayBuffer(8);
-            let view = new DataView(arr);
-            view.setBigInt64(0, addr, true);
-            return view.getBigInt64(0, true);
-        }
-
-        // === Função principal: Leak de vtable ===
-        function leakLibBase() {
-            // Cria um objeto DOM simples e injeta no DOM
+        function testAddrof() {
             const obj = document.createElement('div');
-            obj.id = 'leak-target';
             document.body.appendChild(obj);
-            log('[+] Elemento criado e adicionado ao DOM');
 
-            // Pega o endereço do objeto JS
+            // Testa se conseguimos obter o endereço do objeto
             const objAddr = addrof(obj);
-            log(`[+] Endereço do objeto: 0x${objAddr.toString(16)}`);
+            log('[TESTE] Endereço do objeto: 0x' + objAddr.toString(16));
+        }
 
-            // Lê o primeiro ponteiro (vtable) do objeto
+        function testPtrRead64() {
+            const obj = document.createElement('div');
+            document.body.appendChild(obj);
+
+            const objAddr = addrof(obj);
             const vtablePtr = ptrRead64(objAddr);
-            log(`[+] Ponteiro da vtable: 0x${vtablePtr.toString(16)}`);
-
-            // Calcula o base da biblioteca
-            const VTABLE_OFFSET = 0x123456n;  // Substitua com o valor correto
-            const libBase = vtablePtr - VTABLE_OFFSET;
-            log(`[+] Cálculo do libBase: 0x${libBase.toString(16)}`);
-
-            return libBase;
+            log('[TESTE] Ponteiro vtable: 0x' + vtablePtr.toString(16));
         }
 
-        // === Injeção de Payload com UAF ===
-        function loadPayload(path) {
-            fetch(path)
-                .then(response => {
-                    if (!response.ok) throw new Error("Falha no carregamento");
-                    return response.arrayBuffer();
-                })
-                .then(data => {
-                    payloadData = data;
-                    log("Payload aio.bin carregado com sucesso.");
-                    triggerUseAfterFree();
-                })
-                .catch(error => log("Erro ao carregar o payload: " + error));
-        }
-
-        function triggerUseAfterFree() {
-            let div = document.createElement("div");
-            div.innerText = "Objeto criado";
-            div.id = "uaf-example";
-            document.body.appendChild(div);
-
-            element = div;
-            log("Objeto foi criado e adicionado ao DOM.");
-            document.body.removeChild(div);
-            log("Objeto removido do DOM.");
-
-            setTimeout(() => {
-                try {
-                    globalVar.value = "Novo valor na memória.";
-                    log("Valor da variável global modificado: " + globalVar.value);
-
-                    if (payloadData) {
-                        log("Executando payload...");
-                        eval(new TextDecoder().decode(payloadData));
-                        log("RW arbitrário com sucesso! Payload executado.");
-                    }
-
-                    controlFlag = true;
-                } catch (e) {
-                    log("Erro ao executar o payload: " + e.message);
-                }
-            }, 1000);
-        }
-
-        // Teste do leak
-        const base = leakLibBase();
-        log('\n*** libBase obtido: 0x' + base.toString(16) + ' ***');
-
-        // Aqui, usando caminho relativo porque aio.bin está na mesma pasta
-        loadPayload("aio.bin");
+        testAddrof();
+        testPtrRead64();
     </script>
 </body>
 </html>
