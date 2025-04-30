@@ -30,10 +30,10 @@
       use.setAttribute("href", "#template");
 
       // Gera transformações extremamente aleatórias para gerar mais caos
-      const randomX = Math.random() * 20087 - 10087; // Movendo mais elementos fora da tela
-      const randomY = Math.random() * 20087 - 10087; // Movendo mais elementos fora da tela
-      const rotate = Math.random() * 1087; // Rotação aumentada ainda mais
-      const scale = Math.random() * 300;  // Escala aumentada ainda mais para distorcer
+      const randomX = Math.random() * 25087 - 15087; // Movendo mais elementos fora da tela
+      const randomY = Math.random() * 25087 - 15087; // Movendo mais elementos fora da tela
+      const rotate = Math.random() * 1587; // Rotação aumentada ainda mais
+      const scale = Math.random() * 500;  // Escala aumentada ainda mais para distorcer
       const translate = `translate(${randomX}, ${randomY}) rotate(${rotate}deg) scale(${scale})`;
 
       use.setAttribute("transform", translate);
@@ -46,7 +46,7 @@
       count++;
 
       // Continue até 5000 elementos para forçar mais caos
-      if (count < 10087) requestAnimationFrame(stressOverflow);
+      if (count < 15087) requestAnimationFrame(stressOverflow);
     }
 
     stressOverflow();
@@ -55,10 +55,10 @@
     function continuousTransform() {
       const uses = svgContainer.querySelectorAll('use');
       uses.forEach(use => {
-        const randomX = Math.random() * 20087 - 10087;
-        const randomY = Math.random() * 20087 - 10087;
-        const rotate = Math.random() * 1087;
-        const scale = Math.random() * 300;
+        const randomX = Math.random() * 25087 - 15087;
+        const randomY = Math.random() * 25087 - 15087;
+        const rotate = Math.random() * 1587;
+        const scale = Math.random() * 500;
         const transform = `translate(${randomX}, ${randomY}) rotate(${rotate}deg) scale(${scale})`;
 
         use.setAttribute("transform", transform);
