@@ -2,14 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>WebKit OOB Test com SVG</title>
+  <title>WebKit CVE-like PoC (SVG Use + Transform)</title>
   <style>
-    body {
-      background: #111;
-      color: #0f0;
-      font-family: monospace;
-      padding: 20px;
-    }
     svg {
       border: 2px solid lime;
       margin-top: 20px;
@@ -17,42 +11,42 @@
   </style>
 </head>
 <body>
-  <h1>WebKit PoC com SVG + translate()</h1>
-  <p>Verifique comportamento anômalo, lentidão ou falha ao renderizar.</p>
+  <h1>SVG Use + Transform Test</h1>
+  <p>Se o WebKit corromper a renderização, travar ou falhar ao clonar elementos, pode indicar falha de segurança.</p>
 
-  <svg width="200" height="200">
-    <!-- Transformação truncada -->
-    <rect id="r1" x="10" y="10" width="50" height="50" fill="red" transform="translate(123" />
+  <svg width="500" height="500">
+    <!-- Definimos um símbolo a ser usado -->
+    <defs>
+      <rect id="template" x="0" y="0" width="50" height="50" fill="red" />
+    </defs>
 
-    <!-- Transformação com caractere especial -->
-    <rect id="r2" x="70" y="10" width="50" height="50" fill="blue" transform="tran&#x0001;ate(1)" />
-
-    <!-- Transformação com excesso de caracteres -->
-    <rect id="r3" x="130" y="10" width="50" height="50" fill="green"
-          transform="translate(999999999999999999999999999999999999999999999999999999)" />
-
-    <!-- Transformação válida (controle) -->
-    <rect id="r4" x="10" y="70" width="50" height="50" fill="yellow" transform="translate(0)" />
+    <!-- Clonagem com transformação malformada -->
+    <use id="u1" href="#template" x="10" y="10" transform="translate(123" />
+    <use id="u2" href="#template" x="70" y="10" transform="tran&#x0001;ate(1)" />
+    <use id="u3" href="#template" x="130" y="10" transform="translate(9999999999999999999999999)" />
+    <use id="u4" href="#template" x="10" y="70" transform="translate(0)" />
   </svg>
 
   <script>
-    // Força o reprocessamento e layout do SVG
-    const ids = ["r1", "r2", "r3", "r4"];
+    // Stress via DOM manipulação
+    const ids = ["u1", "u2", "u3", "u4"];
     let count = 0;
 
-    function stressSVG() {
+    function stressShadowTree() {
       for (const id of ids) {
         const el = document.getElementById(id);
+        // Reaplica o transform para forçar rebuild da shadow tree
         el.setAttribute("transform", el.getAttribute("transform"));
-        const bbox = el.getBBox(); // força parsing e render do transform
+        // Força render/layout
+        const bbox = el.getBBox();
         console.log(`${id} bbox:`, bbox.x, bbox.y);
       }
 
       count++;
-      if (count < 200) requestAnimationFrame(stressSVG);
+      if (count < 200) requestAnimationFrame(stressShadowTree);
     }
 
-    stressSVG();
+    stressShadowTree();
   </script>
 </body>
 </html>
