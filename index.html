@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Teste de Use-After-Free (UAF) Avançado</title>
+    <title>Injeção de Código - UAF</title>
     <style>
         body {
             background-color: black;
@@ -15,13 +15,12 @@
     </style>
 </head>
 <body>
-    <h1>Teste de Use-After-Free (UAF) Avançado</h1>
+    <h1>Injeção de Código - Use-After-Free</h1>
     <div id="log"></div>
 
     <script>
         let controlFlag = false;
         let element;
-        let globalVar = { value: "Valor inicial" };
 
         function log(msg) {
             document.getElementById("log").innerHTML += msg + "<br>";
@@ -42,14 +41,17 @@
             document.body.removeChild(div);
             log("Objeto removido do DOM");
 
-            // Alterar variável global após remoção
+            // Injeção de código (exemplo de execução indireta)
             setTimeout(() => {
                 try {
-                    globalVar.value = "Valor modificado após remoção!";
-                    log("Valor da variável global modificado: " + globalVar.value);
+                    // Alteração de função global
+                    window.alert = function() {
+                        log("Função alert foi injetada com sucesso após o UAF!");
+                    };
+                    alert("Teste de injeção");
                     controlFlag = true;
                 } catch (e) {
-                    log("Erro ao modificar variável global após remoção.");
+                    log("Erro ao injetar código: " + e.message);
                 }
             }, 1000);
         }
@@ -61,9 +63,9 @@
         setTimeout(() => {
             if (controlFlag) {
                 document.title = "Exploração bem-sucedida!";
-                log("Exploração bem-sucedida! A variável global foi modificada.");
+                log("Exploração bem-sucedida! Código injetado com sucesso.");
             } else {
-                log("Exploração falhou: A variável global não foi modificada.");
+                log("Exploração falhou: Não foi possível injetar código.");
             }
         }, 2000);
 
