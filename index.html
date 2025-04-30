@@ -15,74 +15,24 @@
         let isExploitSuccessful = false;  // Variável para verificar se o exploit teve sucesso
         let controlFlag = false;  // Variável crítica (controle de fluxo)
 
-        // Função para criar um ArrayBuffer e fazer manipulação de dados
-        function manipulateArrayBuffer() {
-            console.log("Manipulando ArrayBuffer...");
-            let buffer1 = new ArrayBuffer(8);  // Cria buffer de 8 bytes
-            let view1 = new Uint32Array(buffer1);  // Cria um "view" de 32 bits para o buffer
-            view1[0] = 0x41414141;  // Preenche com um valor (pode ser usado para representar dados de controle)
-
-            let buffer2 = new ArrayBuffer(8);  // Novo buffer para manipulação
-            let view2 = new Uint32Array(buffer2);
-            view2[0] = 0x42424242;
-
-            console.log("Buffer1 antes da modificação:", view1[0]);
-            console.log("Buffer2 antes da modificação:", view2[0]);
-
-            // Tentativa de acessar e sobrescrever dados em memória
-            view1[1] = view2[0];  // Manipula para gerar falha de acesso ou confusão de tipos
-            console.log("Buffer1 após a modificação:", view1[0], view1[1]);
-
-            // Acessando índice fora dos limites
-            try {
-                console.log("Tentando acessar um índice fora dos limites:", view1[3]);  // Acesso fora dos limites
-                updateStatus("Manipulação de ArrayBuffer falhou - sem erro capturado.");
-            } catch (e) {
-                console.error("Erro ao acessar fora dos limites do ArrayBuffer:", e);
-                updateStatus("Falha na manipulação de ArrayBuffer.");
-            }
-        }
-
-        // Função para manipulação do DOM e tentativa de explorações de memória
-        function manipulateDOM() {
-            console.log("Manipulando o DOM...");
-            let div = document.createElement('div');
-            div.innerHTML = "<img src='non_existent_image.jpg' />";
-            document.body.appendChild(div);
-
-            // Modificando o DOM de forma excessiva
-            div.innerHTML = "<div>" + "A".repeat(1000) + "</div>";  // Manipula grandes cadeias de texto
-
-            // Tentativa de forçar um erro de manipulação do DOM
-            let p = document.createElement('p');
-            p.textContent = "Texto manipulando excessivamente o DOM.";
-            document.body.appendChild(p);
-
-            // Verificação de DOM
-            if (div.innerHTML.includes("A".repeat(1000))) {
-                updateStatus("Manipulação do DOM bem-sucedida.");
-            } else {
-                updateStatus("Falha na manipulação do DOM.");
-            }
-        }
-
         // Função para testar overflow de arrays e sobrescrever variáveis críticas
         function arrayOverflowTest() {
             console.log("Testando overflow de array...");
-            let arr = new Uint8Array(10);
+            let arr = new Uint8Array(10);  // Criação de um array com 10 elementos
             arr[0] = 0x41;  // A
             arr[1] = 0x42;  // B
             // Tentando acessar um índice fora dos limites
             try {
-                console.log("Valor fora dos limites do array:", arr[20]);  // Acesso fora dos limites
-                isExploitSuccessful = true;  // Definir como bem-sucedido se não gerar erro
-                updateStatus("Overflow de array bem-sucedido.");
-
-                // Sobrescrevendo a variável de controle crítica com o exploit
+                console.log("Valor antes do overflow:", arr[0], arr[1]);
+                // Sobrescrevendo uma variável crítica no índice fora dos limites do array
                 arr[15] = 0x01;  // Alterando a variável crítica (simulando a manipulação de memória)
+                isExploitSuccessful = true;  // Marcando sucesso do exploit
+                console.log("Overflow de array bem-sucedido! Índice 15:", arr[15]);
+
+                // Alterando a variável crítica de controle
                 if (arr[15] === 0x01) {
-                    controlFlag = true;  // Alteração de controle de fluxo
-                    console.log("ControlFlag foi alterado com sucesso para:", controlFlag);
+                    controlFlag = true;  // Modificando o controle de fluxo
+                    console.log("Flag de controle alterada com sucesso para:", controlFlag);
                     updateStatus("Flag de controle alterada com sucesso.");
                 }
             } catch (e) {
@@ -91,12 +41,17 @@
             }
         }
 
+        // Função para atualizar o status na página
+        function updateStatus(message) {
+            document.getElementById("status").innerHTML = message;
+        }
+
         // Função para executar código arbitrário caso o exploit seja bem-sucedido
         function runExploitSuccess() {
             if (isExploitSuccessful) {
                 console.log("Exploração bem-sucedida!");
                 document.getElementById("result").innerHTML = "<b>Exploração bem-sucedida!</b><br/>Código arbitrário executado.";
-                // Exemplo de código arbitrário: Modificar o título da página
+                // Aqui, o código arbitrário seria executado, por exemplo, alterando o título da página
                 document.title = "Exploit Sucesso!";
             } else {
                 console.log("Exploração falhou.");
@@ -104,16 +59,9 @@
             }
         }
 
-        // Função para atualizar o status na página
-        function updateStatus(message) {
-            document.getElementById("status").innerHTML = message;
-        }
-
-        // Chamada para funções
-        manipulateArrayBuffer();
-        manipulateDOM();
+        // Chamada para a função de overflow de array
         arrayOverflowTest();
-        
+
         // Verificar sucesso após execução
         runExploitSuccess();
     </script>
