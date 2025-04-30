@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Teste com DataView</title>
+    <title>Teste de Use-After-Free (UAF)</title>
     <style>
         body {
             background-color: black;
@@ -15,42 +15,57 @@
     </style>
 </head>
 <body>
-    <h1>Teste com ArrayBuffer e DataView</h1>
+    <h1>Teste de Use-After-Free (UAF)</h1>
     <div id="log"></div>
 
     <script>
+        let controlFlag = false;
+        let element;
+
         function log(msg) {
             document.getElementById("log").innerHTML += msg + "<br>";
         }
 
-        try {
-            // Alocar buffer
-            let buffer = new ArrayBuffer(16);
-            let view = new DataView(buffer);
+        function triggerUseAfterFree() {
+            // Criação do div no DOM
+            let div = document.createElement("div");
+            div.innerText = "Objeto criado";
+            div.id = "uaf-example";
+            document.body.appendChild(div);
+            
+            // Manter referência ao objeto
+            element = div;
+            log("Objeto foi criado e adicionado ao DOM");
 
-            // Escrita fora dos padrões usando DataView
-            view.setUint32(0, 0x41414141, true); // Little endian
-            view.setUint32(4, 0x42424242, true);
+            // Remover o div da árvore DOM
+            document.body.removeChild(div);
+            log("Objeto removido do DOM");
 
-            // Leitura direta
-            let a = view.getUint32(0, true);
-            let b = view.getUint32(4, true);
-
-            log("Valor A: 0x" + a.toString(16));
-            log("Valor B: 0x" + b.toString(16));
-
-            // Tentar leitura além do limite do buffer
-            try {
-                let c = view.getUint32(20, true); // fora do limite
-                log("Leitura fora dos limites: 0x" + c.toString(16));
-            } catch (e) {
-                log("Proteção ativa: leitura fora dos limites bloqueada.");
-            }
-
-            log("Teste com DataView concluído.");
-        } catch (e) {
-            log("Erro durante execução: " + e.message);
+            // Tentativa de usar o objeto depois de removido (use-after-free)
+            setTimeout(() => {
+                try {
+                    element.style.color = "red"; // Acessando propriedade do objeto removido
+                    log("Acesso ao objeto removido bem-sucedido: cor alterada para vermelho.");
+                    controlFlag = true;
+                } catch (e) {
+                    log("Erro: não é possível acessar o objeto após remoção.");
+                }
+            }, 1000);
         }
+
+        // Executa a função de use-after-free
+        triggerUseAfterFree();
+
+        // Resultado do teste
+        setTimeout(() => {
+            if (controlFlag) {
+                document.title = "Exploração bem-sucedida!";
+                log("Exploração bem-sucedida! O objeto foi acessado após ser removido.");
+            } else {
+                log("Exploração falhou: O objeto não foi acessado.");
+            }
+        }, 2000);
+
     </script>
 </body>
 </html>
