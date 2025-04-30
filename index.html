@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>WebKit Stress Test - Overflow Memory</title>
+  <title>WebKit Stress Test - Increased Chaos and Overload</title>
   <style>
     svg {
       border: 2px solid lime;
@@ -11,10 +11,10 @@
   </style>
 </head>
 <body>
-  <h1>WebKit Stress Test - Overflow Memory with SVG</h1>
+  <h1>WebKit Stress Test - Increased Chaos with SVG</h1>
   <p>Se o WebKit corromper a renderização ou travar, isso pode indicar falha de segurança.</p>
 
-  <svg id="svgContainer" width="3000" height="3000">
+  <svg id="svgContainer" width="5000" height="5000">
     <defs>
       <rect id="template" x="0" y="0" width="50" height="50" fill="red" />
     </defs>
@@ -25,17 +25,17 @@
     let count = 0;
 
     function stressOverflow() {
-      // Criar novo <use> com transformações ainda mais aleatórias e caóticas
+      // Criar novo <use> com transformações ainda mais desordenadas e aleatórias
       const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
       use.setAttribute("href", "#template");
-      use.setAttribute("x", 10 + (count * 80));
-      use.setAttribute("y", 10 + (count * 80));
+      use.setAttribute("x", 10 + (count * 100));
+      use.setAttribute("y", 10 + (count * 100));
 
-      // Gera transformações ainda mais complexas, combinando rotacionamento, escalonamento e translação aleatória
-      const randomX = Math.random() * 3000;
-      const randomY = Math.random() * 3000;
-      const rotate = Math.random() * 360;
-      const scale = Math.random() * 20; // Aumenta o fator de escala para forçar sobrecarga
+      // Gera transformações ainda mais caóticas, misturando rotação, translação e escala extrema
+      const randomX = Math.random() * 5000;
+      const randomY = Math.random() * 5000;
+      const rotate = Math.random() * 720; // Rotação aumentada para mais caos
+      const scale = Math.random() * 50;  // Escala aumentada para aumentar a distorção
       const translate = `translate(${randomX}, ${randomY}) rotate(${rotate}deg) scale(${scale})`;
 
       use.setAttribute("transform", translate);
@@ -51,8 +51,8 @@
 
       count++;
 
-      // Continue até 1000 elementos para sobrecarregar mais ainda a renderização
-      if (count < 1000) requestAnimationFrame(stressOverflow);
+      // Continue até 2000 elementos para forçar mais caos
+      if (count < 2000) requestAnimationFrame(stressOverflow);
     }
 
     stressOverflow();
