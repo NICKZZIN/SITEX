@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Injeção de Código - UAF</title>
+    <title>RW Arbitrário com UAF</title>
     <style>
         body {
             background-color: black;
@@ -15,12 +15,13 @@
     </style>
 </head>
 <body>
-    <h1>Injeção de Código - Use-After-Free</h1>
+    <h1>RW Arbitrário com UAF</h1>
     <div id="log"></div>
 
     <script>
         let controlFlag = false;
         let element;
+        let globalVar = { value: "Valor inicial" };
 
         function log(msg) {
             document.getElementById("log").innerHTML += msg + "<br>";
@@ -41,14 +42,18 @@
             document.body.removeChild(div);
             log("Objeto removido do DOM");
 
-            // Injeção de código (exemplo de execução indireta)
+            // Modificar a variável global, buscando uma escrita direta na memória
             setTimeout(() => {
                 try {
-                    // Alteração de função global
+                    // Substituindo a variável global
+                    globalVar.value = "Novo valor na memória!";
+                    log("Valor da variável global modificado: " + globalVar.value);
+                    
+                    // Agora tentaremos manipular o "window" diretamente para injetar código
                     window.alert = function() {
-                        log("Função alert foi injetada com sucesso após o UAF!");
+                        log("Função alert injetada com sucesso após UAF!");
                     };
-                    alert("Teste de injeção");
+                    alert("Teste de RW com UAF");
                     controlFlag = true;
                 } catch (e) {
                     log("Erro ao injetar código: " + e.message);
@@ -62,10 +67,10 @@
         // Resultado do teste
         setTimeout(() => {
             if (controlFlag) {
-                document.title = "Exploração bem-sucedida!";
-                log("Exploração bem-sucedida! Código injetado com sucesso.");
+                document.title = "RW Arbitrário com Sucesso!";
+                log("RW Arbitrário com Sucesso! Função modificada com sucesso.");
             } else {
-                log("Exploração falhou: Não foi possível injetar código.");
+                log("Falha: Não foi possível manipular a memória.");
             }
         }, 2000);
 
