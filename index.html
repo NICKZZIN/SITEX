@@ -2,38 +2,54 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Exploit Overflow - Teste com Array Normal</title>
+    <title>Teste com DataView</title>
+    <style>
+        body {
+            background-color: black;
+            color: limegreen;
+            font-family: monospace;
+        }
+        #log {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Teste com Array JS Normal</h1>
-    <p id="resultado">Executando teste...</p>
+    <h1>Teste com ArrayBuffer e DataView</h1>
+    <div id="log"></div>
 
     <script>
-        let controlFlag = false;
-        let victim = { marker: "seguro" };
-
-        function triggerOverflow() {
-            let arr = [1, 2, 3];
-            arr.length = 1000000;  // Expande o array
-            for (let i = 0; i < 10; i++) arr.push(i);
-
-            // Tentativa de sobrescrever objeto vizinho
-            arr[100] = 1234;
-            arr[101] = 5678;
-
-            // Tentar modificar o objeto externo indiretamente (simulação)
-            if (victim.marker !== "seguro") {
-                controlFlag = true;
-            }
+        function log(msg) {
+            document.getElementById("log").innerHTML += msg + "<br>";
         }
 
-        triggerOverflow();
+        try {
+            // Alocar buffer
+            let buffer = new ArrayBuffer(16);
+            let view = new DataView(buffer);
 
-        if (controlFlag) {
-            document.title = "Exploração bem-sucedida!";
-            document.getElementById("resultado").innerText = "Exploração bem-sucedida! Código executado.";
-        } else {
-            document.getElementById("resultado").innerText = "Exploração falhou.";
+            // Escrita fora dos padrões usando DataView
+            view.setUint32(0, 0x41414141, true); // Little endian
+            view.setUint32(4, 0x42424242, true);
+
+            // Leitura direta
+            let a = view.getUint32(0, true);
+            let b = view.getUint32(4, true);
+
+            log("Valor A: 0x" + a.toString(16));
+            log("Valor B: 0x" + b.toString(16));
+
+            // Tentar leitura além do limite do buffer
+            try {
+                let c = view.getUint32(20, true); // fora do limite
+                log("Leitura fora dos limites: 0x" + c.toString(16));
+            } catch (e) {
+                log("Proteção ativa: leitura fora dos limites bloqueada.");
+            }
+
+            log("Teste com DataView concluído.");
+        } catch (e) {
+            log("Erro durante execução: " + e.message);
         }
     </script>
 </body>
