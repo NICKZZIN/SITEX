@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SVG CloneNode Stress Test</title>
+  <title>SVG Dynamic Attribute Stress</title>
   <style>
     body {
       background: #fff;
@@ -17,8 +17,8 @@
   </style>
 </head>
 <body>
-  <h2>SVG Use + cloneNode + transform Stress Test</h2>
-  <p>Observe lentidão, corrupção visual ou falhas ao clonar ou renderizar elementos.</p>
+  <h2>SVG cloneNode + dynamic attr modification test</h2>
+  <p>Se a renderização quebrar ou travar ao rolar, pode indicar falha de segurança no WebKit.</p>
 
   <svg id="svgRoot" width="1000" height="1000" viewBox="-1000 -1000 2000 2000">
     <defs>
@@ -28,13 +28,11 @@
 
   <script>
     const svg = document.getElementById("svgRoot");
+    const clones = [];
     let iteration = 0;
 
-    function generateGlitch() {
+    function createClones() {
       const base = document.getElementById("baseRect");
-
-      // Cria um grupo (g) para agrupar clones
-      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
       for (let i = 0; i < 15; i++) {
         const clone = base.cloneNode();
@@ -44,18 +42,27 @@
         const sc = 0.5 + Math.random() * 1.5;
 
         clone.setAttribute("transform", `translate(${tx}, ${ty}) rotate(${rot}) scale(${sc})`);
-        g.appendChild(clone);
-      }
-
-      svg.appendChild(g);
-
-      iteration++;
-      if (iteration < 500) {
-        requestAnimationFrame(generateGlitch);
+        svg.appendChild(clone);
+        clones.push(clone);
       }
     }
 
-    generateGlitch();
+    function mutateAttributes() {
+      for (const el of clones) {
+        el.setAttribute("x", Math.random() * 100 - 50);
+        el.setAttribute("y", Math.random() * 100 - 50);
+        el.setAttribute("width", Math.random() * 200);
+        el.setAttribute("height", Math.random() * 200);
+      }
+
+      iteration++;
+      if (iteration < 1000) {
+        requestAnimationFrame(mutateAttributes);
+      }
+    }
+
+    createClones();
+    mutateAttributes();
   </script>
 </body>
 </html>
