@@ -2,54 +2,69 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SVG xlink:href Stress Test</title>
+  <title>SVG xlink:href & foreignObject Stress Test</title>
   <style>
-    body { background: #fff; font-family: sans-serif; }
-    svg { border: 2px solid #000; margin: 10px; display: block; }
+    body { background: #fff; font-family: sans-serif; margin: 0; padding: 0; }
+    section { margin: 20px; }
+    svg { border: 2px solid #000; display: block; margin: 10px auto; width: 800px; height: 800px; }
   </style>
 </head>
 <body>
-  <h1>Teste de Estresse com &lt;use&gt; e xlink:href</h1>
-  <svg id="svg" width="800" height="800" viewBox="-1000 -1000 2000 2000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <h1>Stress Test: &lt;use&gt; with xlink:href &lt;foreignObject&gt;</h1>
+  <p>Clona elementos SVG que contêm HTML via <code>&lt;foreignObject&gt;</code> para forçar o WebKit a misturar árvores HTML/SVG.</p>
+
+  <svg id="svg" viewBox="-200 -200 400 400" xmlns="http://www.w3.org/2000/svg"
+       xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
-      <g id="target">
-        <rect x="-10" y="-10" width="20" height="20" fill="blue"/>
+      <!-- Definição de grupo com foreignObject -->
+      <g id="complex">
+        <foreignObject x="-50" y="-50" width="100" height="100">
+          <div xmlns="http://www.w3.org/1999/xhtml"
+               style="width:100px;height:100px;background:rgba(255,0,0,0.5);">
+            <p style="margin:0;padding:5px;color:white;">HTML inside SVG</p>
+            <button id="btn">Click</button>
+          </div>
+        </foreignObject>
       </g>
     </defs>
   </svg>
-  <script>
-    const svg = document.getElementById("svg");
 
-    const count = 120;
+  <script>
+    const svg = document.getElementById('svg');
+    const defs = svg.querySelector('defs');
     let iteration = 0;
 
-    function addUseElement(i) {
-      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-
-      // Alterna entre xlink válido, inválido e vazio
-      if (i % 3 === 0) {
-        use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#target");
-      } else if (i % 3 === 1) {
-        use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#nonexistent" + Math.random());
-      } else {
-        use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "");
-      }
-
-      use.setAttribute("transform", `translate(${Math.random()*2000-1000}, ${Math.random()*2000-1000}) rotate(${Math.random()*360}) scale(${Math.random()*5})`);
+    function stressForeign() {
+      // Clona e insere o <use> apontando para <g id="complex">
+      const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#complex');
+      // Transformações randômicas para stress
+      use.setAttribute('transform', `translate(${Math.random()*400-200},${Math.random()*400-200}) ` +
+                                    `rotate(${Math.random()*360}) scale(${Math.random()*3+0.5})`);
       svg.appendChild(use);
+      console.log(`[foreignObject] append iteration ${iteration}`);
 
-      // Remove depois de um tempo
-      setTimeout(() => svg.removeChild(use), 500);
-    }
+      // Manipula internal do foreignObject após breve delay
+      setTimeout(() => {
+        try {
+          // Tenta acessar o botão dentro do HTML clonado
+          const btn = use.getBBox ? null : null; // placeholder
+          // força rebuild de shadow tree
+          void use.getBBox();
+        } catch(e) {}
+      }, 100);
 
-    function stress() {
-      for (let i = 0; i < count; i++) addUseElement(i);
+      // Remover após tempo variável
+      setTimeout(() => {
+        if (svg.contains(use)) svg.removeChild(use);
+        console.log(`[foreignObject] remove iteration ${iteration}`);
+      }, 500 + Math.random()*500);
+
       iteration++;
-      console.log(`[xlink:use] Iteration ${iteration}`);
-      if (iteration < 300) requestAnimationFrame(stress);
+      if (iteration < 300) requestAnimationFrame(stressForeign);
     }
 
-    stress();
+    stressForeign();
   </script>
 </body>
 </html>
