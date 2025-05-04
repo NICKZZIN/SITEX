@@ -2,59 +2,48 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>DOM Manipulation Stress Test</title>
+  <title>SVG Translate Fuzzer</title>
   <style>
-    body {
-      background: #fff;
-      color: #000;
-      font-family: sans-serif;
-    }
+    svg { border: 1px solid red; width: 100%; height: 100vh; }
   </style>
 </head>
 <body>
-  <h2>DOM Manipulation Stress</h2>
-  <p>Alterações rápidas de DOM e execuções em loop podem causar falhas ou corrupção.</p>
-
-  <div id="root"></div>
+  <h2>SVG Translate String Fuzzer</h2>
+  <svg id="svg" viewBox="-1000 -1000 2000 2000">
+    <defs>
+      <rect id="target" width="40" height="40" fill="red"/>
+    </defs>
+  </svg>
 
   <script>
-    const root = document.getElementById('root');
+    const svg = document.getElementById("svg");
+    const badTransforms = [
+      "translate(100 100",         // parêntese aberto
+      "translate(,)",              // só vírgulas
+      "translate(foo)",           // texto não numérico
+      "translate(1e10000,1e10000)", // valores fora da faixa
+      "translate(0 0) rotate(abc)", // comando extra inválido
+      "translate(0 0) scale())",    // parênteses demais
+      "translate()",                // nenhum argumento
+      "translate(-999999999999)",  // valores extremos
+      "translate(0 0 0 0 0 0)",     // muitos argumentos
+      "translate(0px, 0px)",        // unidades não esperadas
+    ];
+
     let counter = 0;
+    function fuzz() {
+      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#target");
 
-    function randomElement() {
-      const div = document.createElement('div');
-      div.style.width = `${Math.random() * 200}px`;
-      div.style.height = `${Math.random() * 200}px`;
-      div.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
-      root.appendChild(div);
-    }
+      const bad = badTransforms[counter % badTransforms.length];
+      use.setAttribute("transform", bad);
+      svg.appendChild(use);
 
-    function recursiveManipulation() {
-      if (counter % 100 === 0) {
-        // Remove e reinserir elementos
-        root.innerHTML = '';
-      }
-
-      // Criar novos elementos ou modificar existentes
-      for (let i = 0; i < 10; i++) {
-        randomElement();
-      }
-
-      // Alterações rápidas nos elementos
-      const divs = root.getElementsByTagName('div');
-      for (let div of divs) {
-        div.style.left = `${Math.random() * 2000}px`;
-        div.style.top = `${Math.random() * 2000}px`;
-      }
-
-      // Chamar novamente após um curto intervalo
       counter++;
-      if (counter < 1000) {
-        setTimeout(recursiveManipulation, 0);
-      }
+      requestAnimationFrame(fuzz);
     }
 
-    recursiveManipulation();
+    fuzz();
   </script>
 </body>
 </html>
