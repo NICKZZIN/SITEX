@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SVG Dynamic Attribute Stress</title>
+  <title>SVG Remove and Reinsert Stress</title>
   <style>
     body {
       background: #fff;
@@ -17,8 +17,8 @@
   </style>
 </head>
 <body>
-  <h2>SVG cloneNode + dynamic attr modification test</h2>
-  <p>Se a renderização quebrar ou travar ao rolar, pode indicar falha de segurança no WebKit.</p>
+  <h2>SVG Stress: removeChild + appendChild + transform</h2>
+  <p>Se renderização corromper ou travar, pode indicar bug grave no WebKit.</p>
 
   <svg id="svgRoot" width="1000" height="1000" viewBox="-1000 -1000 2000 2000">
     <defs>
@@ -28,41 +28,34 @@
 
   <script>
     const svg = document.getElementById("svgRoot");
+    const container = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    svg.appendChild(container);
+
     const clones = [];
-    let iteration = 0;
+    const base = document.getElementById("baseRect");
 
-    function createClones() {
-      const base = document.getElementById("baseRect");
-
-      for (let i = 0; i < 15; i++) {
-        const clone = base.cloneNode();
-        const tx = Math.random() * 2000 - 1000;
-        const ty = Math.random() * 2000 - 1000;
-        const rot = Math.random() * 360;
-        const sc = 0.5 + Math.random() * 1.5;
-
-        clone.setAttribute("transform", `translate(${tx}, ${ty}) rotate(${rot}) scale(${sc})`);
-        svg.appendChild(clone);
-        clones.push(clone);
-      }
+    // Criação inicial dos clones
+    for (let i = 0; i < 30; i++) {
+      const clone = base.cloneNode();
+      clone.setAttribute("transform", `translate(${Math.random()*2000 - 1000}, ${Math.random()*2000 - 1000}) rotate(${Math.random()*360})`);
+      clones.push(clone);
+      container.appendChild(clone);
     }
 
-    function mutateAttributes() {
-      for (const el of clones) {
-        el.setAttribute("x", Math.random() * 100 - 50);
-        el.setAttribute("y", Math.random() * 100 - 50);
-        el.setAttribute("width", Math.random() * 200);
-        el.setAttribute("height", Math.random() * 200);
+    let toggle = false;
+    function stress() {
+      // Alterna entre remover e reinserir os nós
+      if (toggle) {
+        for (const el of clones) container.removeChild(el);
+      } else {
+        for (const el of clones) container.appendChild(el);
       }
+      toggle = !toggle;
 
-      iteration++;
-      if (iteration < 1000) {
-        requestAnimationFrame(mutateAttributes);
-      }
+      requestAnimationFrame(stress);
     }
 
-    createClones();
-    mutateAttributes();
+    stress();
   </script>
 </body>
 </html>
