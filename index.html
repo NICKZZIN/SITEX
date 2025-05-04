@@ -2,48 +2,61 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SVG Translate Fuzzer</title>
+  <title>SVG Shadow Tree UAF Test</title>
   <style>
-    svg { border: 1px solid red; width: 100%; height: 100vh; }
+    body {
+      background: white;
+      margin: 0;
+    }
+    svg {
+      width: 100%;
+      height: 100vh;
+      display: block;
+      border: 1px solid black;
+    }
   </style>
 </head>
 <body>
-  <h2>SVG Translate String Fuzzer</h2>
-  <svg id="svg" viewBox="-1000 -1000 2000 2000">
+  <h2>SVG Use + Shadow Tree Test</h2>
+  <svg id="svg" viewBox="0 0 100 100">
     <defs>
-      <rect id="target" width="40" height="40" fill="red"/>
+      <g id="target">
+        <rect x="0" y="0" width="10" height="10" fill="red" />
+      </g>
     </defs>
+    <use id="use" href="#target" x="10" y="10" />
   </svg>
 
   <script>
     const svg = document.getElementById("svg");
-    const badTransforms = [
-      "translate(100 100",         // parêntese aberto
-      "translate(,)",              // só vírgulas
-      "translate(foo)",           // texto não numérico
-      "translate(1e10000,1e10000)", // valores fora da faixa
-      "translate(0 0) rotate(abc)", // comando extra inválido
-      "translate(0 0) scale())",    // parênteses demais
-      "translate()",                // nenhum argumento
-      "translate(-999999999999)",  // valores extremos
-      "translate(0 0 0 0 0 0)",     // muitos argumentos
-      "translate(0px, 0px)",        // unidades não esperadas
-    ];
+    const use = document.getElementById("use");
+    const defs = svg.querySelector("defs");
+    const target = document.getElementById("target");
 
     let counter = 0;
-    function fuzz() {
-      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-      use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#target");
 
-      const bad = badTransforms[counter % badTransforms.length];
-      use.setAttribute("transform", bad);
-      svg.appendChild(use);
+    function stress() {
+      try {
+        // Remove e reinsere o <g> usado por <use>
+        defs.removeChild(target);
+        defs.appendChild(target);
+
+        // Alterna o href dinamicamente
+        use.setAttribute("href", "");
+        use.setAttribute("href", "#target");
+
+        // Força leitura de propriedades que causam reconstrução interna
+        use.transform.baseVal; // pode forçar rebuild no WebKit
+        use.getBBox();         // leitura que interage com shadow tree
+      } catch (e) {}
 
       counter++;
-      requestAnimationFrame(fuzz);
+      if (counter < 10000) {
+        requestAnimationFrame(stress);
+      }
     }
 
-    fuzz();
+    requestAnimationFrame(stress);
   </script>
 </body>
 </html>
