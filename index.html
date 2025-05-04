@@ -2,61 +2,133 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SVG Shadow Tree UAF Test</title>
+  <title>Combined SVG/CSS Transform Stress Test</title>
   <style>
-    body {
-      background: white;
-      margin: 0;
-    }
-    svg {
-      width: 100%;
-      height: 100vh;
-      display: block;
-      border: 1px solid black;
-    }
+    body { background: #fff; color: #000; font-family: sans-serif; }
+    section { margin: 20px auto; width: 90%; border: 1px solid #ccc; padding: 10px; }
+    svg { border: 1px solid red; display: block; margin: 10px 0; }
+    h2 { margin-top: 0; }
   </style>
 </head>
 <body>
-  <h2>SVG Use + Shadow Tree Test</h2>
-  <svg id="svg" viewBox="0 0 100 100">
-    <defs>
-      <g id="target">
-        <rect x="0" y="0" width="10" height="10" fill="red" />
-      </g>
-    </defs>
-    <use id="use" href="#target" x="10" y="10" />
-  </svg>
+  <h1>Combined Transform Stress Test</h1>
+  <p>Testing various SVG/CSS transform parsing & manipulation paths. Check console logs for each test.</p>
+
+  <!-- Section 1: Malformed translate strings -->
+  <section id="fuzz-string">
+    <h2>1. Fuzz Translate Strings</h2>
+    <svg id="svg1" viewBox="-100 -100 200 200" width="200" height="200">
+      <defs><rect id="rect1" width="30" height="30" fill="orange"/></defs>
+    </svg>
+  </section>
+
+  <!-- Section 2: animateTransform SMIL -->
+  <section id="animate-transform">
+    <h2>2. SMIL animateTransform</h2>
+    <svg id="svg2" viewBox="0 0 100 100" width="200" height="200">
+      <defs><rect id="rect2" x="0" y="0" width="30" height="30" fill="green"/></defs>
+      <use id="use2" href="#rect2" x="10" y="10" />
+      <animateTransform id="anim2"
+        xlink:href="#use2"
+        attributeName="transform"
+        type="translate"
+        values="0;10 10;0;invalid;20,20"
+        dur="2s"
+        repeatCount="indefinite"/>
+    </svg>
+  </section>
+
+  <!-- Section 3: cloneNode + dynamic attrs -->
+  <section id="clone-attrs">
+    <h2>3. cloneNode + Dynamic Attributes</h2>
+    <svg id="svg3" viewBox="-100 -100 200 200" width="200" height="200">
+      <defs><rect id="rect3" width="20" height="20" fill="blue"/></defs>
+    </svg>
+  </section>
+
+  <!-- Section 4: remove/append UAF style -->
+  <section id="remove-append">
+    <h2>4. Remove & Reappend Shadow Tree</h2>
+    <svg id="svg4" viewBox="0 0 100 100" width="200" height="200">
+      <defs><g id="target4"><rect x="0" y="0" width="15" height="15" fill="red"/></g></defs>
+      <use id="use4" href="#target4" x="20" y="20" />
+    </svg>
+  </section>
 
   <script>
-    const svg = document.getElementById("svg");
-    const use = document.getElementById("use");
-    const defs = svg.querySelector("defs");
-    const target = document.getElementById("target");
+    console.log('Starting combined stress tests');
 
-    let counter = 0;
+    // 1. Fuzz translate strings
+    (function fuzzStrings() {
+      const svg = document.getElementById('svg1');
+      const transforms = [
+        'translate(100 100', 'translate(,)', 'translate(foo)',
+        'translate(1e10000,1e10000)', 'translate(0 0) rotate(abc)',
+        'translate()', 'translate(0,0,0,0)', 'translate(0px,0px)'
+      ];
+      let idx = 0;
+      function step() {
+        const use = document.createElementNS('http://www.w3.org/2000/svg','use');
+        use.setAttribute('href','#rect1');
+        const t = transforms[idx % transforms.length];
+        use.setAttribute('transform', t);
+        svg.appendChild(use);
+        console.log('[1] transform =', t);
+        idx++;
+        if (idx < transforms.length * 3) requestAnimationFrame(step);
+      }
+      step();
+    })();
 
-    function stress() {
-      try {
-        // Remove e reinsere o <g> usado por <use>
+    // 2. SMIL animateTransform
+    console.log('[2] animateTransform test started');
+
+    // 3. cloneNode + dynamic attrs
+    (function cloneAttrs() {
+      const svg = document.getElementById('svg3');
+      const clones = [];
+      const base = document.getElementById('rect3');
+      // create clones
+      for(let i=0; i<10; i++) {
+        const c = base.cloneNode();
+        c.setAttribute('transform', `translate(${i*10},${i*10})`);
+        svg.appendChild(c);
+        clones.push(c);
+      }
+      console.log('[3] clones created:', clones.length);
+      let iter = 0;
+      function mutate() {
+        clones.forEach((el, i) => {
+          el.setAttribute('x', Math.random()*50 - 25);
+          el.setAttribute('y', Math.random()*50 - 25);
+          el.setAttribute('width', Math.random()*50);
+          el.setAttribute('height', Math.random()*50);
+        });
+        console.log('[3] mutated attrs iteration', iter++);
+        if (iter < 50) requestAnimationFrame(mutate);
+      }
+      mutate();
+    })();
+
+    // 4. remove & reappend
+    (function removeAppend() {
+      const svg = document.getElementById('svg4');
+      const defs = svg.querySelector('defs');
+      const target = document.getElementById('target4');
+      const use = document.getElementById('use4');
+      let count = 0;
+      function stress() {
         defs.removeChild(target);
         defs.appendChild(target);
-
-        // Alterna o href dinamicamente
-        use.setAttribute("href", "");
-        use.setAttribute("href", "#target");
-
-        // Força leitura de propriedades que causam reconstrução interna
-        use.transform.baseVal; // pode forçar rebuild no WebKit
-        use.getBBox();         // leitura que interage com shadow tree
-      } catch (e) {}
-
-      counter++;
-      if (counter < 10000) {
-        requestAnimationFrame(stress);
+        use.setAttribute('href','');
+        use.setAttribute('href','#target4');
+        // force internal rebuild
+        void use.getBBox();
+        console.log('[4] iter', count++);
+        if (count < 200) requestAnimationFrame(stress);
       }
-    }
-
-    requestAnimationFrame(stress);
+      stress();
+    })();
   </script>
 </body>
 </html>
