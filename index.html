@@ -2,51 +2,60 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>WebKit Stress Test - Simplified</title>
+  <title>SVG CloneNode Stress Test</title>
   <style>
+    body {
+      background: #fff;
+      color: #000;
+      font-family: sans-serif;
+    }
     svg {
-      border: 2px solid lime;
-      margin-top: 20px;
+      border: 2px solid red;
+      display: block;
+      margin: 20px auto;
     }
   </style>
 </head>
 <body>
-  <h1>WebKit Stress Test - Simplified</h1>
-  <p>Se o WebKit corromper a renderização ou travar, isso pode indicar falha de segurança.</p>
+  <h2>SVG Use + cloneNode + transform Stress Test</h2>
+  <p>Observe lentidão, corrupção visual ou falhas ao clonar ou renderizar elementos.</p>
 
-  <svg id="svgContainer" width="1000" height="1000" viewBox="-1000 -1000 2000 2000">
+  <svg id="svgRoot" width="1000" height="1000" viewBox="-1000 -1000 2000 2000">
     <defs>
-      <rect id="template" x="0" y="0" width="50" height="50" fill="red" />
+      <rect id="baseRect" x="0" y="0" width="40" height="40" fill="red"/>
     </defs>
   </svg>
 
   <script>
-    const svgContainer = document.getElementById("svgContainer");
-    let count = 0;
+    const svg = document.getElementById("svgRoot");
+    let iteration = 0;
 
-    function stressOverflow() {
-      // Criar novo <use> com transformações mais simples
-      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-      use.setAttribute("href", "#template");
+    function generateGlitch() {
+      const base = document.getElementById("baseRect");
 
-      // Gera transformações aleatórias mais simples
-      const randomX = Math.random() * 500 - 250; // Menor movimentação
-      const randomY = Math.random() * 500 - 250; // Menor movimentação
-      const rotate = Math.random() * 360; // Rotação mais simples
-      const scale = Math.random() * 2;  // Escala mais moderada
-      const translate = `translate(${randomX}, ${randomY}) rotate(${rotate}deg) scale(${scale})`;
+      // Cria um grupo (g) para agrupar clones
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
-      use.setAttribute("transform", translate);
+      for (let i = 0; i < 15; i++) {
+        const clone = base.cloneNode();
+        const tx = Math.random() * 2000 - 1000;
+        const ty = Math.random() * 2000 - 1000;
+        const rot = Math.random() * 360;
+        const sc = 0.5 + Math.random() * 1.5;
 
-      svgContainer.appendChild(use);
+        clone.setAttribute("transform", `translate(${tx}, ${ty}) rotate(${rot}) scale(${sc})`);
+        g.appendChild(clone);
+      }
 
-      count++;
+      svg.appendChild(g);
 
-      // Teste com menos elementos para ver o impacto
-      if (count < 1000) requestAnimationFrame(stressOverflow);
+      iteration++;
+      if (iteration < 500) {
+        requestAnimationFrame(generateGlitch);
+      }
     }
 
-    stressOverflow();
+    generateGlitch();
   </script>
 </body>
 </html>
