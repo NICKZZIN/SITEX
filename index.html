@@ -68,6 +68,14 @@
         console.log(`[${iteration}] Temporarily removed and reinserted ${toRemove.id}`);
       }
 
+      if (iteration % 40 === 0) {
+        const source = defs.querySelector(toggle ? '#complexA' : '#complexB');
+        const clone = source.cloneNode(true);
+        clone.id = 'cl' + iteration;
+        defs.appendChild(clone);
+        console.log(`[${iteration}] Cloned ${source.id} to ${clone.id}`);
+      }
+
       iteration++;
       if (iteration < 400) requestAnimationFrame(mutateDefsSwap);
     }
