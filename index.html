@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SVG Remove and Reinsert Stress</title>
+  <title>SVG Corruption Detection PoC</title>
   <style>
     body {
       background: #fff;
@@ -17,45 +17,67 @@
   </style>
 </head>
 <body>
-  <h2>SVG Stress: removeChild + appendChild + transform</h2>
-  <p>Se renderização corromper ou travar, pode indicar bug grave no WebKit.</p>
+  <h2>SVG cloneNode + transform + detection</h2>
+  <p>Se a renderização ou os dados das caixas estiverem corrompidos, isso pode indicar corrupção de memória no WebKit.</p>
 
-  <svg id="svgRoot" width="1000" height="1000" viewBox="-1000 -1000 2000 2000">
+  <svg id="svgRoot" width="2000" height="2000" viewBox="-2000 -2000 4000 4000">
     <defs>
       <rect id="baseRect" x="0" y="0" width="40" height="40" fill="red"/>
     </defs>
   </svg>
 
+  <div id="log" style="white-space: pre; font-size: 14px; padding: 1em;"></div>
+
   <script>
     const svg = document.getElementById("svgRoot");
-    const container = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    svg.appendChild(container);
-
-    const clones = [];
     const base = document.getElementById("baseRect");
+    const clones = [];
+    const logDiv = document.getElementById("log");
 
-    // Criação inicial dos clones
-    for (let i = 0; i < 30; i++) {
+    function log(msg) {
+      logDiv.textContent = msg + "\n" + logDiv.textContent;
+    }
+
+    // Cria muitos clones com transformações
+    for (let i = 0; i < 100; i++) {
       const clone = base.cloneNode();
-      clone.setAttribute("transform", `translate(${Math.random()*2000 - 1000}, ${Math.random()*2000 - 1000}) rotate(${Math.random()*360})`);
+      const tx = Math.random() * 3000 - 1500;
+      const ty = Math.random() * 3000 - 1500;
+      const rot = Math.random() * 360;
+      const sc = 0.5 + Math.random() * 2.5;
+      clone.setAttribute("transform", `translate(${tx}, ${ty}) rotate(${rot}) scale(${sc})`);
+      svg.appendChild(clone);
       clones.push(clone);
-      container.appendChild(clone);
     }
 
-    let toggle = false;
-    function stress() {
-      // Alterna entre remover e reinserir os nós
-      if (toggle) {
-        for (const el of clones) container.removeChild(el);
-      } else {
-        for (const el of clones) container.appendChild(el);
+    // Verificação periódica de integridade das caixas
+    function checkIntegrity() {
+      for (let i = 0; i < clones.length; i++) {
+        const el = clones[i];
+        try {
+          const box = el.getBBox();
+          const rect = el.getBoundingClientRect();
+
+          // Checa se valores estão estranhos ou impossíveis
+          if (
+            box.width <= 0 || box.height <= 0 ||
+            isNaN(box.x) || isNaN(box.y) ||
+            rect.width <= 0 || rect.height <= 0 ||
+            Math.abs(rect.width) > 5000 || Math.abs(rect.height) > 5000
+          ) {
+            log(`Anomalia detectada no elemento #${i}:`);
+            log(`BBox: x=${box.x}, y=${box.y}, w=${box.width}, h=${box.height}`);
+            log(`ClientRect: w=${rect.width}, h=${rect.height}`);
+          }
+        } catch (e) {
+          log(`Erro ao acessar box de #${i}: ${e.message}`);
+        }
       }
-      toggle = !toggle;
 
-      requestAnimationFrame(stress);
+      requestAnimationFrame(checkIntegrity);
     }
 
-    stress();
+    checkIntegrity();
   </script>
 </body>
 </html>
