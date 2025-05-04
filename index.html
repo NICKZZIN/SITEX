@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SVG Deep Stress Test</title>
+  <title>SVG Clone Stress + Mutation + Reinsertion</title>
   <style>
     body { background: #fff; margin: 0; padding: 0; font-family: sans-serif; }
     svg { width: 100vw; height: 100vh; display: block; border: 2px solid black; }
@@ -22,8 +22,9 @@
   <script>
     const svg = document.getElementById('svg');
     let iteration = 0;
+    let clones = [];
 
-    function stressCloneBBox() {
+    function stressCloneWithReinsertion() {
       const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
       use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#complex');
 
@@ -34,6 +35,8 @@
       use.setAttribute('transform', `translate(${tx},${ty}) scale(${scale}) rotate(${rotate})`);
 
       svg.appendChild(use);
+      clones.push(use);
+
       try {
         const bbox = use.getBBox();
         console.log(`[${iteration}] BBox:`, bbox);
@@ -41,19 +44,28 @@
         console.warn(`[${iteration}] getBBox failed:`, e);
       }
 
-      if (iteration % 10 === 0) {
-        // Randomly mutate the source <g> definition
+      if (iteration % 5 === 0) {
         const rect = svg.querySelector('#complex rect');
-        rect.setAttribute('width', 100 + Math.random() * 100);
-        rect.setAttribute('height', 100 + Math.random() * 100);
-        console.log(`[${iteration}] Mutated <rect> in <defs>`);
+        rect.setAttribute('width', 100 + Math.random() * 200);
+        rect.setAttribute('height', 100 + Math.random() * 200);
+        console.log(`[${iteration}] Mutated <rect>`);
+      }
+
+      if (iteration % 15 === 0 && clones.length > 0) {
+        const victim = clones.shift();
+        svg.removeChild(victim);
+        // Reinserir em novo local
+        victim.setAttribute('transform', `translate(${Math.random()*2000-1000},${Math.random()*2000-1000}) scale(${0.5+Math.random()*2}) rotate(${Math.random()*360})`);
+        svg.appendChild(victim);
+        clones.push(victim);
+        console.log(`[${iteration}] Reinseriu clone mutado`);
       }
 
       iteration++;
-      if (iteration < 400) requestAnimationFrame(stressCloneBBox);
+      if (iteration < 400) requestAnimationFrame(stressCloneWithReinsertion);
     }
 
-    stressCloneBBox();
+    stressCloneWithReinsertion();
   </script>
 </body>
 </html>
