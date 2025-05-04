@@ -2,133 +2,60 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Combined SVG/CSS Transform Stress Test</title>
+  <title>Advanced cloneNode + Mutation Stress</title>
   <style>
     body { background: #fff; color: #000; font-family: sans-serif; }
-    section { margin: 20px auto; width: 90%; border: 1px solid #ccc; padding: 10px; }
-    svg { border: 1px solid red; display: block; margin: 10px 0; }
-    h2 { margin-top: 0; }
+    svg { border: 2px solid #444; margin: 10px; display: block; }
   </style>
 </head>
 <body>
-  <h1>Combined Transform Stress Test</h1>
-  <p>Testing various SVG/CSS transform parsing & manipulation paths. Check console logs for each test.</p>
+  <h1>Advanced cloneNode Mutation Test</h1>
+  <p>Testando possíveis corrupções via clones SVG e mutações agressivas.</p>
 
-  <!-- Section 1: Malformed translate strings -->
-  <section id="fuzz-string">
-    <h2>1. Fuzz Translate Strings</h2>
-    <svg id="svg1" viewBox="-100 -100 200 200" width="200" height="200">
-      <defs><rect id="rect1" width="30" height="30" fill="orange"/></defs>
-    </svg>
-  </section>
-
-  <!-- Section 2: animateTransform SMIL -->
-  <section id="animate-transform">
-    <h2>2. SMIL animateTransform</h2>
-    <svg id="svg2" viewBox="0 0 100 100" width="200" height="200">
-      <defs><rect id="rect2" x="0" y="0" width="30" height="30" fill="green"/></defs>
-      <use id="use2" href="#rect2" x="10" y="10" />
-      <animateTransform id="anim2"
-        xlink:href="#use2"
-        attributeName="transform"
-        type="translate"
-        values="0;10 10;0;invalid;20,20"
-        dur="2s"
-        repeatCount="indefinite"/>
-    </svg>
-  </section>
-
-  <!-- Section 3: cloneNode + dynamic attrs -->
-  <section id="clone-attrs">
-    <h2>3. cloneNode + Dynamic Attributes</h2>
-    <svg id="svg3" viewBox="-100 -100 200 200" width="200" height="200">
-      <defs><rect id="rect3" width="20" height="20" fill="blue"/></defs>
-    </svg>
-  </section>
-
-  <!-- Section 4: remove/append UAF style -->
-  <section id="remove-append">
-    <h2>4. Remove & Reappend Shadow Tree</h2>
-    <svg id="svg4" viewBox="0 0 100 100" width="200" height="200">
-      <defs><g id="target4"><rect x="0" y="0" width="15" height="15" fill="red"/></g></defs>
-      <use id="use4" href="#target4" x="20" y="20" />
-    </svg>
-  </section>
+  <svg id="svg" viewBox="-500 -500 1000 1000" width="600" height="600"></svg>
 
   <script>
-    console.log('Starting combined stress tests');
+    const svg = document.getElementById('svg');
+    const base = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    base.setAttribute('width', '20');
+    base.setAttribute('height', '20');
+    base.setAttribute('fill', 'blue');
 
-    // 1. Fuzz translate strings
-    (function fuzzStrings() {
-      const svg = document.getElementById('svg1');
-      const transforms = [
-        'translate(100 100', 'translate(,)', 'translate(foo)',
-        'translate(1e10000,1e10000)', 'translate(0 0) rotate(abc)',
-        'translate()', 'translate(0,0,0,0)', 'translate(0px,0px)'
-      ];
-      let idx = 0;
-      function step() {
-        const use = document.createElementNS('http://www.w3.org/2000/svg','use');
-        use.setAttribute('href','#rect1');
-        const t = transforms[idx % transforms.length];
-        use.setAttribute('transform', t);
-        svg.appendChild(use);
-        console.log('[1] transform =', t);
-        idx++;
-        if (idx < transforms.length * 3) requestAnimationFrame(step);
-      }
-      step();
-    })();
+    const clones = [];
+    const count = 150;
 
-    // 2. SMIL animateTransform
-    console.log('[2] animateTransform test started');
+    // Cria e posiciona vários clones com transformações randômicas
+    for (let i = 0; i < count; i++) {
+      const c = base.cloneNode();
+      const x = Math.random() * 800 - 400;
+      const y = Math.random() * 800 - 400;
+      c.setAttribute('x', x);
+      c.setAttribute('y', y);
+      svg.appendChild(c);
+      clones.push(c);
+    }
 
-    // 3. cloneNode + dynamic attrs
-    (function cloneAttrs() {
-      const svg = document.getElementById('svg3');
-      const clones = [];
-      const base = document.getElementById('rect3');
-      // create clones
-      for(let i=0; i<10; i++) {
-        const c = base.cloneNode();
-        c.setAttribute('transform', `translate(${i*10},${i*10})`);
-        svg.appendChild(c);
-        clones.push(c);
-      }
-      console.log('[3] clones created:', clones.length);
-      let iter = 0;
-      function mutate() {
-        clones.forEach((el, i) => {
-          el.setAttribute('x', Math.random()*50 - 25);
-          el.setAttribute('y', Math.random()*50 - 25);
-          el.setAttribute('width', Math.random()*50);
-          el.setAttribute('height', Math.random()*50);
-        });
-        console.log('[3] mutated attrs iteration', iter++);
-        if (iter < 50) requestAnimationFrame(mutate);
-      }
-      mutate();
-    })();
+    console.log('[Advanced] Clones criados:', clones.length);
 
-    // 4. remove & reappend
-    (function removeAppend() {
-      const svg = document.getElementById('svg4');
-      const defs = svg.querySelector('defs');
-      const target = document.getElementById('target4');
-      const use = document.getElementById('use4');
-      let count = 0;
-      function stress() {
-        defs.removeChild(target);
-        defs.appendChild(target);
-        use.setAttribute('href','');
-        use.setAttribute('href','#target4');
-        // force internal rebuild
-        void use.getBBox();
-        console.log('[4] iter', count++);
-        if (count < 200) requestAnimationFrame(stress);
-      }
-      stress();
-    })();
+    let iter = 0;
+    function mutate() {
+      clones.forEach((el, i) => {
+        el.setAttribute('width', Math.random() * 1000 - 500);
+        el.setAttribute('height', Math.random() * 1000 - 500);
+        el.setAttribute('x', Math.random() * 1000 - 500);
+        el.setAttribute('y', Math.random() * 1000 - 500);
+        el.setAttribute('rx', Math.random() * 200);
+        el.setAttribute('ry', Math.random() * 200);
+        el.setAttribute('transform', `rotate(${Math.random()*360}) scale(${Math.random()*5})`);
+        el.style.stroke = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
+        el.style.strokeWidth = Math.random() * 10;
+      });
+      iter++;
+      console.log(`[Advanced] Iteration ${iter}`);
+      if (iter < 300) requestAnimationFrame(mutate);
+    }
+
+    mutate();
   </script>
 </body>
 </html>
