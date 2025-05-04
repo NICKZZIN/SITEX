@@ -2,78 +2,51 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SVG Mutation + Animation + cloneNode(true)</title>
+  <title>SVG xlink:href Stress Test</title>
   <style>
     body { background: #fff; font-family: sans-serif; }
     svg { border: 2px solid #000; margin: 10px; display: block; }
   </style>
 </head>
 <body>
-  <h1>Mutação extrema com cloneNode(true), animação e reinserção</h1>
-  <svg id="svg" viewBox="-1000 -1000 2000 2000" width="600" height="600"></svg>
+  <h1>Teste de Estresse com &lt;use&gt; e xlink:href</h1>
+  <svg id="svg" width="800" height="800" viewBox="-1000 -1000 2000 2000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <g id="target">
+        <rect x="-10" y="-10" width="20" height="20" fill="blue"/>
+      </g>
+    </defs>
+  </svg>
   <script>
-    const svg = document.getElementById('svg');
+    const svg = document.getElementById("svg");
 
-    // Grupo base com animação SMIL
-    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const count = 120;
+    let iteration = 0;
 
-    const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    r.setAttribute('x', '-10');
-    r.setAttribute('y', '-10');
-    r.setAttribute('width', '20');
-    r.setAttribute('height', '20');
-    r.setAttribute('fill', 'red');
+    function addUseElement(i) {
+      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
 
-    const anim = document.createElementNS('http://www.w3.org/2000/svg', 'animateTransform');
-    anim.setAttribute('attributeName', 'transform');
-    anim.setAttribute('type', 'rotate');
-    anim.setAttribute('from', '0');
-    anim.setAttribute('to', '360');
-    anim.setAttribute('dur', '2s');
-    anim.setAttribute('repeatCount', 'indefinite');
+      // Alterna entre xlink válido, inválido e vazio
+      if (i % 3 === 0) {
+        use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#target");
+      } else if (i % 3 === 1) {
+        use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#nonexistent" + Math.random());
+      } else {
+        use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "");
+      }
 
-    g.appendChild(r);
-    g.appendChild(anim);
-    svg.appendChild(g);
+      use.setAttribute("transform", `translate(${Math.random()*2000-1000}, ${Math.random()*2000-1000}) rotate(${Math.random()*360}) scale(${Math.random()*5})`);
+      svg.appendChild(use);
 
-    const clones = [];
-    const count = 80;
-
-    for (let i = 0; i < count; i++) {
-      const c = g.cloneNode(true);
-      svg.appendChild(c);
-      clones.push(c);
+      // Remove depois de um tempo
+      setTimeout(() => svg.removeChild(use), 500);
     }
 
-    let iteration = 0;
     function stress() {
-      clones.forEach((el, i) => {
-        el.setAttribute('transform', `translate(${Math.random()*2000-1000},${Math.random()*2000-1000}) rotate(${Math.random()*360}) scale(${Math.random()*5})`);
-        el.setAttribute('opacity', Math.random());
-      });
-
-      if (iteration % 10 === 0) {
-        // Remove e reinsere um grupo
-        const target = clones[Math.floor(Math.random() * clones.length)];
-        svg.removeChild(target);
-        svg.appendChild(target);
-      }
-
-      if (iteration % 25 === 0) {
-        // Adiciona path mutante
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        const d = `M ${Math.random()*200-100},${Math.random()*200-100} C ${Math.random()*300-150},${Math.random()*300-150} ${Math.random()*300-150},${Math.random()*300-150} ${Math.random()*200-100},${Math.random()*200-100}`;
-        path.setAttribute('d', d);
-        path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', 'black');
-        path.setAttribute('stroke-width', Math.random() * 10);
-        svg.appendChild(path);
-        setTimeout(() => svg.removeChild(path), 1000);
-      }
-
+      for (let i = 0; i < count; i++) addUseElement(i);
       iteration++;
-      console.log(`[FullStress] Iteration ${iteration}`);
-      if (iteration < 500) requestAnimationFrame(stress);
+      console.log(`[xlink:use] Iteration ${iteration}`);
+      if (iteration < 300) requestAnimationFrame(stress);
     }
 
     stress();
