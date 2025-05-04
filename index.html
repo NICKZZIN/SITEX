@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>WebKit Stress Test - Extreme Corruption and Failures</title>
+  <title>WebKit Stress Test - Simplified</title>
   <style>
     svg {
       border: 2px solid lime;
@@ -11,10 +11,10 @@
   </style>
 </head>
 <body>
-  <h1>WebKit Stress Test - Extreme Corruption and Failures</h1>
+  <h1>WebKit Stress Test - Simplified</h1>
   <p>Se o WebKit corromper a renderização ou travar, isso pode indicar falha de segurança.</p>
 
-  <svg id="svgContainer" width="1000" height="1000" viewBox="-40000 -40000 50000 50000">
+  <svg id="svgContainer" width="1000" height="1000" viewBox="-1000 -1000 2000 2000">
     <defs>
       <rect id="template" x="0" y="0" width="50" height="50" fill="red" />
     </defs>
@@ -25,49 +25,28 @@
     let count = 0;
 
     function stressOverflow() {
-      // Criar novo <use> com transformações ainda mais desordenadas e aleatórias
+      // Criar novo <use> com transformações mais simples
       const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
       use.setAttribute("href", "#template");
 
-      // Gera transformações extremamente aleatórias para gerar mais caos
-      const randomX = Math.random() * 55087 - 45087; // Movendo mais elementos fora da tela
-      const randomY = Math.random() * 55087 - 45087; // Movendo mais elementos fora da tela
-      const rotate = Math.random() * 2587; // Rotação aumentada ainda mais
-      const scale = Math.random() * 1000;  // Escala aumentada ainda mais para distorcer
+      // Gera transformações aleatórias mais simples
+      const randomX = Math.random() * 500 - 250; // Menor movimentação
+      const randomY = Math.random() * 500 - 250; // Menor movimentação
+      const rotate = Math.random() * 360; // Rotação mais simples
+      const scale = Math.random() * 2;  // Escala mais moderada
       const translate = `translate(${randomX}, ${randomY}) rotate(${rotate}deg) scale(${scale})`;
 
       use.setAttribute("transform", translate);
 
       svgContainer.appendChild(use);
 
-      // Log para monitoramento
-      console.log(`Adicionando #use${count} com transform: ${translate}`);
-
       count++;
 
-      // Continue até 5000 elementos para forçar mais caos
-      if (count < 15087) requestAnimationFrame(stressOverflow);
+      // Teste com menos elementos para ver o impacto
+      if (count < 1000) requestAnimationFrame(stressOverflow);
     }
 
     stressOverflow();
-
-    // Animações contínuas para forçar ainda mais a falha
-    function continuousTransform() {
-      const uses = svgContainer.querySelectorAll('use');
-      uses.forEach(use => {
-        const randomX = Math.random() * 55087 - 45087;
-        const randomY = Math.random() * 55087 - 45087;
-        const rotate = Math.random() * 2587;
-        const scale = Math.random() * 1000;
-        const transform = `translate(${randomX}, ${randomY}) rotate(${rotate}deg) scale(${scale})`;
-
-        use.setAttribute("transform", transform);
-      });
-
-      requestAnimationFrame(continuousTransform);  // Continuar a animação
-    }
-
-    continuousTransform();  // Iniciar animação contínua
   </script>
 </body>
 </html>
