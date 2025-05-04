@@ -2,82 +2,90 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SVG Corruption Detection PoC</title>
+  <title>SVG Stress + Corrupção Detection</title>
   <style>
     body {
-      background: #fff;
-      color: #000;
+      background: white;
+      color: black;
       font-family: sans-serif;
     }
     svg {
-      border: 2px solid red;
       display: block;
       margin: 20px auto;
+      border: 2px solid red;
+    }
+    #log {
+      white-space: pre-wrap;
+      font-size: 14px;
+      margin: 1em;
+      padding: 0.5em;
+      background: #eee;
+      border: 1px solid #ccc;
+      max-height: 300px;
+      overflow-y: auto;
     }
   </style>
 </head>
 <body>
-  <h2>SVG cloneNode + transform + detection</h2>
-  <p>Se a renderização ou os dados das caixas estiverem corrompidos, isso pode indicar corrupção de memória no WebKit.</p>
+  <h2>SVG Stress + Verificação de Corrupção</h2>
+  <p>Essa versão tenta identificar corrupção de memória mesmo sem crash visível.</p>
 
-  <svg id="svgRoot" width="2000" height="2000" viewBox="-2000 -2000 4000 4000">
+  <svg id="svg" width="3000" height="3000" viewBox="-1500 -1500 3000 3000">
     <defs>
-      <rect id="baseRect" x="0" y="0" width="40" height="40" fill="red"/>
+      <rect id="rect" x="0" y="0" width="40" height="40" fill="red" />
     </defs>
   </svg>
 
-  <div id="log" style="white-space: pre; font-size: 14px; padding: 1em;"></div>
+  <div id="log">[log de verificação aparecerá aqui]</div>
 
   <script>
-    const svg = document.getElementById("svgRoot");
-    const base = document.getElementById("baseRect");
+    const svg = document.getElementById("svg");
+    const base = document.getElementById("rect");
+    const logBox = document.getElementById("log");
     const clones = [];
-    const logDiv = document.getElementById("log");
 
     function log(msg) {
-      logDiv.textContent = msg + "\n" + logDiv.textContent;
+      logBox.textContent = `[${new Date().toLocaleTimeString()}] ${msg}\n` + logBox.textContent;
     }
 
-    // Cria muitos clones com transformações
-    for (let i = 0; i < 100; i++) {
-      const clone = base.cloneNode();
+    // Cria os quadrados transformados
+    for (let i = 0; i < 1000; i++) {
+      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#rect");
       const tx = Math.random() * 3000 - 1500;
       const ty = Math.random() * 3000 - 1500;
       const rot = Math.random() * 360;
-      const sc = 0.5 + Math.random() * 2.5;
-      clone.setAttribute("transform", `translate(${tx}, ${ty}) rotate(${rot}) scale(${sc})`);
-      svg.appendChild(clone);
-      clones.push(clone);
+      const scale = 0.5 + Math.random() * 2.0;
+      use.setAttribute("transform", `translate(${tx}, ${ty}) rotate(${rot}) scale(${scale})`);
+      svg.appendChild(use);
+      clones.push(use);
     }
 
-    // Verificação periódica de integridade das caixas
-    function checkIntegrity() {
+    // Detecta inconsistências de bbox / clientRect
+    function check() {
       for (let i = 0; i < clones.length; i++) {
         const el = clones[i];
         try {
           const box = el.getBBox();
           const rect = el.getBoundingClientRect();
 
-          // Checa se valores estão estranhos ou impossíveis
           if (
             box.width <= 0 || box.height <= 0 ||
             isNaN(box.x) || isNaN(box.y) ||
-            rect.width <= 0 || rect.height <= 0 ||
-            Math.abs(rect.width) > 5000 || Math.abs(rect.height) > 5000
+            isNaN(rect.width) || rect.width <= 0 ||
+            rect.width > 5000 || rect.height > 5000
           ) {
-            log(`Anomalia detectada no elemento #${i}:`);
-            log(`BBox: x=${box.x}, y=${box.y}, w=${box.width}, h=${box.height}`);
-            log(`ClientRect: w=${rect.width}, h=${rect.height}`);
+            log(`Possível corrupção em #${i}: BBox=(${box.width},${box.height}), Rect=(${rect.width},${rect.height})`);
           }
         } catch (e) {
-          log(`Erro ao acessar box de #${i}: ${e.message}`);
+          log(`Erro de leitura em elemento #${i}: ${e.message}`);
         }
       }
 
-      requestAnimationFrame(checkIntegrity);
+      requestAnimationFrame(check);
     }
 
-    checkIntegrity();
+    check();
   </script>
 </body>
 </html>
