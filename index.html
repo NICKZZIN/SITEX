@@ -2,69 +2,55 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>SVG xlink:href & foreignObject Stress Test</title>
+  <title>SVG Stress Without foreignObject</title>
   <style>
     body { background: #fff; font-family: sans-serif; margin: 0; padding: 0; }
-    section { margin: 20px; }
-    svg { border: 2px solid #000; display: block; margin: 10px auto; width: 800px; height: 800px; }
+    h1 { text-align: center; }
+    svg { display: block; margin: 0 auto; border: 2px solid black; width: 100vw; height: 100vh; }
   </style>
 </head>
 <body>
-  <h1>Stress Test: &lt;use&gt; with xlink:href &lt;foreignObject&gt;</h1>
-  <p>Clona elementos SVG que contêm HTML via <code>&lt;foreignObject&gt;</code> para forçar o WebKit a misturar árvores HTML/SVG.</p>
-
-  <svg id="svg" viewBox="-200 -200 400 400" xmlns="http://www.w3.org/2000/svg"
-       xmlns:xlink="http://www.w3.org/1999/xlink">
+  <h1>Stress Test: &lt;use&gt; cloning complex SVG shapes</h1>
+  <svg id="svg" viewBox="-500 -500 1000 1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
-      <!-- Definição de grupo com foreignObject -->
       <g id="complex">
-        <foreignObject x="-50" y="-50" width="100" height="100">
-          <div xmlns="http://www.w3.org/1999/xhtml"
-               style="width:100px;height:100px;background:rgba(255,0,0,0.5);">
-            <p style="margin:0;padding:5px;color:white;">HTML inside SVG</p>
-            <button id="btn">Click</button>
-          </div>
-        </foreignObject>
+        <rect x="-50" y="-50" width="100" height="100" fill="red" stroke="black" stroke-width="4"/>
+        <circle cx="0" cy="0" r="30" fill="blue" />
+        <path d="M -40,-40 Q 0,-80 40,-40 T 40,40" fill="none" stroke="green" stroke-width="3"/>
+        <text x="-40" y="60" font-size="12" fill="purple">Test</text>
       </g>
     </defs>
   </svg>
 
   <script>
     const svg = document.getElementById('svg');
-    const defs = svg.querySelector('defs');
     let iteration = 0;
 
-    function stressForeign() {
-      // Clona e insere o <use> apontando para <g id="complex">
+    function stressCloneUse() {
       const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
       use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#complex');
-      // Transformações randômicas para stress
-      use.setAttribute('transform', `translate(${Math.random()*400-200},${Math.random()*400-200}) ` +
-                                    `rotate(${Math.random()*360}) scale(${Math.random()*3+0.5})`);
+
+      // Random transformation
+      const tx = Math.random() * 1000 - 500;
+      const ty = Math.random() * 1000 - 500;
+      const scale = 0.5 + Math.random() * 2;
+      const rotate = Math.random() * 360;
+      use.setAttribute('transform', `translate(${tx},${ty}) scale(${scale}) rotate(${rotate})`);
+
       svg.appendChild(use);
-      console.log(`[foreignObject] append iteration ${iteration}`);
+      console.log(`[clone+transform] inserted ${iteration}`);
 
-      // Manipula internal do foreignObject após breve delay
-      setTimeout(() => {
-        try {
-          // Tenta acessar o botão dentro do HTML clonado
-          const btn = use.getBBox ? null : null; // placeholder
-          // força rebuild de shadow tree
-          void use.getBBox();
-        } catch(e) {}
-      }, 100);
-
-      // Remover após tempo variável
+      // Remove after a short delay
       setTimeout(() => {
         if (svg.contains(use)) svg.removeChild(use);
-        console.log(`[foreignObject] remove iteration ${iteration}`);
-      }, 500 + Math.random()*500);
+        console.log(`[clone+transform] removed ${iteration}`);
+      }, 500 + Math.random() * 1000);
 
       iteration++;
-      if (iteration < 300) requestAnimationFrame(stressForeign);
+      if (iteration < 300) requestAnimationFrame(stressCloneUse);
     }
 
-    stressForeign();
+    stressCloneUse();
   </script>
 </body>
 </html>
