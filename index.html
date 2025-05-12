@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PS4 11.02 Exploit Test</title>
+    <title>PS4 Exploit Test - Logs</title>
     <style>
         body {
             background-color: #000;
             color: #0f0;
             font-family: monospace;
-            text-align: center;
             padding: 20px;
         }
-        #status {
-            margin-top: 20px;
-            font-size: 18px;
+        #logs {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #0f0;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        #progress {
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         button {
             background-color: #333;
@@ -27,29 +33,11 @@
     </style>
 </head>
 <body>
-    <h1>PS4 11.02 Exploit Test</h1>
-    <p>Testing "ppsploit" chain for firmware 11.02/11.50</p>
+    <h1>PS4 Exploit Test</h1>
+    <div id="progress">Progresso: 0%</div>
+    <div id="logs"></div>
+    <button onclick="window.location.reload()">Reiniciar Teste</button>
     
-    <button onclick="runExploit()">Run Exploit</button>
-    
-    <div id="status">Status: Ready</div>
-
-    <!-- Seu exploit será carregado aqui -->
     <script src="main.js"></script>
-
-    <script>
-        function runExploit() {
-            document.getElementById("status").textContent = "Status: Running...";
-            
-            // Se o exploit não rodar automaticamente, você pode chamar manualmente
-            try {
-                // Se o exploit é autoexecutável (IIFE), não precisa chamar nada.
-                // Se não, você pode adicionar uma função de inicialização aqui.
-                document.getElementById("status").textContent = "Status: Exploit executed! Check alerts.";
-            } catch (e) {
-                document.getElementById("status").textContent = "Status: Error - " + e.message;
-            }
-        }
-    </script>
 </body>
 </html>
