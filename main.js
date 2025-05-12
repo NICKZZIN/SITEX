@@ -1,78 +1,86 @@
-// Função de log melhorada
+// main.js
+const MAX_ITERATIONS = 1e5;
+const LOG_INTERVAL = 100; // Log a cada 100 iterações
+
 function log(message, isError = false) {
     const logElement = document.getElementById('logs');
-    const color = isError ? '#ff5555' : '#0f0';
-    logElement.innerHTML += `<span style="color:${color}">${message}</span><br>`;
+    const timestamp = new Date().toLocaleTimeString();
+    const color = isError ? 'red' : '#0f0';
+    logElement.innerHTML += `<span style="color:${color}">[${timestamp}] ${message}</span><br>`;
     logElement.scrollTop = logElement.scrollHeight;
 }
 
-// Verifica recursos necessários
-function checkEnvironment() {
-    try {
-        new Proxy({}, {});
-        class Test { constructor() { super(); } };
-        return true;
-    } catch (e) {
-        log(`Ambiente incompatível: ${e.message}`, true);
-        return false;
-    }
+function updateProgress(iteration) {
+    const percent = ((iteration / MAX_ITERATIONS) * 100).toFixed(2);
+    document.getElementById('progress').textContent = `Progresso: ${percent}%`;
 }
 
-// Versão mais segura do exploit
-function runExploit() {
-    if (!checkEnvironment()) {
-        log("O navegador não suporta os recursos necessários (Proxy/super)", true);
-        return;
+function assert(x, label) {
+    if (!x) {
+        log(`[FALHA] ${label}`, true);
+        return false;
     }
+    log(`[SUCESSO] ${label}`);
+    return true;
+}
 
-    log("Iniciando teste em modo seguro...");
-    let testsRun = 0;
-
-    function safeTest(fn, name) {
+(function() {
+    let completedIterations = 0;
+    
+    function runTests() {
         try {
-            const result = fn();
-            testsRun++;
-            document.getElementById('progress').textContent = `Testes realizados: ${testsRun}`;
-            
-            if (result !== undefined) {
-                log(`[POSSÍVEL VULNERABILIDADE] ${name} retornou: ${result}`);
-                return true;
+            for (let i = 0; i < MAX_ITERATIONS; i++) {
+                // Teste 1: GetById
+                try {
+                    let r = tryToLeakThisViaGetById();
+                    assert(r === undefined, `GetById #${i}: ${r}`);
+                } catch (e) {
+                    log(`[ERRO] GetById: ${e.message}`, true);
+                }
+
+                // Teste 2: GetByVal
+                try {
+                    let r = tryToLeakThisViaGetByVal();
+                    assert(r === undefined, `GetByVal #${i}: ${r}`);
+                } catch (e) {
+                    log(`[ERRO] GetByVal: ${e.message}`, true);
+                }
+
+                // Teste 3: SetById
+                try {
+                    let r = tryToLeakThisViaSetById();
+                    assert(r === undefined, `SetById #${i}: ${r}`);
+                } catch (e) {
+                    log(`[ERRO] SetById: ${e.message}`, true);
+                }
+
+                // Teste 4: SetByVal
+                try {
+                    let r = tryToLeakThisViaSetByVal();
+                    assert(r === undefined, `SetByVal #${i}: ${r}`);
+                } catch (e) {
+                    log(`[ERRO] SetByVal: ${e.message}`, true);
+                }
+
+                completedIterations = i;
+                if (i % LOG_INTERVAL === 0) {
+                    updateProgress(i);
+                    await new Promise(resolve => setTimeout(resolve, 0)); // Liberar a thread
+                }
             }
-            return false;
+            log("Teste completo!");
         } catch (e) {
-            log(`[ERRO] ${name}: ${e.message}`, true);
-            return false;
+            log(`[ERRO GLOBAL] ${e.message}`, true);
         }
     }
 
-    // Testes simplificados
-    const tests = [
-        { name: "GetById", fn: tryToLeakThisViaGetById },
-        { name: "GetByVal", fn: tryToLeakThisViaGetByVal },
-        { name: "SetById", fn: tryToLeakThisViaSetById },
-        { name: "SetByVal", fn: tryToLeakThisViaSetByVal }
-    ];
+    // Mantenha as funções originais sem modificações
+    function tryToLeakThisViaGetById() { /* ... */ }
+    function tryToLeakThisViaGetByVal() { /* ... */ }
+    function tryToLeakThisViaSetById() { /* ... */ }
+    function tryToLeakThisViaSetByVal() { /* ... */ }
 
-    let vulnerabilitiesFound = 0;
-    const testCycles = 1000; // Reduzido para testes mais rápidos
-
-    for (let i = 0; i < testCycles; i++) {
-        tests.forEach(test => {
-            if (safeTest(test.fn, test.name)) {
-                vulnerabilitiesFound++;
-            }
-        });
-    }
-
-    log(`Testes concluídos. Total: ${testsRun}, Vulnerabilidades: ${vulnerabilitiesFound}`);
-    if (vulnerabilitiesFound > 0) {
-        log("AVISO: Possível vulnerabilidade encontrada!", true);
-    } else {
-        log("Nenhuma vulnerabilidade detectada.");
-    }
-}
-
-// Inicia automaticamente
-window.onload = function() {
-    setTimeout(runExploit, 1000); // Delay para carregamento completo
-};
+    // Iniciar
+    log("Iniciando exploit...");
+    setTimeout(runTests, 1000); // Delay para evitar bloqueio
+})();
