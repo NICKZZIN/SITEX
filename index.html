@@ -17,6 +17,7 @@
             border: 1px solid #0f0;
             padding: 10px;
             margin-bottom: 10px;
+            white-space: pre-wrap; /* Permite quebras de linha */
         }
         #progress {
             font-weight: bold;
@@ -35,9 +36,24 @@
 <body>
     <h1>PS4 Exploit Test</h1>
     <div id="progress">Progresso: 0%</div>
-    <div id="logs"></div>
-    <button onclick="window.location.reload()">Reiniciar Teste</button>
-    
+    <div id="logs">[Inicializando...]</div> <!-- Texto inicial -->
+    <button onclick="startTest()">Iniciar Teste</button> <!-- Botão explícito -->
+
+    <!-- Script principal -->
     <script src="main.js"></script>
+
+    <!-- Inicialização controlada -->
+    <script>
+        // Função explícita para iniciar o teste
+        function startTest() {
+            document.getElementById("logs").innerHTML = ""; // Limpa logs
+            window.runExploit(); // Assume que runExploit() é global
+        }
+
+        // Debug inicial
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("DOM carregado"); // Não aparece no PS4, mas ajuda em outros navegadores
+        });
+    </script>
 </body>
 </html>
