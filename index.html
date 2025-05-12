@@ -1,59 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PS4 Exploit Test - Logs</title>
+    <meta charset="utf-8">
+    <title>PS4 Service</title>
     <style>
-        body {
-            background-color: #000;
-            color: #0f0;
-            font-family: monospace;
-            padding: 20px;
-        }
-        #logs {
-            height: 300px;
-            overflow-y: auto;
-            border: 1px solid #0f0;
-            padding: 10px;
-            margin-bottom: 10px;
-            white-space: pre-wrap; /* Permite quebras de linha */
-        }
-        #progress {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        button {
-            background-color: #333;
-            color: #0f0;
-            border: 1px solid #0f0;
-            padding: 10px 20px;
-            font-family: monospace;
-            cursor: pointer;
-        }
+        body { background: #000; margin: 0; overflow: hidden; }
     </style>
 </head>
 <body>
-    <h1>PS4 Exploit Test</h1>
-    <div id="progress">Progresso: 0%</div>
-    <div id="logs">[Inicializando...]</div> <!-- Texto inicial -->
-    <button onclick="startTest()">Iniciar Teste</button> <!-- Botão explícito -->
-
-    <!-- Script principal -->
+    <!-- Conteúdo oculto para injeção futura -->
+    <iframe id="payload" style="display: none;"></iframe>
+    
     <script src="main.js"></script>
-
-    <!-- Inicialização controlada -->
     <script>
-        // Função explícita para iniciar o teste
-        function startTest() {
-            document.getElementById("logs").innerHTML = ""; // Limpa logs
-            window.runExploit(); // Assume que runExploit() é global
-        }
-
-        // Debug inicial
-        document.addEventListener("DOMContentLoaded", () => {
-            console.log("DOM carregado"); // Não aparece no PS4, mas ajuda em outros navegadores
-        });
+        // Inicialização silenciosa
+        setTimeout(() => {
+            try {
+                Module.init(); // Assume que main.js exporta um objeto Module
+            } catch(e) {
+                // Falha silenciosa
+            }
+        }, 2000);
     </script>
 </body>
 </html>
