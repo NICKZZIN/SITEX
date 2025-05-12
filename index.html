@@ -2,25 +2,38 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>PS4 Service</title>
+    <title>PS4 Exploit</title>
     <style>
-        body { background: #000; margin: 0; overflow: hidden; }
+        body {
+            background: #000;
+            margin: 0;
+            overflow: hidden;
+        }
+        /* Elementos escondidos mas presentes no DOM */
+        #logs, #progress {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <!-- Conteúdo oculto para injeção futura -->
-    <iframe id="payload" style="display: none;"></iframe>
-    
-    <script src="main.js"></script>
+    <!-- Elementos necessários para o JS -->
+    <div id="progress"></div>
+    <div id="logs"></div>
+
     <script>
-        // Inicialização silenciosa
-        setTimeout(() => {
-            try {
-                Module.init(); // Assume que main.js exporta um objeto Module
-            } catch(e) {
-                // Falha silenciosa
-            }
-        }, 2000);
+    // Polyfill para requestAnimationFrame
+    (function() {
+        var lastTime = 0;
+        window.requestAnimationFrame = window.requestAnimationFrame || function(callback) {
+            var currTime = Date.now();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+    }());
     </script>
+
+    <script src="main.js"></script>
 </body>
 </html>
