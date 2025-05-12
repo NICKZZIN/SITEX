@@ -12,7 +12,7 @@
             padding: 1em;
         }
         #logs {
-            max-height: 90vh;
+            max-height: 60vh;
             overflow-y: auto;
             white-space: pre-wrap;
         }
@@ -24,18 +24,24 @@
 </head>
 <body>
     <div id="progress">Progresso: 0%</div>
-    <div id="logs">[Iniciando logs...]
-</div>
+    <div id="logs">[Iniciando logs...]</div>
 
 <script>
-const MAX_ITERATIONS = 1e4; // reduzido para evitar loop muito pesado
-const LOG_INTERVAL = 100;
+const MAX_ITERATIONS = 500; // Iterações reduzidas para evitar travamento
+const LOG_INTERVAL = 10; // Log a cada 10 iterações
+const MAX_LOGS = 100; // Limite de logs exibidos para evitar sobrecarga
+
+let logs = [];
 
 function log(message, isError = false) {
     const logElement = document.getElementById('logs');
     const timestamp = new Date().toLocaleTimeString();
     const color = isError ? 'red' : '#0f0';
-    logElement.innerHTML += `<span style=\"color:${color}\">[${timestamp}] ${message}</span><br>`;
+    logs.push(`<span style="color:${color}">[${timestamp}] ${message}</span><br>`);
+    if (logs.length > MAX_LOGS) {
+        logs.shift(); // Remove logs mais antigos
+    }
+    logElement.innerHTML = logs.join('');
     logElement.scrollTop = logElement.scrollHeight;
 }
 
@@ -56,6 +62,7 @@ function assert(x, label) {
 (async function runTests() {
     log("Iniciando testes ppsploit...");
     let completedIterations = 0;
+
     for (let i = 0; i < MAX_ITERATIONS; i++) {
         try {
             let r = (() => {
@@ -70,7 +77,9 @@ function assert(x, label) {
                 return Leaker1.prototype.leak();
             })();
             assert(r === undefined, `GetById #${i}: ${r}`);
-        } catch(e) { log(`[ERRO] GetById: ${e.message}`, true); }
+        } catch (e) {
+            log(`[ERRO] GetById: ${e.message}`, true);
+        }
 
         try {
             let r = (() => {
@@ -85,7 +94,9 @@ function assert(x, label) {
                 return Leaker2.prototype.leak();
             })();
             assert(r === undefined, `GetByVal #${i}: ${r}`);
-        } catch(e) { log(`[ERRO] GetByVal: ${e.message}`, true); }
+        } catch (e) {
+            log(`[ERRO] GetByVal: ${e.message}`, true);
+        }
 
         try {
             let r;
@@ -102,7 +113,9 @@ function assert(x, label) {
                 r = new Leaker3().leak();
             })();
             assert(r === undefined, `SetById #${i}: ${r}`);
-        } catch(e) { log(`[ERRO] SetById: ${e.message}`, true); }
+        } catch (e) {
+            log(`[ERRO] SetById: ${e.message}`, true);
+        }
 
         try {
             let r;
@@ -119,12 +132,14 @@ function assert(x, label) {
                 r = new Leaker4().leak();
             })();
             assert(r === undefined, `SetByVal #${i}: ${r}`);
-        } catch(e) { log(`[ERRO] SetByVal: ${e.message}`, true); }
+        } catch (e) {
+            log(`[ERRO] SetByVal: ${e.message}`, true);
+        }
 
         completedIterations = i;
         if (i % LOG_INTERVAL === 0) {
             updateProgress(i);
-            await new Promise(resolve => setTimeout(resolve, 0));
+            await new Promise(resolve => setTimeout(resolve, 0)); // Dando tempo para o navegador processar
         }
     }
     log("Teste completo!");
