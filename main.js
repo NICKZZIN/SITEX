@@ -1,16 +1,32 @@
-alert("ppsploit");
+// Função para adicionar logs na página
+function log(message) {
+    const logElement = document.getElementById('logs');
+    logElement.innerHTML += message + '<br>';
+    logElement.scrollTop = logElement.scrollHeight; // Auto-scroll
+}
+
+// Início do exploit
+log("Iniciando teste de exploit ppsploit para PS4 11.02/11.50");
+log("Preparando ambiente...");
 
 function assert(x, label) {
     if (!x) {
-        alert("Assertion failed: " + label);
+        log("[FALHA] " + label);
         throw new Error("Bad assertion: " + label);
     }
-
-    alert(label);
-    alert("it made");
+    log("[SUCESSO] " + label);
 }
 
 (function() {
+    let successCount = 0;
+    let failureCount = 0;
+    const totalTests = 1e5 * 4; // 4 testes por iteração
+    
+    function updateProgress() {
+        const progress = ((successCount + failureCount) / totalTests * 100).toFixed(2);
+        document.getElementById('progress').textContent = `Progresso: ${progress}%`;
+    }
+
     function tryToLeakThisViaGetById() {
         class Leaker {
             leak() {
@@ -94,19 +110,54 @@ function assert(x, label) {
         return (() => leak())();
     }
 
-    for (var i = 0; i < 1e5; i++) {
-        let r;
+    log("Iniciando testes...");
+    
+    try {
+        for (var i = 0; i < 1e5; i++) {
+            let r;
 
-        r = tryToLeakThisViaGetById();
-        assert(r === undefined, "GetById: " + r);
+            r = tryToLeakThisViaGetById();
+            if (r !== undefined) {
+                log(`[POSSÍVEL EXPLOIT] GetById retornou: ${r}`);
+                failureCount++;
+            } else {
+                successCount++;
+            }
 
-        r = tryToLeakThisViaGetByVal();
-        assert(r === undefined, "GetByVal: " + r);
+            r = tryToLeakThisViaGetByVal();
+            if (r !== undefined) {
+                log(`[POSSÍVEL EXPLOIT] GetByVal retornou: ${r}`);
+                failureCount++;
+            } else {
+                successCount++;
+            }
 
-        r = tryToLeakThisViaSetById();
-        assert(r === undefined, "SetById: " + r);
+            r = tryToLeakThisViaSetById();
+            if (r !== undefined) {
+                log(`[POSSÍVEL EXPLOIT] SetById retornou: ${r}`);
+                failureCount++;
+            } else {
+                successCount++;
+            }
 
-        r = tryToLeakThisViaSetByVal();
-        assert(r === undefined, "SetByVal: " + r);
+            r = tryToLeakThisViaSetByVal();
+            if (r !== undefined) {
+                log(`[POSSÍVEL EXPLOIT] SetByVal retornou: ${r}`);
+                failureCount++;
+            } else {
+                successCount++;
+            }
+
+            if (i % 1000 === 0) updateProgress();
+        }
+        
+        log(`Testes concluídos. Sucessos: ${successCount}, Falhas: ${failureCount}`);
+        if (failureCount > 0) {
+            log("AVISO: Alguns testes falharam - possível vulnerabilidade encontrada!");
+        } else {
+            log("Nenhuma vulnerabilidade detectada.");
+        }
+    } catch (e) {
+        log("[ERRO GRAVE] " + e.message);
     }
 })();
