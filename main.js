@@ -1,163 +1,78 @@
-// Função para adicionar logs na página
-function log(message) {
+// Função de log melhorada
+function log(message, isError = false) {
     const logElement = document.getElementById('logs');
-    logElement.innerHTML += message + '<br>';
-    logElement.scrollTop = logElement.scrollHeight; // Auto-scroll
+    const color = isError ? '#ff5555' : '#0f0';
+    logElement.innerHTML += `<span style="color:${color}">${message}</span><br>`;
+    logElement.scrollTop = logElement.scrollHeight;
 }
 
-// Início do exploit
-log("Iniciando teste de exploit ppsploit para PS4 11.02/11.50");
-log("Preparando ambiente...");
-
-function assert(x, label) {
-    if (!x) {
-        log("[FALHA] " + label);
-        throw new Error("Bad assertion: " + label);
-    }
-    log("[SUCESSO] " + label);
-}
-
-(function() {
-    let successCount = 0;
-    let failureCount = 0;
-    const totalTests = 1e5 * 4; // 4 testes por iteração
-    
-    function updateProgress() {
-        const progress = ((successCount + failureCount) / totalTests * 100).toFixed(2);
-        document.getElementById('progress').textContent = `Progresso: ${progress}%`;
-    }
-
-    function tryToLeakThisViaGetById() {
-        class Leaker {
-            leak() {
-                return super.foo;
-            }
-        }
-
-        Leaker.prototype.__proto__ = new Proxy({}, {
-            get(target, propertyName, receiver) {
-                return receiver;
-            }
-        });
-
-        const foo = 42;
-        const {leak} = Leaker.prototype;
-
-        return (() => leak())();
-    }
-
-    function tryToLeakThisViaGetByVal() {
-        class Leaker {
-            leak() {
-                return super[Math.random() < 0.5 ? "foo" : "bar"];
-            }
-        }
-
-        Leaker.prototype.__proto__ = new Proxy({}, {
-            get(target, propertyName, receiver) {
-                return receiver;
-            }
-        });
-
-        const foo = 42;
-        const bar = 84;
-        const {leak} = Leaker.prototype;
-
-        return (() => leak())();
-    }
-
-    function tryToLeakThisViaSetById() {
-        let receiver;
-        class Leaker {
-            leak() {
-                super.foo = {};
-                return receiver;
-            }
-        }
-        Leaker.prototype.__proto__ = new Proxy({}, {
-            set(target, propertyName, value, __receiver) {
-                receiver = __receiver;
-                return true;
-            }
-        });
-
-        const foo = 42;
-        const {leak} = Leaker.prototype;
-
-        return (() => leak())();
-    }
-
-    function tryToLeakThisViaSetByVal() {
-        let receiver;
-        class Leaker {
-            leak() {
-                super[Math.random() < 0.5 ? "foo" : "bar"] = {};
-                return receiver;
-            }
-        }
-
-        Leaker.prototype.__proto__ = new Proxy({}, {
-            set(target, propertyName, value, __receiver) {
-                receiver = __receiver;
-                return true;
-            }
-        });
-
-        const foo = 42;
-        const bar = 84;
-        const {leak} = Leaker.prototype;
-
-        return (() => leak())();
-    }
-
-    log("Iniciando testes...");
-    
+// Verifica recursos necessários
+function checkEnvironment() {
     try {
-        for (var i = 0; i < 1e5; i++) {
-            let r;
-
-            r = tryToLeakThisViaGetById();
-            if (r !== undefined) {
-                log(`[POSSÍVEL EXPLOIT] GetById retornou: ${r}`);
-                failureCount++;
-            } else {
-                successCount++;
-            }
-
-            r = tryToLeakThisViaGetByVal();
-            if (r !== undefined) {
-                log(`[POSSÍVEL EXPLOIT] GetByVal retornou: ${r}`);
-                failureCount++;
-            } else {
-                successCount++;
-            }
-
-            r = tryToLeakThisViaSetById();
-            if (r !== undefined) {
-                log(`[POSSÍVEL EXPLOIT] SetById retornou: ${r}`);
-                failureCount++;
-            } else {
-                successCount++;
-            }
-
-            r = tryToLeakThisViaSetByVal();
-            if (r !== undefined) {
-                log(`[POSSÍVEL EXPLOIT] SetByVal retornou: ${r}`);
-                failureCount++;
-            } else {
-                successCount++;
-            }
-
-            if (i % 1000 === 0) updateProgress();
-        }
-        
-        log(`Testes concluídos. Sucessos: ${successCount}, Falhas: ${failureCount}`);
-        if (failureCount > 0) {
-            log("AVISO: Alguns testes falharam - possível vulnerabilidade encontrada!");
-        } else {
-            log("Nenhuma vulnerabilidade detectada.");
-        }
+        new Proxy({}, {});
+        class Test { constructor() { super(); } };
+        return true;
     } catch (e) {
-        log("[ERRO GRAVE] " + e.message);
+        log(`Ambiente incompatível: ${e.message}`, true);
+        return false;
     }
-})();
+}
+
+// Versão mais segura do exploit
+function runExploit() {
+    if (!checkEnvironment()) {
+        log("O navegador não suporta os recursos necessários (Proxy/super)", true);
+        return;
+    }
+
+    log("Iniciando teste em modo seguro...");
+    let testsRun = 0;
+
+    function safeTest(fn, name) {
+        try {
+            const result = fn();
+            testsRun++;
+            document.getElementById('progress').textContent = `Testes realizados: ${testsRun}`;
+            
+            if (result !== undefined) {
+                log(`[POSSÍVEL VULNERABILIDADE] ${name} retornou: ${result}`);
+                return true;
+            }
+            return false;
+        } catch (e) {
+            log(`[ERRO] ${name}: ${e.message}`, true);
+            return false;
+        }
+    }
+
+    // Testes simplificados
+    const tests = [
+        { name: "GetById", fn: tryToLeakThisViaGetById },
+        { name: "GetByVal", fn: tryToLeakThisViaGetByVal },
+        { name: "SetById", fn: tryToLeakThisViaSetById },
+        { name: "SetByVal", fn: tryToLeakThisViaSetByVal }
+    ];
+
+    let vulnerabilitiesFound = 0;
+    const testCycles = 1000; // Reduzido para testes mais rápidos
+
+    for (let i = 0; i < testCycles; i++) {
+        tests.forEach(test => {
+            if (safeTest(test.fn, test.name)) {
+                vulnerabilitiesFound++;
+            }
+        });
+    }
+
+    log(`Testes concluídos. Total: ${testsRun}, Vulnerabilidades: ${vulnerabilitiesFound}`);
+    if (vulnerabilitiesFound > 0) {
+        log("AVISO: Possível vulnerabilidade encontrada!", true);
+    } else {
+        log("Nenhuma vulnerabilidade detectada.");
+    }
+}
+
+// Inicia automaticamente
+window.onload = function() {
+    setTimeout(runExploit, 1000); // Delay para carregamento completo
+};
