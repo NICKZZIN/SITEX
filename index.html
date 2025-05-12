@@ -1,86 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>SVG Deep Mutation Test</title>
-  <style>
-    body { margin: 0; padding: 0; background: #fff; }
-    svg { width: 100vw; height: 100vh; display: block; border: 2px solid black; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS4 11.02 Exploit Test</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: monospace;
+            text-align: center;
+            padding: 20px;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        button {
+            background-color: #333;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px 20px;
+            font-family: monospace;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <svg id="svg" viewBox="-1000 -1000 2000 2000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs id="defs">
-      <g id="complexA">
-        <rect x="-50" y="-50" width="100" height="100" fill="red" stroke="black" stroke-width="4"/>
-        <circle cx="0" cy="0" r="30" fill="blue" />
-        <path d="M -40,-40 Q 0,-80 40,-40 T 40,40" fill="none" stroke="green" stroke-width="3"/>
-        <text x="-40" y="60" font-size="12" fill="purple">Test A</text>
-      </g>
-      <g id="complexB">
-        <rect x="-60" y="-60" width="120" height="120" fill="orange" stroke="black" stroke-width="4"/>
-        <circle cx="0" cy="0" r="25" fill="navy" />
-        <text x="-50" y="70" font-size="12" fill="brown">Test B</text>
-      </g>
-    </defs>
-  </svg>
-  <script>
-    const svg = document.getElementById('svg');
-    const defs = document.getElementById('defs');
-    let iteration = 0;
-    let clones = [];
-    let toggle = false;
+    <h1>PS4 11.02 Exploit Test</h1>
+    <p>Testing "ppsploit" chain for firmware 11.02/11.50</p>
+    
+    <button onclick="runExploit()">Run Exploit</button>
+    
+    <div id="status">Status: Ready</div>
 
-    function mutateDefsSwap() {
-      const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-      const refId = toggle ? '#complexA' : '#complexB';
-      use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', refId);
+    <!-- Seu exploit será carregado aqui -->
+    <script src="main.js"></script>
 
-      const tx = Math.random() * 2000 - 1000;
-      const ty = Math.random() * 2000 - 1000;
-      const scale = 0.4 + Math.random() * 1.5;
-      const rotate = Math.random() * 360;
-      use.setAttribute('transform', `translate(${tx},${ty}) scale(${scale}) rotate(${rotate})`);
-
-      svg.appendChild(use);
-      clones.push(use);
-
-      try {
-        const bbox = use.getBBox();
-        console.log(`[${iteration}] BBox:`, bbox);
-      } catch (e) {
-        console.warn(`[${iteration}] getBBox failed:`, e);
-      }
-
-      if (iteration % 10 === 0 && defs) {
-        toggle = !toggle;
-        const target = toggle ? defs.querySelector('#complexA') : defs.querySelector('#complexB');
-        const rect = target.querySelector('rect');
-        rect.setAttribute('width', 100 + Math.random() * 100);
-        rect.setAttribute('height', 100 + Math.random() * 100);
-        console.log(`[${iteration}] Mutated rect in ${target.id}`);
-      }
-
-      if (iteration % 25 === 0) {
-        const toRemove = defs.querySelector(toggle ? '#complexB' : '#complexA');
-        defs.removeChild(toRemove);
-        setTimeout(() => defs.appendChild(toRemove), 50);
-        console.log(`[${iteration}] Temporarily removed and reinserted ${toRemove.id}`);
-      }
-
-      if (iteration % 40 === 0) {
-        const source = defs.querySelector(toggle ? '#complexA' : '#complexB');
-        const clone = source.cloneNode(true);
-        clone.id = 'cl' + iteration;
-        defs.appendChild(clone);
-        console.log(`[${iteration}] Cloned ${source.id} to ${clone.id}`);
-      }
-
-      iteration++;
-      if (iteration < 400) requestAnimationFrame(mutateDefsSwap);
-    }
-
-    mutateDefsSwap();
-  </script>
+    <script>
+        function runExploit() {
+            document.getElementById("status").textContent = "Status: Running...";
+            
+            // Se o exploit não rodar automaticamente, você pode chamar manualmente
+            try {
+                // Se o exploit é autoexecutável (IIFE), não precisa chamar nada.
+                // Se não, você pode adicionar uma função de inicialização aqui.
+                document.getElementById("status").textContent = "Status: Exploit executed! Check alerts.";
+            } catch (e) {
+                document.getElementById("status").textContent = "Status: Error - " + e.message;
+            }
+        }
+    </script>
 </body>
 </html>
