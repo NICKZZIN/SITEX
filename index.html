@@ -1,110 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>PS4 Exploit</title>
-    <style>
-        body { background: #000; margin: 0; }
-    </style>
+  <meta charset="UTF-8">
+  <title>PS4 ppsploit Test</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #0f0;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    #progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 4px;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+    }
+    #logs {
+      position: absolute;
+      top: 24px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-y: scroll;
+      padding: 8px;
+      white-space: pre-wrap;
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 <body>
-    <!-- Elementos fantasmas para o código JS -->
-    <div id="progress" style="display:none!important"></div>
-    <div id="logs" style="display:none!important"></div>
+  <div id="progress">Progresso: 0%</div>
+  <div id="logs"></div>
 
-<script>
-// MAIN.JS INLINE - INÍCIO
-const MAX_ITERATIONS = 1e5;
-const LOG_INTERVAL = 100;
+  <script>
+    const MAX_ITERATIONS = 100000;
+    const LOG_INTERVAL = 100;
 
-function log(message, isError = false) {
-    const logElement = document.getElementById('logs');
-    const timestamp = new Date().toLocaleTimeString();
-    const color = isError ? 'red' : '#0f0';
-    logElement.innerHTML += `<span style="color:${color}">[${timestamp}] ${message}</span><br>`;
-    logElement.scrollTop = logElement.scrollHeight;
-}
+    // Sleep helper
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-function updateProgress(iteration) {
-    const percent = ((iteration / MAX_ITERATIONS) * 100).toFixed(2);
-    document.getElementById('progress').textContent = `Progresso: ${percent}%`;
-}
+    function log(msg, isError = false) {
+      const logs = document.getElementById('logs');
+      const time = new Date().toISOString().split('T')[1];
+      const line = `[${time}] ${msg}\n`;
+      if (isError) console.error(msg);
+      else console.log(msg);
+      logs.textContent += line;
+      logs.scrollTop = logs.scrollHeight;
+    }
 
-function assert(x, label) {
-    if (!x) {
+    function updateProgress(i) {
+      const pct = ((i / MAX_ITERATIONS) * 100).toFixed(2);
+      document.getElementById('progress').textContent = `Progresso: ${pct}%`;
+    }
+
+    function assert(cond, label) {
+      if (!cond) {
         log(`[FALHA] ${label}`, true);
         return false;
+      }
+      log(`[SUCESSO] ${label}`);
+      return true;
     }
-    log(`[SUCESSO] ${label}`);
-    return true;
-}
 
-(function() {
-    let completedIterations = 0;
-    
-    function runTests() {
+    async function runExploit() {
+      log('Iniciando exploit ppsploit...');
+      for (let i = 0; i < MAX_ITERATIONS; i++) {
         try {
-            for (let i = 0; i < MAX_ITERATIONS; i++) {
-                try {
-                    let r = (() => {
-                        class Leaker1 {
-                            leak() { return super.foo; }
-                        }
-                        Leaker1.prototype.__proto__ = new Proxy({}, {get(t,p,r) { return r; }});
-                        return Leaker1.prototype.leak();
-                    })();
-                    assert(r === undefined, `GetById #${i}: ${r}`);
-                } catch(e) { log(`[ERRO] GetById: ${e.message}`, true); }
+          let r1 = (() => {
+            class Leaker1 { leak() { return super.foo; } }
+            Leaker1.prototype.__proto__ = new Proxy({}, { get(t, p, r) { return r; } });
+            return Leaker1.prototype.leak();
+          })();
+          assert(r1 === undefined, `GetById #${i}: ${r1}`);
+        } catch (e) {
+          log(`[ERRO] GetById #${i}: ${e}`, true);
+        }
 
-                try {
-                    let r = (() => {
-                        class Leaker2 {
-                            leak() { return super[Math.random() < 0.5 ? "foo" : "bar"]; }
-                        }
-                        Leaker2.prototype.__proto__ = new Proxy({}, {get(t,p,r) { return r; }});
-                        return Leaker2.prototype.leak();
-                    })();
-                    assert(r === undefined, `GetByVal #${i}: ${r}`);
-                } catch(e) { log(`[ERRO] GetByVal: ${e.message}`, true); }
+        try {
+          let r2 = (() => {
+            class Leaker2 { leak() { return super[Math.random() < 0.5 ? 'foo' : 'bar']; } }
+            Leaker2.prototype.__proto__ = new Proxy({}, { get(t, p, r) { return r; } });
+            return Leaker2.prototype.leak();
+          })();
+          assert(r2 === undefined, `GetByVal #${i}: ${r2}`);
+        } catch (e) {
+          log(`[ERRO] GetByVal #${i}: ${e}`, true);
+        }
 
-                try {
-                    let r = (() => {
-                        let receiver;
-                        class Leaker3 {
-                            leak() { super.foo = {}; return receiver; }
-                        }
-                        Leaker3.prototype.__proto__ = new Proxy({}, {set(t,p,v,r) { receiver = r; return true; }});
-                        return new Leaker3().leak();
-                    })();
-                    assert(r === undefined, `SetById #${i}: ${r}`);
-                } catch(e) { log(`[ERRO] SetById: ${e.message}`, true); }
+        try {
+          let r3;
+          (() => {
+            let recv;
+            class Leaker3 { leak() { super.foo = {}; return recv; } }
+            Leaker3.prototype.__proto__ = new Proxy({}, { set(t, p, v, r) { recv = r; return true; } });
+            r3 = new Leaker3().leak();
+          })();
+          assert(r3 === undefined, `SetById #${i}: ${r3}`);
+        } catch (e) {
+          log(`[ERRO] SetById #${i}: ${e}`, true);
+        }
 
-                try {
-                    let r = (() => {
-                        let receiver;
-                        class Leaker4 {
-                            leak() { super[Math.random() < 0.5 ? "foo" : "bar"] = {}; return receiver; }
-                        }
-                        Leaker4.prototype.__proto__ = new Proxy({}, {set(t,p,v,r) { receiver = r; return true; }});
-                        return new Leaker4().leak();
-                    })();
-                    assert(r === undefined, `SetByVal #${i}: ${r}`);
-                } catch(e) { log(`[ERRO] SetByVal: ${e.message}`, true); }
+        try {
+          let r4;
+          (() => {
+            let recv;
+            class Leaker4 { leak() { super[Math.random() < 0.5 ? 'foo' : 'bar'] = {}; return recv; } }
+            Leaker4.prototype.__proto__ = new Proxy({}, { set(t, p, v, r) { recv = r; return true; } });
+            r4 = new Leaker4().leak();
+          })();
+          assert(r4 === undefined, `SetByVal #${i}: ${r4}`);
+        } catch (e) {
+          log(`[ERRO] SetByVal #${i}: ${e}`, true);
+        }
 
-                completedIterations = i;
-                if (i % LOG_INTERVAL === 0) {
-                    updateProgress(i);
-                    new Promise(resolve => setTimeout(resolve, 0));
-                }
-            }
-            log("Teste completo!");
-        } catch(e) { log(`[ERRO GLOBAL] ${e.message}`, true); }
+        if (i % LOG_INTERVAL === 0) {
+          updateProgress(i);
+          // yield to event loop
+          await sleep(0);
+        }
+      }
+      log('Teste completo!');
     }
 
-    log("Iniciando exploit...");
-    setTimeout(runTests, 1000);
-})();
-// MAIN.JS INLINE - FIM
-</script>
+    window.addEventListener('load', () => {
+      runExploit().catch(err => log(`Erro global: ${err}`, true));
+    });
+  </script>
 </body>
 </html>
