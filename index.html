@@ -27,9 +27,9 @@
     <div id="logs">[Iniciando logs...]</div>
 
 <script>
-const MAX_ITERATIONS = 500; // Iterações reduzidas para evitar travamento
-const LOG_INTERVAL = 10; // Log a cada 10 iterações
-const MAX_LOGS = 100; // Limite de logs exibidos para evitar sobrecarga
+const MAX_ITERATIONS = 10000;
+const LOG_INTERVAL = 10;
+const MAX_LOGS = 100;
 
 let logs = [];
 
@@ -39,7 +39,7 @@ function log(message, isError = false) {
     const color = isError ? 'red' : '#0f0';
     logs.push(`<span style="color:${color}">[${timestamp}] ${message}</span><br>`);
     if (logs.length > MAX_LOGS) {
-        logs.shift(); // Remove logs mais antigos
+        logs.shift();
     }
     logElement.innerHTML = logs.join('');
     logElement.scrollTop = logElement.scrollHeight;
@@ -59,10 +59,8 @@ function assert(x, label) {
     return true;
 }
 
-(async function runTests() {
+function runTests() {
     log("Iniciando testes ppsploit...");
-    let completedIterations = 0;
-
     for (let i = 0; i < MAX_ITERATIONS; i++) {
         try {
             let r = (() => {
@@ -136,14 +134,14 @@ function assert(x, label) {
             log(`[ERRO] SetByVal: ${e.message}`, true);
         }
 
-        completedIterations = i;
         if (i % LOG_INTERVAL === 0) {
             updateProgress(i);
-            await new Promise(resolve => setTimeout(resolve, 0)); // Dando tempo para o navegador processar
         }
     }
     log("Teste completo!");
-})();
+}
+
+setTimeout(runTests, 500);
 </script>
 </body>
 </html>
