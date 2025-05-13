@@ -1,147 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>PPsploit Test</title>
-    <style>
-        body {
-            background: #000;
-            color: #0f0;
-            font-family: monospace;
-            margin: 0;
-            padding: 1em;
-        }
-        #logs {
-            max-height: 60vh;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-        #progress {
-            color: #0ff;
-            margin-bottom: 1em;
-        }
-    </style>
+  <meta charset="utf-8">
+  <title>VP9 WebCodecs Fuzzer</title>
+  <style>
+    body { background: #111; color: #0f0; font-family: monospace; padding: 1rem; }
+    pre { white-space: pre-wrap; word-wrap: break-word; }
+  </style>
 </head>
 <body>
-    <div id="progress">Progresso: 0%</div>
-    <div id="logs">[Iniciando logs...]</div>
-
-<script>
-const MAX_ITERATIONS = 10000;
-const LOG_INTERVAL = 10;
-const MAX_LOGS = 100;
-
-let logs = [];
-
-function log(message, isError = false) {
-    const logElement = document.getElementById('logs');
-    const timestamp = new Date().toLocaleTimeString();
-    const color = isError ? 'red' : '#0f0';
-    logs.push(`<span style="color:${color}">[${timestamp}] ${message}</span><br>`);
-    if (logs.length > MAX_LOGS) {
-        logs.shift();
-    }
-    logElement.innerHTML = logs.join('');
-    logElement.scrollTop = logElement.scrollHeight;
-}
-
-function updateProgress(iteration) {
-    const percent = ((iteration / MAX_ITERATIONS) * 100).toFixed(2);
-    document.getElementById('progress').textContent = `Progresso: ${percent}%`;
-}
-
-function assert(x, label) {
-    if (!x) {
-        log(`[FALHA] ${label}`, true);
-        return false;
-    }
-    log(`[SUCESSO] ${label}`);
-    return true;
-}
-
-function runTests() {
-    log("Iniciando testes ppsploit...");
-    for (let i = 0; i < MAX_ITERATIONS; i++) {
-        try {
-            let r = (() => {
-                class Leaker1 {
-                    leak() { return super.foo; }
-                }
-                Leaker1.prototype.__proto__ = new Proxy({}, {
-                    get(t, p, r) {
-                        return r;
-                    }
-                });
-                return Leaker1.prototype.leak();
-            })();
-            assert(r === undefined, `GetById #${i}: ${r}`);
-        } catch (e) {
-            log(`[ERRO] GetById: ${e.message}`, true);
-        }
-
-        try {
-            let r = (() => {
-                class Leaker2 {
-                    leak() { return super[Math.random() < 0.5 ? "foo" : "bar"]; }
-                }
-                Leaker2.prototype.__proto__ = new Proxy({}, {
-                    get(t, p, r) {
-                        return r;
-                    }
-                });
-                return Leaker2.prototype.leak();
-            })();
-            assert(r === undefined, `GetByVal #${i}: ${r}`);
-        } catch (e) {
-            log(`[ERRO] GetByVal: ${e.message}`, true);
-        }
-
-        try {
-            let r;
-            (() => {
-                class Leaker3 {
-                    leak() { super.foo = {}; return r; }
-                }
-                Leaker3.prototype.__proto__ = new Proxy({}, {
-                    set(t, p, v, rcv) {
-                        r = undefined;
-                        return true;
-                    }
-                });
-                r = new Leaker3().leak();
-            })();
-            assert(r === undefined, `SetById #${i}: ${r}`);
-        } catch (e) {
-            log(`[ERRO] SetById: ${e.message}`, true);
-        }
-
-        try {
-            let r;
-            (() => {
-                class Leaker4 {
-                    leak() { super[Math.random() < 0.5 ? "foo" : "bar"] = {}; return r; }
-                }
-                Leaker4.prototype.__proto__ = new Proxy({}, {
-                    set(t, p, v, rcv) {
-                        r = undefined;
-                        return true;
-                    }
-                });
-                r = new Leaker4().leak();
-            })();
-            assert(r === undefined, `SetByVal #${i}: ${r}`);
-        } catch (e) {
-            log(`[ERRO] SetByVal: ${e.message}`, true);
-        }
-
-        if (i % LOG_INTERVAL === 0) {
-            updateProgress(i);
-        }
-    }
-    log("Teste completo!");
-}
-
-setTimeout(runTests, 500);
-</script>
+  <h1>VP9 WebCodecs Fuzzer</h1>
+  <button onclick="startFuzzing()">Iniciar Fuzzer</button>
+  <pre id="log"></pre>
+  <script src="fuzzer.js"></script>
 </body>
 </html>
