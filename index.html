@@ -2,79 +2,101 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>VP9 WebCodecs Aggressive Fuzzer</title>
+  <title>VP9 WebM Mutational Fuzzer (PS4-Compatible)</title>
   <style>
     body { background: #000; color: #0f0; font-family: monospace; padding: 1rem; }
     pre { white-space: pre-wrap; word-wrap: break-word; }
   </style>
 </head>
 <body>
-  <h1>VP9 WebCodecs Aggressive Fuzzer</h1>
-  <button onclick="startFuzzing()">Iniciar Fuzzer</button>
+  <h1>VP9 WebM Mutational Fuzzer</h1>
+  <video id="vid" controls autoplay muted style="width: 640px; height: 360px; background: #222;"></video>
   <pre id="log"></pre>
   <script>
     const log = (msg) => {
-      const logDiv = document.getElementById("log");
-      logDiv.textContent += msg + "\n";
+      const out = document.getElementById("log");
+      out.textContent += msg + "\n";
     };
 
-    function generateCorruptedChunk(seed) {
-      const size = 512 + Math.floor(Math.random() * 2048);
-      const buffer = new Uint8Array(size);
-
-      for (let i = 0; i < size; i++) {
-        buffer[i] = (seed + i * 17) % 256 ^ (Math.random() * 255);
+    function createMinimalWebMVP9Frame(seed) {
+      const cluster = new Uint8Array(1024);
+      for (let i = 0; i < cluster.length; i++) {
+        cluster[i] = (seed * i + 91) % 256 ^ (Math.random() * 255);
       }
 
-      // Inject malformed VP9-like headers in front
-      buffer[0] = 0x80; // frame marker
-      buffer[1] = 0x00; // profile low
-      buffer[2] = 0x00;
-      buffer[3] = 0x01; // keyframe
-      return buffer;
+      // Inject WebM VP9 markers (not valid structure, but triggers parser)
+      cluster[0] = 0x1A; // EBML header ID
+      cluster[1] = 0x45;
+      cluster[2] = 0xDF;
+      cluster[3] = 0xA3; // Cluster start
+      cluster[4] = 0x9F; // Timecode
+      cluster[5] = 0x01; // SimpleBlock
+      cluster[10] = 0xA3; // VP9 ID fake
+      return cluster;
     }
 
-    async function startFuzzing() {
-      if (!("VideoDecoder" in window)) {
-        log("WebCodecs API não está disponível neste navegador.");
+    function startFuzzing() {
+      if (!window.MediaSource) {
+        log("MediaSource API não disponível.");
         return;
       }
 
-      log("Iniciando fuzzer agressivo para VP9 via WebCodecs...");
+      const video = document.getElementById("vid");
+      const mediaSource = new MediaSource();
+      video.src = URL.createObjectURL(mediaSource);
 
-      const decoder = new VideoDecoder({
-        output(frame) {
-          frame.close();
-          log("Quadro decodificado: " + frame.timestamp);
-        },
-        error(e) {
-          log("Erro capturado: " + e.message);
-        },
-      });
-
-      decoder.configure({
-        codec: "vp09.00.10.08",
-        codedWidth: 640,
-        codedHeight: 360,
-      });
-
-      for (let i = 0; i < 1000; i++) {
-        const chunk = new EncodedVideoChunk({
-          type: i % 2 === 0 ? "key" : "delta",
-          timestamp: i * 16666,
-          duration: 16666,
-          data: generateCorruptedChunk(i)
-        });
-
-        try {
-          decoder.decode(chunk);
-        } catch (err) {
-          log("Exceção JS: " + err.message);
+      mediaSource.addEventListener("sourceopen", () => {
+        const mime = 'video/webm; codecs="vp9"';
+        if (!MediaSource.isTypeSupported(mime)) {
+          log("VP9/WebM não suportado: " + mime);
+          return;
         }
-      }
 
-      log("Fuzzing concluído.");
+        const sb = mediaSource.addSourceBuffer(mime);
+        let i = 0;
+
+        function pushChunk() {
+          if (i >= 300) {
+            log("Fuzzing completo.");
+            mediaSource.endOfStream();
+            return;
+          }
+
+          const mutated = createMinimalWebMVP9Frame(i);
+          try {
+            sb.appendBuffer(mutated);
+          } catch (e) {
+            log("Exceção: " + e.message);
+          }
+
+          i++;
+
+          sb.addEventListener("updateend", () => {
+            // Aleatoriamente force seek ou clear
+            if (i % 25 === 0 && !video.seeking) {
+              try {
+                const time = Math.random() * video.duration;
+                video.currentTime = time;
+                log(`Seek forçado para: ${time.toFixed(2)}s`);
+              } catch (e) {}
+            }
+
+            if (i % 100 === 0) {
+              try {
+                sb.remove(0, video.duration || 999);
+                log("Buffer limpo (simulando underflow).");
+              } catch (e) {}
+            }
+
+            setTimeout(pushChunk, 50);
+          }, { once: true });
+        }
+
+        pushChunk();
+      });
     }
+
+    startFuzzing();
   </script>
 </body>
 </html>
