@@ -2,16 +2,79 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>VP9 WebCodecs Fuzzer</title>
+  <title>VP9 WebCodecs Aggressive Fuzzer</title>
   <style>
-    body { background: #111; color: #0f0; font-family: monospace; padding: 1rem; }
+    body { background: #000; color: #0f0; font-family: monospace; padding: 1rem; }
     pre { white-space: pre-wrap; word-wrap: break-word; }
   </style>
 </head>
 <body>
-  <h1>VP9 WebCodecs Fuzzer</h1>
+  <h1>VP9 WebCodecs Aggressive Fuzzer</h1>
   <button onclick="startFuzzing()">Iniciar Fuzzer</button>
   <pre id="log"></pre>
-  <script src="fuzzer.js"></script>
+  <script>
+    const log = (msg) => {
+      const logDiv = document.getElementById("log");
+      logDiv.textContent += msg + "\n";
+    };
+
+    function generateCorruptedChunk(seed) {
+      const size = 512 + Math.floor(Math.random() * 2048);
+      const buffer = new Uint8Array(size);
+
+      for (let i = 0; i < size; i++) {
+        buffer[i] = (seed + i * 17) % 256 ^ (Math.random() * 255);
+      }
+
+      // Inject malformed VP9-like headers in front
+      buffer[0] = 0x80; // frame marker
+      buffer[1] = 0x00; // profile low
+      buffer[2] = 0x00;
+      buffer[3] = 0x01; // keyframe
+      return buffer;
+    }
+
+    async function startFuzzing() {
+      if (!("VideoDecoder" in window)) {
+        log("WebCodecs API não está disponível neste navegador.");
+        return;
+      }
+
+      log("Iniciando fuzzer agressivo para VP9 via WebCodecs...");
+
+      const decoder = new VideoDecoder({
+        output(frame) {
+          frame.close();
+          log("Quadro decodificado: " + frame.timestamp);
+        },
+        error(e) {
+          log("Erro capturado: " + e.message);
+        },
+      });
+
+      decoder.configure({
+        codec: "vp09.00.10.08",
+        codedWidth: 640,
+        codedHeight: 360,
+      });
+
+      for (let i = 0; i < 1000; i++) {
+        const chunk = new EncodedVideoChunk({
+          type: i % 2 === 0 ? "key" : "delta",
+          timestamp: i * 16666,
+          duration: 16666,
+          data: generateCorruptedChunk(i)
+        });
+
+        try {
+          decoder.decode(chunk);
+        } catch (err) {
+          log("Exceção JS: " + err.message);
+        }
+      }
+
+      log("Fuzzing concluído.");
+    }
+  </script>
 </body>
 </html>
